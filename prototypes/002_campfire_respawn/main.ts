@@ -124,13 +124,14 @@ async function start() {
     if ((event.target as HTMLElement)?.closest('button, a')) return;
     if (['KeyW', 'KeyA', 'KeyS', 'KeyD', 'Space', 'KeyE', 'KeyR', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.code)) event.preventDefault();
     keys.add(event.code);
+    if (!event.repeat && event.code === 'Space') attack();
     if (!event.repeat && event.code === 'KeyE') rest();
     if (!event.repeat && event.code === 'KeyR') { clearInput(); restart(); }
   });
   window.addEventListener('keyup', event => keys.delete(event.code));
   window.addEventListener('blur', clearInput);
   document.addEventListener('visibilitychange', clearInput);
-  surface.addEventListener('pointerdown', event => { const pointer = event as PointerEvent; if (pointer.button === 0) { surface.focus(); mouseAttack = true; surface.setPointerCapture(pointer.pointerId); } });
+  surface.addEventListener('pointerdown', event => { const pointer = event as PointerEvent; if (pointer.button === 0) { surface.focus(); mouseAttack = true; attack(); surface.setPointerCapture(pointer.pointerId); } });
   surface.addEventListener('pointerup', () => { mouseAttack = false; });
   surface.addEventListener('pointercancel', clearInput);
   surface.addEventListener('lostpointercapture', () => { mouseAttack = false; });
@@ -138,7 +139,7 @@ async function start() {
   let last = performance.now();
   function frame(now: number) {
     const dt = Math.min((now - last) / 1000, 0.04); last = now;
-    if (!document.hidden) {
+    {
       const dx = Number(keys.has('KeyD') || keys.has('ArrowRight')) - Number(keys.has('KeyA') || keys.has('ArrowLeft'));
       const dz = Number(keys.has('KeyS') || keys.has('ArrowDown')) - Number(keys.has('KeyW') || keys.has('ArrowUp'));
       tick(dt, dx, dz);
