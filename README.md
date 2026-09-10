@@ -2,22 +2,38 @@
 
 快速游戏玩法实验室。Small experiments for finding fun.
 
-V0.2.1 — Experiment Workflow & Handoff。已新增 [Prototype #001：空间背包](prototypes/001_spatial_backpack/README.md)，对应 EXP-001，当前 MAYBE。新增 [Prototype #002：篝火恢复与刷新](prototypes/002_campfire_respawn/README.md)，对应 EXP-007，当前 BUILDING。
+V0.2.2 — Experiment Modes & Controlled Comparison。已新增 [Prototype #001：空间背包](prototypes/001_spatial_backpack/README.md)，对应 EXP-001，当前 MAYBE。新增 [Prototype #002：篝火恢复与刷新](prototypes/002_campfire_respawn/README.md)，当前承载 EXP-007，仍在 BUILDING。
 
 - **game-dev-lab / Game Tech Prototype**：验证技术、机制、实现方案是否可行。
 - **game-prototype-lab / Game Prototype**：验证某个玩法假设是否有趣。
 
-目标是低成本实现大量彼此独立的小实验，观察是否想继续操作、产生好奇心、有意义的决策和新的玩法方向。不是建设通用游戏框架。
+目标是低成本实现大量玩法实验，观察是否想继续操作、产生好奇心、有意义的决策和新的玩法方向。不是建设通用游戏框架。
 
 ## Experiment Backlog
 
-[查看全部 47 个实验课题](docs/experiment-backlog.md)。首批候选中 EXP-001 为 MAYBE，EXP-007 为 BUILDING，6 项为 READY，39 项为 IDEA；先选择一个问题，再创建最小 Prototype，试玩后记录和比较结果。任何候选机制都不是最终设计。
+[查看全部 47 个实验课题](docs/experiment-backlog.md)。首批候选中 EXP-001 为 MAYBE，EXP-007 为 BUILDING，6 项为 READY，39 项为 IDEA。任何候选机制都不是最终设计。
+
+Experiment 是待回答的问题；Prototype 是可玩的测试容器。默认一个 Prototype 可以只承载一个 Experiment；高度相关、需要公平对照的竞争 Experiment 也可以共享同一 Prototype，以独立 Experiment Mode 切换测试。
 
 ## Workflow
 
-[实验执行与交接规范](docs/workflow.md)：Experiment → Minimum Prototype → Play → Record → Compare → Kill / Iterate / Promote。
+[实验执行与交接规范](docs/workflow.md)：Experiment → Minimum Test Mode → Play → Record → Compare → Kill / Iterate / Promote。
 
-新 Work / Chat 开发前优先阅读 README、Philosophy、Workflow、Backlog 中对应 Experiment，以及已有 Prototype README。确认问题、变量、范围、Non-goals 和状态后再开工；首批 READY 是无默认实施顺序的候选池。
+新 Work / Chat 开发前优先阅读 README、Philosophy、Workflow、Backlog 中对应 Experiment，以及承载它的 Prototype README。确认问题、变量、范围、Non-goals、状态和当前 Active Experiment / Mode 后再开工；READY 是无默认实施顺序的候选池。
+
+### Experiment Mode 原则
+
+只有当多个实验的地图、角色、基础操作和绝大多数参数本来就应该保持一致时，才考虑共享一个 Prototype。共享的目的是提高 A/B 对照可信度，不是为了省代码或逐步搭建完整游戏。
+
+多 Mode Prototype 必须遵守：
+
+- 一个 Mode 对应一个独立 Experiment ID。
+- 每个 Experiment 的 Hypothesis / Question / Status / Result 分开记录。
+- 切换 Mode 必须完整 Reset 测试状态。
+- 一次只实现当前选中的 Experiment；不因为预留了实验场就把所有候选 Mode 一次做完。
+- 同一 Prototype 内可以共享测试场景代码，但不得升级为跨 Prototype Shared / Rule / Mode Framework。
+
+例如 World Refresh 的 Campfire / Blood Moon / Time / Permanent 等竞争方案，若基础测试条件一致，可以在同一个 Respawn Lab 中逐个增加 Mode；Spatial Backpack 与 Fixed Map Exploration 这类不同问题则应保持不同 Prototype。
 
 ## Development
 
@@ -64,55 +80,36 @@ vite.config.ts              手工维护的多页面构建入口
 tsconfig.json
 ```
 
-## 创建一个 Prototype
+## 创建或扩展一个 Prototype
 
-1. 从 Experiment Backlog 选择一个 READY 问题，记录 Experiment ID；Designer 明确一个 Gameplay Hypothesis。
-2. 创建 `prototypes/00X_xxx/`，复制 `docs/prototype-template.md` 为其中的 `README.md` 并填写。
-3. 创建独立 `index.html`、`main.ts`、`style.css`，实现最小玩法。HTML 使用 `<script type="module" src="./main.ts"></script>`；TS 使用 `import './style.css'`。默认 TypeScript + Canvas 2D / DOM，直接使用浏览器 API。
-4. 在 `src/main.ts` 的 `prototypes` 数组手工加入元信息，例如：
-
-```ts
-{
-  id: '001',
-  name: 'Example',
-  status: 'TESTING',
-  hypothesis: '填写这个实验唯一的核心玩法假设',
-  url: 'prototypes/001_example/',
-},
-```
-
-5. 在 `vite.config.ts` 的 `build.rollupOptions.input` 手工加入 HTML：
-
-```ts
-input: ['index.html', 'prototypes/001_example/index.html'],
-```
-
-这一步必需：Vite 开发服务器可访问源码 HTML，不代表生产构建已经包含它。这里没有自动发现或自动注册系统。
-
-6. 根目录 `npm run dev`，从首页试玩；然后 `npm run build`、`npm run preview`，确认直接访问子页面和刷新都正常。
-7. 更新 README 的 Result / Notes 和首页状态，决定 Continue / Kill / Promote。
-
-以上只是文档示例，V0.1 至 V0.2.1 均不创建 example 实验。
+1. 从 Experiment Backlog 选择一个问题；Designer 明确 Experiment ID、Gameplay Hypothesis、Question、Core Variable、Minimum Scope 与 Non-goals。
+2. 若没有合适容器，创建 `prototypes/00X_xxx/`，复制 `docs/prototype-template.md` 为其中的 `README.md` 并填写。
+3. 若已有高度相关 Prototype，先按 Workflow 判断是否适合新增 Experiment Mode；只有满足受控对照条件才复用，不相关实验继续创建新 Prototype。
+4. 创建或修改独立 `index.html`、`main.ts`、`style.css`，实现当前 Experiment 的最小玩法。默认 TypeScript + Canvas 2D / DOM；需要空间体验时某个 Prototype 可单独使用 Three.js 等依赖。
+5. 在 `src/main.ts` 的 `prototypes` 数组手工维护入口元信息。多 Mode Prototype 的首页可显示容器名称，并在 Prototype 内展示各 Experiment Mode 状态。
+6. 新 Prototype 需要在 `vite.config.ts` 的 `build.rollupOptions.input` 手工加入 HTML。这里没有自动发现或自动注册系统。
+7. 根目录 `npm run dev` 试玩；然后 `npm run build`、`npm run preview`，确认直接访问子页面和刷新都正常。
+8. 更新当前 Experiment 的 Result / Notes / Status；多 Mode 时不能用一个笼统的 Prototype 结果覆盖各 Experiment。
 
 ### 资源与删除
 
 - `base: './'` 让构建 JS / CSS 使用相对路径，适配根路径与 GitHub Pages 的 `/game-prototype-lab/`。
-- 首页入口写 `prototypes/001_example/`，不要写 `/prototypes/001_example/`。
 - Prototype 内静态资源优先使用 import 或 `new URL('./asset.png', import.meta.url)`，HTML/CSS 使用相对路径，避免 `/assets/...`。
 - Prototype 返回首页可使用 `../../`。
-- 删除实验时同步移除它的首页条目和 Vite input，再删除目录；其他实验无需修改。实验之间默认禁止代码依赖。
+- 删除整个 Prototype 时同步移除首页条目和 Vite input；若仅移除一个 Mode，只移除该 Experiment 的局部实现与记录，不影响同容器其他 Mode。
+- 不同 Prototype 之间默认禁止代码依赖。
 
 ## 原则与生命周期
 
-Fun First；One Question Per Prototype；Fast and Disposable；Hardcode Is Allowed；No Premature Architecture；Prototype Is Not a Product；Kill Bad Ideas；Promote Good Ideas。
+Fun First；One Question Per Experiment Mode；Fast and Disposable；Hardcode Is Allowed；No Premature Architecture；Prototype Is Not a Product；Kill Bad Ideas；Promote Good Ideas。
 
-先重复，后抽象。每个实验自行管理循环、输入与 Canvas。不预建 shared / engine / ECS 等通用系统，也不预装测试框架、复杂代码质量工具链或管理后台。
+先重复，后抽象。一个 Prototype 内可为了受控比较共享测试场景；不同 Prototype 不预建 shared / engine / ECS / Rule Framework / Mode Framework 等通用系统。
 
 ```text
-Idea → Experiment Backlog → Choose One Question → Build Prototype → Play → Record Result → Compare → Kill / Iterate / Promote
+Idea → Experiment Backlog → Choose One Question → Build Test Mode → Play → Record Result → Compare → Kill / Iterate / Promote
 ```
 
-状态：IDEA / READY / BUILDING / TESTING / INTERESTING / MAYBE / DEAD / PROMOTED。详见 [Philosophy](docs/philosophy.md)。有趣的实验小规模继续验证，再做 Vertical Slice，最后迁移独立游戏仓库；原实验保留记录。
+状态：IDEA / READY / BUILDING / TESTING / INTERESTING / MAYBE / DEAD / PROMOTED。状态属于 Experiment。详见 [Philosophy](docs/philosophy.md)。有趣的实验小规模继续验证，再做 Vertical Slice，最后迁移独立游戏仓库；原实验保留记录。
 
 ## GitHub Pages
 
@@ -124,6 +121,4 @@ Idea → Experiment Backlog → Choose One Question → Build Prototype → Play
 npm ci → npm run build → 上传 dist → GitHub Pages
 ```
 
-使用 Node.js 24，与本地 `.nvmrc` 一致。仓库 Settings → Pages 的 Source 需为 **GitHub Actions**；工作流会尝试启用 Pages，若仓库权限不允许自动启用，需要管理员在该设置页选择。
-
-线上 Prototype 地址示例：`https://junli-huang.github.io/game-prototype-lab/prototypes/001_example/`。部署完成后验收首页、JS/CSS 请求和未来的子页面直接访问。
+使用 Node.js 24，与本地 `.nvmrc` 一致。仓库 Settings → Pages 的 Source 需为 **GitHub Actions**。
