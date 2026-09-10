@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import type { SVGRenderer } from 'three/addons/renderers/SVGRenderer.js';
 import './style.css';
 import { state, tick, attack, rest, restart, nearCamp, CAMP, END, SPAWNS, PLAYER_HP, type Pawn } from './simulation';
 
@@ -11,12 +12,26 @@ const message = document.querySelector<HTMLElement>('#message')!;
 const prompt = document.querySelector<HTMLElement>('#camp-prompt')!;
 const route = document.querySelector<HTMLElement>('#route')!;
 
-function start() {
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
-  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
-  renderer.shadowMap.enabled = true;
-  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-  renderer.outputColorSpace = THREE.SRGBColorSpace;
+async function start() {
+  let renderer: THREE.WebGLRenderer | SVGRenderer;
+  let surface: HTMLCanvasElement | SVGSVGElement = canvas;
+  const context = canvas.getContext('webgl2', { antialias: true });
+  if (context) {
+    renderer = new THREE.WebGLRenderer({ canvas, context, antialias: true });
+    renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+  } else {
+    // Same 3D geometry and camera, only for browsers without a WebGL context.
+    const { SVGRenderer } = await import('three/addons/renderers/SVGRenderer.js');
+    renderer = new SVGRenderer(); renderer.setPrecision(2);
+    surface = renderer.domElement;
+    surface.id = 'world'; surface.setAttribute('tabindex', '0');
+    surface.setAttribute('aria-label', canvas.getAttribute('aria-label')!);
+    canvas.replaceWith(surface);
+    document.querySelector<HTMLElement>('#render-note')!.hidden = false;
+  }
   const scene = new THREE.Scene();
   scene.background = new THREE.Color('#b5b9ac');
   const camera = new THREE.OrthographicCamera(-12, 12, 11, -11, 0.1, 100);
@@ -99,7 +114,7 @@ function start() {
     // Fit the entire route: no hidden destination or camera controls to learn.
     const halfHeight = Math.max(11.5, 5.6 / aspect);
     camera.left = -halfHeight * aspect; camera.right = halfHeight * aspect;
-    camera.top = halfHeight; camera.bottom = -halfHeight; camera.updateProjectionMatrix(); renderer.setSize(w, h, false);
+    camera.top = halfHeight; camera.bottom = -halfHeight; camera.updateProjectionMatrix(); renderer.setSize(w, h);
   }
   new ResizeObserver(resize).observe(host); resize();
   const keys = new Set<string>();
@@ -115,11 +130,11 @@ function start() {
   window.addEventListener('keyup', event => keys.delete(event.code));
   window.addEventListener('blur', clearInput);
   document.addEventListener('visibilitychange', clearInput);
-  canvas.addEventListener('pointerdown', event => { if (event.button === 0) { canvas.focus(); mouseAttack = true; canvas.setPointerCapture(event.pointerId); } });
-  canvas.addEventListener('pointerup', () => { mouseAttack = false; });
-  canvas.addEventListener('pointercancel', clearInput);
-  canvas.addEventListener('lostpointercapture', () => { mouseAttack = false; });
-  document.querySelector('#restart')!.addEventListener('click', () => { clearInput(); restart(); canvas.focus(); });
+  surface.addEventListener('pointerdown', event => { const pointer = event as PointerEvent; if (pointer.button === 0) { surface.focus(); mouseAttack = true; surface.setPointerCapture(pointer.pointerId); } });
+  surface.addEventListener('pointerup', () => { mouseAttack = false; });
+  surface.addEventListener('pointercancel', clearInput);
+  surface.addEventListener('lostpointercapture', () => { mouseAttack = false; });
+  document.querySelector('#restart')!.addEventListener('click', () => { clearInput(); restart(); surface.focus(); });
   let last = performance.now();
   function frame(now: number) {
     const dt = Math.min((now - last) / 1000, 0.04); last = now;
@@ -146,4 +161,4 @@ function start() {
   }
   requestAnimationFrame(frame);
 }
-try { start(); } catch (error) { document.querySelector<HTMLElement>('#unavailable')!.hidden = false; console.error(error); }
+start().catch(error => { prompt.hidden = true; document.querySelector<HTMLElement>('#unavailable')!.hidden = false; console.error(error); });
