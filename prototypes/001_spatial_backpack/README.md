@@ -6,7 +6,7 @@
 
 ## Status
 
-TESTING — 技术验收通过，等待 Player。Result: Untested。
+MAYBE — Player 已完成首次试玩；机制表现为“还可以，有点意思”，目前有潜力但结果尚不够强，暂不标记 INTERESTING。
 
 ## Gameplay Hypothesis
 
@@ -82,7 +82,6 @@ Required Feedback: 本实验内手绘简易 SVG 图标、名称/尺寸/价值、
 
 修复验收：1×4、2×3、3×5 的连续切换、Ghost 朝向、成功放置保存、已有物品重新拖起、四类取消回退均通过实际事件逻辑的临时 Node 检查（模拟 DOM）；TypeScript 与生产构建通过。线上交互另行核验，不将修复视为玩法结论。
 
-
 所有状态位于当前页面会话；刷新不保存。以 DOM 布局和 Pointer Events 实现，每件矩形按格计算重叠，不新增依赖。非法操作不改模型，成功释放后才提交位置与朝向。
 
 已完成最小范围，部署使用现有 GitHub Actions / Vite MPA。
@@ -98,15 +97,16 @@ Required Feedback: 本实验内手绘简易 SVG 图标、名称/尺寸/价值、
 
 ## Result
 
-Untested — 等待 Player 体验，不由 Work 填写“有趣”。
+MAYBE — 2026-09-10 首次 Player 试玩反馈：“还可以，有点意思。”这说明当前空间摆放机制至少产生了一定正向体验，但信息不足以判断为明显有趣，因此保守记录为 MAYBE。
 
-- Observed: TBD
-- Interesting Moment: TBD
-- Boring Moment: TBD
-- Decisions: TBD
-- Unexpected: TBD
-- Next: 等待试玩后判断 INTERESTING / MAYBE / DEAD。
+- 试玩者、日期、版本与条件：项目所有者；2026-09-10；当前线上 Prototype #001。
+- Observed: Player 完成实际试玩，并给出轻度正向评价；暂未记录更细的操作行为观察。
+- Interesting Moment: TBD — 本次未单独记录具体时刻。
+- Boring Moment: TBD — 本次未单独记录具体时刻。
+- Decisions: TBD — 本次未单独记录具体取舍行为。
+- Unexpected: TBD — 本次未记录预期外玩法。
+- Next: 暂停 #001 功能扩展，保留为 MAYBE；进入新的独立 Prototype 继续验证其他玩法假设，未来需要时可回到与背包关联的 EXP-002 / EXP-003 做组合关系实验。
 
 ## Notes / Handoff
 
-当前只回答 EXP-001。观察是否主动移动已有物品、为遗物重排、犹豫丢弃、预留形状，以及是否想重开。3～5 分钟是试玩建议，不计时强制结束。后续探索、装备、非矩形等问题进入独立 Experiment，不扩展本实验。
+EXP-001 已完成最小实现和首次 Player 试玩。当前结论是“有一定趣味，但证据不足以标记 INTERESTING”。不要为了提高评价继续给 #001 增加装备、探索、非矩形物品或自动整理等功能；这些问题应作为独立 Experiment 验证。
