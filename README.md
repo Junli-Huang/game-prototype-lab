@@ -2,7 +2,7 @@
 
 快速游戏玩法实验室。Small experiments for finding fun.
 
-V0.2.1 — Experiment Workflow & Handoff。当前只有 Launcher 空列表，没有正式玩法 Prototype。
+V0.2.1 — Experiment Workflow & Handoff。已新增 [Prototype #001：空间背包](prototypes/001_spatial_backpack/README.md)，对应 EXP-001，当前 BUILDING。
 
 - **game-dev-lab / Game Tech Prototype**：验证技术、机制、实现方案是否可行。
 - **game-prototype-lab / Game Prototype**：验证某个玩法假设是否有趣。
@@ -11,7 +11,7 @@ V0.2.1 — Experiment Workflow & Handoff。当前只有 Launcher 空列表，没
 
 ## Experiment Backlog
 
-[查看全部 47 个实验课题](docs/experiment-backlog.md)。首批 8 项为 READY，其余为 IDEA；先选择一个问题，再创建最小 Prototype，试玩后记录和比较结果。任何候选机制都不是最终设计。
+[查看全部 47 个实验课题](docs/experiment-backlog.md)。首批候选中 EXP-001 正在开发，7 项为 READY，39 项为 IDEA；先选择一个问题，再创建最小 Prototype，试玩后记录和比较结果。任何候选机制都不是最终设计。
 
 ## Workflow
 
@@ -53,7 +53,7 @@ npm run preview
 index.html                  Launcher
 src/main.ts                 手工维护的元信息列表与列表 UI
 src/style.css
-prototypes/README.md         实验目录说明；目前没有实验
+prototypes/README.md         实验目录说明与独立玩法实验
 docs/experiment-backlog.md   实验课题、状态与结论
 docs/philosophy.md           开发原则与状态
 docs/workflow.md             执行、Review 与会话交接规范

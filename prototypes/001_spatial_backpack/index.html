@@ -1,0 +1,7 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>空间背包 · Prototype 001</title><meta name="description" content="摆放、旋转与取舍：一个独立的空间背包玩法实验。"></head>
+<body><main><header><a href="../../">← Game Prototype Lab</a><span>EXP-001 · BUILDING</span><h1>留一点空间</h1><p>拖入背包，转个方向，决定带走什么。</p></header>
+<div class="layout"><section class="incoming"><h2>待处理物品 <span id="progress"></span></h2><div id="tray"></div><p id="details"></p><button id="next">下一件物品 →</button><p class="hint">先放入或丢弃当前物品，再继续。</p></section>
+<section class="pack"><div class="pack-title"><h2>背包 <small>6 × 8</small></h2><strong id="value"></strong></div><div id="board" aria-label="6列8行背包"></div><p id="stats"></p></section>
+<section class="discard"><h2>决定放下</h2><div id="drop">拖到这里丢弃<span>丢弃后不能取回</span></div><ul id="discarded"></ul></section></div>
+<div class="toolbar"><p>拖拽移动 · <kbd>R</kbd> 旋转手中物品 · <kbd>Esc</kbd> 取消</p><button id="restart">重新开始</button></div><p id="message" role="status" aria-live="polite">从左侧拿起第一件物品。</p><section id="summary" hidden><h2>Session Complete · 本次整理完成</h2><p id="summary-text"></p><p>可以继续整理现有物品，或重新开始相同序列。</p></section></main><script type="module" src="./main.ts"></script></body></html>

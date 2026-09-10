@@ -7,7 +7,7 @@ export default defineConfig({
   build: {
     rollupOptions: {
       // Add each prototype HTML entry here manually; no automatic discovery.
-      input: ['index.html'],
+      input: ['index.html', 'prototypes/001_spatial_backpack/index.html'],
     },
   },
 });

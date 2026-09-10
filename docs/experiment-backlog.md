@@ -34,7 +34,7 @@ Experiment 是要验证的问题；Prototype 是回答该问题的可玩实现�
 - EXP-020
 - EXP-021
 
-无默认实施顺序。仅以上 8 项标为 READY，其余 39 项为 IDEA；READY 不意味着已经实现，也不代表最终采用倾向。开工前按 [Workflow](workflow.md) 核对实验定义，选择本次要回答的一个问题。
+无默认实施顺序。该池记录最初的 8 个候选；当前 EXP-001 为 BUILDING，另 7 项为 READY，其余 39 项为 IDEA；READY 不意味着已经实现，也不代表最终采用倾向。开工前按 [Workflow](workflow.md) 核对实验定义，选择本次要回答的一个问题。
 
 ## 实施与对照原则
 
@@ -55,7 +55,7 @@ Experiment 是要验证的问题；Prototype 是回答该问题的可玩实现�
 
 | ID | Name | Category | Status |
 | --- | --- | --- | --- |
-| EXP-001 | [Spatial Backpack Placement](#exp-001-spatial-backpack-placement) | Inventory | READY |
+| EXP-001 | [Spatial Backpack Placement](#exp-001-spatial-backpack-placement) | Inventory | BUILDING |
 | EXP-002 | [Backpack Limits Exploration](#exp-002-backpack-limits-exploration) | Inventory | IDEA |
 | EXP-003 | [Equipment vs Loot Space](#exp-003-equipment-vs-loot-space) | Inventory | IDEA |
 | EXP-004 | [Fixed Map Exploration](#exp-004-fixed-map-exploration) | Exploration | IDEA |
@@ -113,7 +113,7 @@ Name: Spatial Backpack Placement
 
 Category: Inventory
 
-Status: READY
+Status: BUILDING
 
 ### Hypothesis
 
@@ -163,7 +163,7 @@ TBD — 尚未试玩。
 
 ### Notes
 
-- Prototype：尚无实现。
+- Prototype：[001_spatial_backpack](../prototypes/001_spatial_backpack/README.md)，技术验收中。
 - 试玩日期、条件、参数与对照版本：TBD
 - 其他观察：TBD
 
