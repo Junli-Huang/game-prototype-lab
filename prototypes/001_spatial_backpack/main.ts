@@ -1,6 +1,6 @@
 import './style.css';
 
-type Item = { id: number; name: string; w: number; h: number; value: number; visual: string; tint: string; edge: string; x?: number; y?: number };
+type Item = { rotated: boolean; id: number; name: string; w: number; h: number; value: number; visual: string; tint: string; edge: string; x?: number; y?: number };
 // Fixed sequence: 12 distinct items, 60 cells. No random loot or item effects.
 const specs: [string, number, number, number, string, string, string][] = [
  ['急救药',1,1,15,'medicine','#e4eddf','#749071'],
@@ -34,14 +34,16 @@ const drawings: Record<string,string> = {
 const $ = <T extends HTMLElement>(id:string) => document.getElementById(id) as T;
 const board=$('board'), tray=$('tray'), drop=$('drop');
 let items:Item[]=[], discarded:Item[]=[], index=0, current:Item|null=null;
-let drag: { item:Item; w:number; h:number; ox:number; oy:number; px:number; py:number; ghost:HTMLElement; original:HTMLElement; pointer:number } | null=null;
+let drag: { item:Item; w:number; h:number; rotated:boolean; ox:number; oy:number; px:number; py:number; ghost:HTMLElement; original:HTMLElement; pointer:number } | null=null;
 const preview=document.createElement('div');preview.className='placement';
 const cell=()=>board.clientWidth/6;
 const describe=(i:Item)=>`${i.name} · ${i.w} × ${i.h} · 价值 ${i.value}`;
-function art(i:Item){return `<svg viewBox="0 0 64 64" aria-hidden="true">${drawings[i.visual]}</svg><span class="price">${i.value}</span>`;}
+function art(i:Item){return `<div class="item-art"><svg viewBox="0 0 64 64" aria-hidden="true">${drawings[i.visual]}</svg></div><span class="price">${i.value}</span>`;}
 function element(i:Item,inTray=false){
  const el=document.createElement('div');el.className=`item${inTray?' in-tray':''}`;el.dataset.id=String(i.id);el.title=describe(i);el.setAttribute('aria-label',describe(i));
  el.style.setProperty('--tint',i.tint);el.style.setProperty('--edge',i.edge);el.style.width=`${i.w*cell()}px`;el.style.height=`${i.h*cell()}px`;el.innerHTML=art(i);
+ el.style.setProperty('--art-size',`${Math.min(105,Math.min(i.w,i.h)*cell()-12)}px`);
+ el.style.setProperty('--art-angle',i.rotated?'90deg':'0deg');
  if(!inTray){el.style.left=`${i.x!*cell()}px`;el.style.top=`${i.y!*cell()}px`;}
  el.addEventListener('pointerenter',()=>{$('details').textContent=describe(i);});
  el.addEventListener('pointerdown',e=>start(e,i,el));return el;
@@ -57,24 +59,25 @@ function render(){
  const complete=index===specs.length&&!current;$('summary').hidden=!complete;
  $('summary-text').textContent=`保留：${items.map(i=>i.name).join('、')||'无'}。总价值：${value}。丢弃：${discarded.map(i=>i.name).join('、')||'无'}。`;
 }
-function next(){if(current||index>=specs.length)return;const [name,w,h,value,visual,tint,edge]=specs[index];current={id:index++,name,w,h,value,visual,tint,edge};$('details').textContent=describe(current);render();}
+function next(){if(current||index>=specs.length)return;const [name,w,h,value,visual,tint,edge]=specs[index];current={rotated:false,id:index++,name,w,h,value,visual,tint,edge};$('details').textContent=describe(current);render();}
 function legal(x:number,y:number,w:number,h:number,id:number){return x>=0&&y>=0&&x+w<=6&&y+h<=8&&!items.some(i=>i.id!==id&&x<i.x!+i.w&&x+w>i.x!&&y<i.y!+i.h&&y+h>i.y!);}
 function target(){const r=board.getBoundingClientRect();return {x:Math.round((drag!.px-drag!.ox-r.left)/cell()),y:Math.round((drag!.py-drag!.oy-r.top)/cell())};}
 function over(el:HTMLElement){const r=el.getBoundingClientRect();return drag!.px>=r.left&&drag!.px<=r.right&&drag!.py>=r.top&&drag!.py<=r.bottom;}
 function show(){if(!drag)return;const d=drag;d.ghost.style.width=`${d.w*cell()}px`;d.ghost.style.height=`${d.h*cell()}px`;d.ghost.style.left=`${d.px-d.ox}px`;d.ghost.style.top=`${d.py-d.oy}px`;
+ d.ghost.style.setProperty('--art-angle',d.rotated?'90deg':'0deg');
  drop.classList.toggle('active',over(drop));preview.remove();
  if(over(board)){const {x,y}=target();preview.style.cssText=`left:${x*cell()}px;top:${y*cell()}px;width:${d.w*cell()}px;height:${d.h*cell()}px`;preview.className=`placement${legal(x,y,d.w,d.h,d.item.id)?'':' invalid'}`;board.append(preview);}
 }
-function start(e:PointerEvent,item:Item,el:HTMLElement){if(e.button!==0||drag)return;e.preventDefault();const r=el.getBoundingClientRect();const ghost=el.cloneNode(true) as HTMLElement;ghost.className='item dragging';document.body.append(ghost);drag={item,w:item.w,h:item.h,ox:e.clientX-r.left,oy:e.clientY-r.top,px:e.clientX,py:e.clientY,ghost,original:el,pointer:e.pointerId};el.style.opacity='.25';el.setPointerCapture(e.pointerId);$('details').textContent=describe(item);show();}
-function cancel(message='已取消，物品回到原处。'){if(!drag)return;drag.ghost.remove();drag.original.style.opacity='';drag=null;preview.remove();drop.classList.remove('active');$('message').textContent=message;render();}
+function start(e:PointerEvent,item:Item,el:HTMLElement){if(e.button!==0||drag)return;e.preventDefault();const r=el.getBoundingClientRect();const ghost=el.cloneNode(true) as HTMLElement;ghost.className='item dragging';document.body.append(ghost);drag={item,w:item.w,h:item.h,rotated:item.rotated,ox:e.clientX-r.left,oy:e.clientY-r.top,px:e.clientX,py:e.clientY,ghost,original:el,pointer:e.pointerId};el.style.opacity='.25';el.setPointerCapture(e.pointerId);$('details').textContent=describe(item);show();}
+function cancel(message='已取消，物品回到原处。'){if(!drag)return;drag.ghost.remove();drag.original.style.opacity='';$('details').textContent=describe(drag.item);drag=null;preview.remove();drop.classList.remove('active');$('message').textContent=message;render();}
 window.addEventListener('pointermove',e=>{if(drag&&e.pointerId===drag.pointer){drag.px=e.clientX;drag.py=e.clientY;show();}});
 window.addEventListener('pointerup',e=>{if(!drag||e.pointerId!==drag.pointer)return;drag.px=e.clientX;drag.py=e.clientY;const d=drag,{x,y}=target();let message='这里放不下，物品已回到原处。';
  if(over(drop)){items=items.filter(i=>i.id!==d.item.id);discarded.push(d.item);if(current===d.item)current=null;message=`已丢弃 ${d.item.name}。`;}
- else if(over(board)&&legal(x,y,d.w,d.h,d.item.id)){Object.assign(d.item,{x,y,w:d.w,h:d.h});if(current===d.item){items.push(d.item);current=null;}message=`已放好 ${d.item.name}。`;}
+ else if(over(board)&&legal(x,y,d.w,d.h,d.item.id)){Object.assign(d.item,{x,y,w:d.w,h:d.h,rotated:d.rotated});if(current===d.item){items.push(d.item);current=null;}message=`已放好 ${d.item.name}。`;}
  cancel(message);
 });
 window.addEventListener('pointercancel',()=>cancel());window.addEventListener('blur',()=>cancel());
-window.addEventListener('keydown',e=>{if(!drag)return;if(e.key.toLowerCase()==='r'&&!e.repeat){e.preventDefault();const d=drag;const nx=d.ox/(d.w*cell()),ny=d.oy/(d.h*cell());[d.w,d.h]=[d.h,d.w];d.ox=ny*d.w*cell();d.oy=(1-nx)*d.h*cell();$('details').textContent=`${d.item.name} · ${d.w} × ${d.h} · 价值 ${d.item.value}`;show();}else if(e.key==='Escape')cancel();});
+window.addEventListener('keydown',e=>{if(!drag)return;if(e.key.toLowerCase()==='r'&&!e.repeat){e.preventDefault();const d=drag;const nx=d.ox/(d.w*cell()),ny=d.oy/(d.h*cell());[d.w,d.h]=[d.h,d.w];d.rotated=!d.rotated;d.ox=(d.rotated?1-ny:ny)*d.w*cell();d.oy=(d.rotated?nx:1-nx)*d.h*cell();$('details').textContent=`${d.item.name} · ${d.w} × ${d.h} · 价值 ${d.item.value}`;show();}else if(e.key==='Escape')cancel();});
 window.addEventListener('resize',()=>{if(drag)cancel();else render();});
 $('next').addEventListener('click',next);$('restart').addEventListener('click',()=>{if(drag)cancel();items=[];discarded=[];index=0;current=null;next();$('message').textContent='已重开相同序列。从第一件物品开始。';});
 next();

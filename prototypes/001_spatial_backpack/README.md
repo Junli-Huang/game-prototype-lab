@@ -74,6 +74,15 @@ Required Feedback: 本实验内手绘简易 SVG 图标、名称/尺寸/价值、
 
 ## Implementation Notes
 
+### Rotation Visual Consistency 修复
+
+物品旋转时占格与内部图标方向同步，价格与 UI 信息保持正向。物品保存 0° / 90° 朝向；拖拽中使用临时朝向，仅合法放置时提交。Tray 和背包物品共用此规则，重新拖起保留已保存朝向。Esc、pointercancel、blur、非法放置均恢复原位置、宽高及图标朝向，详情尺寸也恢复。
+
+内部 `.item-art` 使用短边安全范围内的正方形，SVG 保持比例，仅旋转视觉层，不旋转 `.item` 或 `.price`。
+
+修复验收：1×4、2×3、3×5 的连续切换、Ghost 朝向、成功放置保存、已有物品重新拖起、四类取消回退均通过实际事件逻辑的临时 Node 检查（模拟 DOM）；TypeScript 与生产构建通过。线上交互另行核验，不将修复视为玩法结论。
+
+
 所有状态位于当前页面会话；刷新不保存。以 DOM 布局和 Pointer Events 实现，每件矩形按格计算重叠，不新增依赖。非法操作不改模型，成功释放后才提交位置与朝向。
 
 已完成最小范围，部署使用现有 GitHub Actions / Vite MPA。
