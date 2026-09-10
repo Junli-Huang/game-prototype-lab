@@ -34,7 +34,7 @@ Experiment 是要验证的问题；Prototype 是回答该问题的可玩实现�
 - EXP-020
 - EXP-021
 
-无默认实施顺序。该池记录最初的 8 个候选；当前 EXP-001 为 MAYBE，EXP-007 为 BUILDING，另 6 项为 READY，其余 39 项为 IDEA；READY 不意味着已经实现，也不代表最终采用倾向。开工前按 [Workflow](workflow.md) 核对实验定义，选择本次要回答的一个问题。
+无默认实施顺序。该池记录最初的 8 个候选；当前 EXP-001 为 MAYBE，EXP-007 为 TESTING，另 6 项为 READY，其余 39 项为 IDEA；READY 不意味着已经实现，也不代表最终采用倾向。开工前按 [Workflow](workflow.md) 核对实验定义，选择本次要回答的一个问题。
 
 ## 实施与对照原则
 
@@ -61,7 +61,7 @@ Experiment 是要验证的问题；Prototype 是回答该问题的可玩实现�
 | EXP-004 | [Fixed Map Exploration](#exp-004-fixed-map-exploration) | Exploration | IDEA |
 | EXP-005 | [Box-Level Exploration](#exp-005-box-level-exploration) | Exploration | IDEA |
 | EXP-006 | [Shortcut Unlocking](#exp-006-shortcut-unlocking) | Exploration | IDEA |
-| EXP-007 | [Campfire Respawn](#exp-007-campfire-respawn) | World Refresh | BUILDING |
+| EXP-007 | [Campfire Respawn](#exp-007-campfire-respawn) | World Refresh | TESTING |
 | EXP-008 | [Blood Moon Respawn](#exp-008-blood-moon-respawn) | World Refresh | READY |
 | EXP-009 | [Campfire + Blood Moon Respawn](#exp-009-campfire--blood-moon-respawn) | World Refresh | IDEA |
 | EXP-010 | [Time Respawn](#exp-010-time-respawn) | World Refresh | IDEA |
@@ -432,7 +432,7 @@ Name: Campfire Respawn
 
 Category: World Refresh
 
-Status: BUILDING
+Status: TESTING
 
 ### Hypothesis
 
@@ -469,7 +469,7 @@ Status: BUILDING
 
 ### Result
 
-TBD — 尚未试玩。
+Untested — 技术验收完成，等待 Player 正式试玩。
 
 - Observed（实际观察）：TBD
 - 有趣开始的时机：TBD
@@ -480,7 +480,7 @@ TBD — 尚未试玩。
 
 ### Notes
 
-- Prototype：[002_campfire_respawn](../prototypes/002_campfire_respawn/README.md)，2026-09-10 READY → BUILDING；技术验收完成后进入 TESTING。
+- Prototype：[002_campfire_respawn](../prototypes/002_campfire_respawn/README.md)，2026-09-10 READY → BUILDING → TESTING；已完成规则、构建与 Pages 兼容画面操作验收。WebGL 阴影画面未在远程环境实测，详见 Prototype README。
 - 试玩日期：TBD；固定条件与参数见 Prototype README。
 - 其他观察：TBD
 

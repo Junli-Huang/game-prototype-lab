@@ -1,7 +1,7 @@
 # Prototypes
 
 - [001_spatial_backpack](001_spatial_backpack/README.md)：当前承载 EXP-001 Spatial Backpack Placement，状态 MAYBE。
-- [002_campfire_respawn](002_campfire_respawn/README.md)：当前承载 EXP-007 Campfire Respawn，状态 BUILDING。
+- [002_campfire_respawn](002_campfire_respawn/README.md)：当前承载 EXP-007 Campfire Respawn，状态 TESTING。
 
 Prototype 是可玩的测试容器；Experiment 是独立问题。默认一个 Prototype 可以只承载一个 Experiment；高度相关、需要公平对照的竞争实验也可以作为独立 Experiment Mode 共享同一 Prototype。
 

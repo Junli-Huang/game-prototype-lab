@@ -139,9 +139,7 @@ async function start() {
   surface.addEventListener('lostpointercapture', () => { mouseAttack = false; });
   document.querySelector('#restart')!.addEventListener('click', () => { clearInput(); restart(); surface.focus(); });
   let last = performance.now();
-  let diagnosticFrames = 0;
   function frame(now: number) {
-    if (diagnosticFrames++ < 3) console.info('EXP-007 frame timing ' + JSON.stringify({ now, last, hidden: document.hidden }));
     const elapsed = Math.max(0, Math.min((now - last) / 1000, 0.25)); last = now;
     const held = (code: string) => keys.has(code) || taps.has(code);
     const dx = Number(held('KeyD') || held('ArrowRight')) - Number(held('KeyA') || held('ArrowLeft'));
