@@ -5,15 +5,26 @@
 ## 1. Fun First
 玩法验证优先于技术完整性。关注：好不好玩、是否想继续操作、是否产生好奇心、是否存在有意义的决策、能否自然延伸出新玩法。
 
-## 2. One Question Per Prototype
-每个 Prototype 尽量只回答一个核心玩法问题。
+## 2. One Question Per Experiment Mode
+
+每个 Experiment / Experiment Mode 只回答一个核心玩法问题。
+
+默认情况下，一个 Prototype 可以只承载一个 Experiment；但若多个 Experiment 本身就是高度相关的竞争方案，并且绝大多数测试条件应保持一致，可以让它们共享同一个 Prototype，以不同 Mode 切换进行直接对照。
+
+允许合并到同一 Prototype 的前提：
+
+- 共享同一测试场景、角色、基础操作和绝大多数参数是合理的。
+- Mode 之间只改变明确的 Core Variable，或改变该 Experiment 明确定义的规则。
+- 每个 Mode 对应独立 Experiment，Hypothesis、Question、Status、Result 仍分别记录。
+- 切换 Mode 必须重置测试场景，避免上一模式状态污染下一模式。
+- Mode 按已选择的 Experiment 逐个实现，不因为创建了实验场就一次做完所有候选方案。
 
 不够具体：验证完整挖矿游戏是否好玩。
 
 足够具体：验证“越深入收益越高，同时风险越高”是否产生继续向下探索的冲动。
 
 ## 3. Fast and Disposable
-快速创建、快速修改、允许失败、允许直接删除。各 Prototype 独立，默认禁止相互引用代码。删除一个实验不能破坏其他实验。
+快速创建、快速修改、允许失败、允许直接删除。各 Prototype 独立，默认禁止相互引用代码。删除一个 Prototype 不能破坏其他 Prototype。一个 Prototype 内为了公平对照而共享场景代码，不等于建立跨 Prototype 的共享框架。
 
 ## 4. Hardcode Is Allowed
 允许写死参数、重复代码、临时实现，只要不严重妨碍当前实验。先重复，后抽象。
@@ -23,6 +34,8 @@
 
 不预建统一 Game Loop、输入、物理、存档、音频、UI、插件系统、自动发现、后台或数据库。只有多个真实 Prototype 的重复代码明显降低效率后，才考虑 shared。Lab 本身必须比 Prototype 更简单。
 
+Experiment Modes 也不是建立通用 Rule Engine、Mode Framework 或配置平台的理由。只在当前 Prototype 内用最简单的条件分支、枚举或局部函数实现需要的对照模式。
+
 ## 6. Prototype Is Not a Product
 不要求完整 UI、设置、存档、音效、教程、错误处理或内容，除非它们就是当前实验的一部分。
 
@@ -30,13 +43,26 @@
 不好玩就记录结果，停止开发，继续下一个实验。不要因投入时间而继续堆功能。
 
 ## 8. Promote Good Ideas
-Prototype → 小规模继续验证 → Vertical Slice → 独立 Game Repository。原始 Prototype 留在 Lab，作为实验记录。
+Prototype / Experiment Mode → 小规模继续验证 → Vertical Slice → 独立 Game Repository。原始实验和结果留在 Lab，作为实验记录。
 
 ## 9. Experiment != Final Design
-实验是待回答的问题，不是已经确定的设计。Prototype 是可玩验证手段。不要把系统设计当成试玩结果，不预先确定刷新方式、尸体影响模型等最终方案；两个独立有趣的机制组合后也必须单独验证。
+实验是待回答的问题，不是已经确定的设计。Prototype 是可玩验证手段。不要把系统设计当成试玩结果，不预先确定刷新方式、尸体影响模型等最终方案；两个独立有趣的机制组合后也必须作为独立 Experiment 验证。
 
 ## 10. Competing Ideas Should Be Tested
-竞争方案应公平对照，不预设采用倾向。尽量保持地图、怪物、能力和资源一致，只改变核心变量。可复制极小场景，仍保持实验代码独立；不因场景复用混入多个变量。
+竞争方案应公平对照，不预设采用倾向。尽量保持地图、怪物、能力、资源和操作一致，只改变核心变量。
+
+若两个或多个竞争实验有约 80%～90% 的场景与操作本来就应该相同，优先考虑在同一 Prototype 内作为独立 Experiment Mode 对照；否则保持独立 Prototype。判断依据是实验有效性，不是为了省代码。
+
+Mode 切换语义应当是：
+
+```text
+Switch Mode
+→ Reset Test Scene
+→ Apply Experiment Rule
+→ Start Fresh
+```
+
+组合规则仍必须有自己的 Experiment。例如 EXP-007 Campfire Respawn、EXP-008 Blood Moon Respawn 与 EXP-009 Campfire + Blood Moon Respawn 即使共享同一 Respawn Lab，也仍是三个独立实验，不能把 A + B 的结果混入 A 或 B。
 
 候选课题、无默认实施顺序的 READY 候选池和观察格式见 [Experiment Backlog](experiment-backlog.md)。每次只选择一个问题，真实记录有趣、无聊、决策与意外行为，再决定是否继续；DEAD 是正常实验结果。
 
@@ -81,7 +107,9 @@ Prototype 的表现层应服务于体验判断，允许使用低成本但有辨�
 | DEAD | 实验失败，停止开发 |
 | PROMOTED | 进入更高层级 Prototype 或正式项目 |
 
-Experiment 状态维护在 Backlog；有可玩实现后，在其 README 的 Result 和首页同步对应状态。尚无实现的 IDEA / READY 课题不添加 Play 入口。Result 另记录试玩结论；未试玩可写 Untested，失败可写 Not Interesting，无需维护第二套状态枚举。
+状态属于 Experiment，而不是 Prototype 容器本身。单 Experiment Prototype 可以直接显示该 Experiment 状态；多 Mode Prototype 应分别显示各 Mode 对应 Experiment 的状态，不用人为制造一个覆盖全部模式的总状态。
+
+Experiment 状态维护在 Backlog；有可玩实现后，在 Prototype README 和首页同步对应状态。尚无实现的 IDEA / READY 课题不应伪装成可试玩 Mode。Result 另记录试玩结论；未试玩可写 Untested，失败可写 Not Interesting，无需维护第二套状态枚举。
 
 生命周期：Idea → Build → Play → Evaluate → Kill / Iterate / Promote。每次评估更新 Notes，明确下一步 Continue / Kill / Promote。
 
@@ -92,4 +120,4 @@ Experiment 状态维护在 Backlog；有可玩实现后，在其 README 的 Resu
 
 ## 执行与交接
 
-开发、Review、完成条件及新会话交接遵循 [Workflow](workflow.md)。先确认当前问题与变量，再做最小实现；技术验收不等于玩法结论。Prototype README 保存实施和真实试玩记录，所有状态手工同步。
+开发、Review、完成条件及新会话交接遵循 [Workflow](workflow.md)。先确认当前 Experiment / Mode 的问题与变量，再做最小实现；技术验收不等于玩法结论。Prototype README 保存实施和真实试玩记录，所有状态手工同步。
