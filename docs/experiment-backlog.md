@@ -34,7 +34,7 @@ Experiment 是要验证的问题；Prototype 是回答该问题的可玩实现�
 - EXP-020
 - EXP-021
 
-无默认实施顺序。该池记录最初的 8 个候选；当前 EXP-001 为 BUILDING，另 7 项为 READY，其余 39 项为 IDEA；READY 不意味着已经实现，也不代表最终采用倾向。开工前按 [Workflow](workflow.md) 核对实验定义，选择本次要回答的一个问题。
+无默认实施顺序。该池记录最初的 8 个候选；当前 EXP-001 为 TESTING，另 7 项为 READY，其余 39 项为 IDEA；READY 不意味着已经实现，也不代表最终采用倾向。开工前按 [Workflow](workflow.md) 核对实验定义，选择本次要回答的一个问题。
 
 ## 实施与对照原则
 
@@ -55,7 +55,7 @@ Experiment 是要验证的问题；Prototype 是回答该问题的可玩实现�
 
 | ID | Name | Category | Status |
 | --- | --- | --- | --- |
-| EXP-001 | [Spatial Backpack Placement](#exp-001-spatial-backpack-placement) | Inventory | BUILDING |
+| EXP-001 | [Spatial Backpack Placement](#exp-001-spatial-backpack-placement) | Inventory | TESTING |
 | EXP-002 | [Backpack Limits Exploration](#exp-002-backpack-limits-exploration) | Inventory | IDEA |
 | EXP-003 | [Equipment vs Loot Space](#exp-003-equipment-vs-loot-space) | Inventory | IDEA |
 | EXP-004 | [Fixed Map Exploration](#exp-004-fixed-map-exploration) | Exploration | IDEA |
@@ -113,36 +113,23 @@ Name: Spatial Backpack Placement
 
 Category: Inventory
 
-Status: BUILDING
+Status: TESTING
 
 ### Hypothesis
 
-候选假设（尚未验证）：空间背包摆放。
-
-
-核心变量：
-
-```text
-物品尺寸
-形状
-旋转
-有限格子
-
-```
-
-待验证的体验预期：背包整理本身可能有趣。
+如果不同物品具有不同尺寸，并且玩家必须在有限二维背包空间中实际摆放、旋转、重新整理和取舍，那么背包管理本身会产生有意义的决策乐趣。尚未由 Player 验证。
 
 ### Core Variable
 
-空间背包摆放。
+有限二维空间、不同矩形尺寸、自由摆放与旋转。
 
 ### Question
 
-背包整理本身是否有趣。
+当有限背包逐渐被不同尺寸物品占据时，玩家是否会主动重新整理和取舍，并觉得这一过程有趣？
 
 ### Minimum Scope
 
-- 6×8 背包、10 种不同尺寸物品、旋转、拖拽与丢弃；固定同一批物品供反复整理。
+- 6×8 背包、12 种不同尺寸物品、旋转、拖拽与丢弃；固定同一批物品供反复整理。
 - 只提供验证此问题所需的操作与可读反馈；固定其他条件。
 
 ### Non-goals
@@ -163,7 +150,7 @@ TBD — 尚未试玩。
 
 ### Notes
 
-- Prototype：[001_spatial_backpack](../prototypes/001_spatial_backpack/README.md)，技术验收中。
+- Prototype：[001_spatial_backpack](../prototypes/001_spatial_backpack/README.md)，已完成技术验收，等待 Player 试玩。
 - 试玩日期、条件、参数与对照版本：TBD
 - 其他观察：TBD
 

@@ -2,7 +2,7 @@
 
 快速游戏玩法实验室。Small experiments for finding fun.
 
-V0.2.1 — Experiment Workflow & Handoff。已新增 [Prototype #001：空间背包](prototypes/001_spatial_backpack/README.md)，对应 EXP-001，当前 BUILDING。
+V0.2.1 — Experiment Workflow & Handoff。已新增 [Prototype #001：空间背包](prototypes/001_spatial_backpack/README.md)，对应 EXP-001，当前 TESTING。
 
 - **game-dev-lab / Game Tech Prototype**：验证技术、机制、实现方案是否可行。
 - **game-prototype-lab / Game Prototype**：验证某个玩法假设是否有趣。
@@ -11,7 +11,7 @@ V0.2.1 — Experiment Workflow & Handoff。已新增 [Prototype #001：空间背
 
 ## Experiment Backlog
 
-[查看全部 47 个实验课题](docs/experiment-backlog.md)。首批候选中 EXP-001 正在开发，7 项为 READY，39 项为 IDEA；先选择一个问题，再创建最小 Prototype，试玩后记录和比较结果。任何候选机制都不是最终设计。
+[查看全部 47 个实验课题](docs/experiment-backlog.md)。首批候选中 EXP-001 已可试玩，7 项为 READY，39 项为 IDEA；先选择一个问题，再创建最小 Prototype，试玩后记录和比较结果。任何候选机制都不是最终设计。
 
 ## Workflow
 

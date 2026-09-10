@@ -13,7 +13,7 @@ interface PrototypeEntry {
 }
 
 // Manually maintain launcher metadata here. Gameplay stays in each prototype.
-const prototypes: PrototypeEntry[] = [{ id: '001', name: 'Spatial Backpack Placement · EXP-001', status: 'BUILDING', hypothesis: '有限二维空间中的摆放与取舍，是否能让背包整理本身产生乐趣？', url: 'prototypes/001_spatial_backpack/' }];
+const prototypes: PrototypeEntry[] = [{ id: '001', name: 'Spatial Backpack Placement · EXP-001', status: 'TESTING', hypothesis: '有限二维空间中的摆放与取舍，是否能让背包整理本身产生乐趣？', url: 'prototypes/001_spatial_backpack/' }];
 
 const list = document.querySelector<HTMLDivElement>('#prototype-list')!;
 document.querySelector<HTMLDivElement>('#empty-state')!.hidden = prototypes.length > 0;
