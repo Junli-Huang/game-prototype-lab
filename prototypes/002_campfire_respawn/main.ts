@@ -46,8 +46,8 @@ async function start() {
   function mesh(geometry: THREE.BufferGeometry, mat: THREE.Material, x: number, y: number, z: number, parent: THREE.Object3D = scene) {
     const object = new THREE.Mesh(geometry, mat); object.position.set(x, y, z); object.castShadow = true; object.receiveShadow = true; parent.add(object); return object;
   }
-  mesh(new THREE.BoxGeometry(8.5, 0.75, 28.5), soil, 0, -0.43, -0.5);
-  mesh(new THREE.BoxGeometry(5.9, 0.06, 26.5), path, 0, -0.02, -0.5);
+  mesh(new THREE.BoxGeometry(8.5, 0.75, 28.5), soil, 0, -0.43, -0.5).renderOrder = -2;
+  mesh(new THREE.BoxGeometry(5.9, 0.06, 26.5), path, 0, -0.02, -0.5).renderOrder = -1;
   // These edge stones mark the simple walkable strip; scenery stays outside it.
   for (let i = 0; i < 26; i++) {
     for (const side of [-1, 1]) {
@@ -77,7 +77,7 @@ async function start() {
   }
   const flame = mesh(new THREE.ConeGeometry(0.4, 1.15, 5), new THREE.MeshBasicMaterial({ color: '#ee7f37' }), 0, 0.75, 0, fire);
   mesh(new THREE.ConeGeometry(0.23, 0.8, 5), new THREE.MeshBasicMaterial({ color: '#ffdd83' }), 0, 0.57, 0.13, fire);
-  const glow = new THREE.PointLight('#ff9747', 9, 5, 2); glow.position.set(0, 1.3, 0); fire.add(glow);
+  const glow = new THREE.PointLight('#ff9747', context ? 9 : 0, 5, 2); glow.position.set(0, 1.3, 0); fire.add(glow);
   const restRing = mesh(new THREE.RingGeometry(1.25, 1.35, 40), new THREE.MeshBasicMaterial({ color: '#f6d294', transparent: true, opacity: 0.45, side: THREE.DoubleSide }), CAMP.x, 0.06, CAMP.z);
   restRing.rotation.x = -Math.PI / 2;
   mesh(new THREE.CylinderGeometry(0.85, 1.1, 0.22, 6), rockMat, END.x, 0.1, END.z);
@@ -148,7 +148,7 @@ async function start() {
     drawPawn(playerView, state.player, time, true);
     state.enemies.forEach((e, i) => drawPawn(enemyViews[i], e, time + i, false));
     flame.scale.set(1 + state.firePulse * 0.5, 1 + Math.sin(time * 7) * 0.12 + state.firePulse * 0.6, 1);
-    flame.rotation.y = time * 0.4; glow.intensity = 9 + Math.sin(time * 9) + state.firePulse * 18;
+    flame.rotation.y = time * 0.4; glow.intensity = context ? 9 + Math.sin(time * 9) + state.firePulse * 18 : 0;
     restRing.scale.setScalar(1 + state.firePulse * 0.4);
     hp.textContent = `${state.player.hp} / ${PLAYER_HP}`;
     hp.classList.toggle('low', state.player.hp <= 2);
