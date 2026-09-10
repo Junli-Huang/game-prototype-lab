@@ -118,12 +118,14 @@ async function start() {
   }
   new ResizeObserver(resize).observe(host); resize();
   const keys = new Set<string>();
+  const taps = new Set<string>();
   let mouseAttack = false;
-  const clearInput = () => { keys.clear(); mouseAttack = false; };
+  const clearInput = () => { keys.clear(); taps.clear(); mouseAttack = false; };
   window.addEventListener('keydown', event => {
     if ((event.target as HTMLElement)?.closest('button, a')) return;
     if (['KeyW', 'KeyA', 'KeyS', 'KeyD', 'Space', 'KeyE', 'KeyR', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.code)) event.preventDefault();
     keys.add(event.code);
+    if (!event.repeat) taps.add(event.code);
     if (!event.repeat && event.code === 'Space') attack();
     if (!event.repeat && event.code === 'KeyE') rest();
     if (!event.repeat && event.code === 'KeyR') { clearInput(); restart(); }
@@ -138,13 +140,17 @@ async function start() {
   document.querySelector('#restart')!.addEventListener('click', () => { clearInput(); restart(); surface.focus(); });
   let last = performance.now();
   function frame(now: number) {
-    const dt = Math.min((now - last) / 1000, 0.04); last = now;
-    {
-      const dx = Number(keys.has('KeyD') || keys.has('ArrowRight')) - Number(keys.has('KeyA') || keys.has('ArrowLeft'));
-      const dz = Number(keys.has('KeyS') || keys.has('ArrowDown')) - Number(keys.has('KeyW') || keys.has('ArrowUp'));
-      tick(dt, dx, dz);
+    const elapsed = Math.max(0, Math.min((now - last) / 1000, 0.25)); last = now;
+    const held = (code: string) => keys.has(code) || taps.has(code);
+    const dx = Number(held('KeyD') || held('ArrowRight')) - Number(held('KeyA') || held('ArrowLeft'));
+    const dz = Number(held('KeyS') || held('ArrowDown')) - Number(held('KeyW') || held('ArrowUp'));
+    // Keep low-frame-rate software rendering from slowing the experiment down.
+    // Small simulation steps still preserve contact damage and attack timing.
+    for (let remaining = elapsed; remaining > 0; remaining -= 1 / 60) {
+      tick(Math.min(remaining, 1 / 60), dx, dz);
       if (keys.has('Space') || mouseAttack) attack();
     }
+    taps.clear();
     const time = now / 1000;
     drawPawn(playerView, state.player, time, true);
     state.enemies.forEach((e, i) => drawPawn(enemyViews[i], e, time + i, false));
