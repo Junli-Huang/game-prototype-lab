@@ -1,7 +1,7 @@
 import './style.css';
 
 type PrototypeStatus =
-  | 'IDEA' | 'BUILDING' | 'TESTING' | 'INTERESTING'
+  | 'IDEA' | 'READY' | 'BUILDING' | 'TESTING' | 'INTERESTING'
   | 'MAYBE' | 'DEAD' | 'PROMOTED';
 
 interface PrototypeEntry {

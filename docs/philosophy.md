@@ -32,19 +32,28 @@
 ## 8. Promote Good Ideas
 Prototype → 小规模继续验证 → Vertical Slice → 独立 Game Repository。原始 Prototype 留在 Lab，作为实验记录。
 
+## 9. Experiment != Final Design
+实验是待回答的问题，不是已经确定的设计。Prototype 是可玩验证手段。不要把系统设计当成试玩结果，不预先确定刷新方式、尸体影响模型等最终方案；两个独立有趣的机制组合后也必须单独验证。
+
+## 10. Competing Ideas Should Be Tested
+竞争方案应公平对照，不预设采用倾向。尽量保持地图、怪物、能力和资源一致，只改变核心变量。可复制极小场景，仍保持实验代码独立；不因场景复用混入多个变量。
+
+候选课题、推荐队列和观察格式见 [Experiment Backlog](experiment-backlog.md)。每次只选择一个问题，真实记录有趣、无聊、决策与意外行为，再决定是否继续；DEAD 是正常实验结果。
+
 ## 状态与决策
 
 | 状态 | 含义 |
 | --- | --- |
 | IDEA | 还只是想法 |
+| READY | 问题定义清楚，可以开发 |
 | BUILDING | 正在快速实现 |
 | TESTING | 已经可以试玩 |
 | INTERESTING | 核心机制明显有趣 |
 | MAYBE | 有潜力，但目前不够明确 |
 | DEAD | 实验失败，停止开发 |
-| PROMOTED | 已孵化为正式项目 |
+| PROMOTED | 进入更高层级 Prototype 或正式项目 |
 
-状态记入 README 的 Result，并同步首页元信息。Result 另记录试玩结论；未试玩可写 Untested，失败可写 Not Interesting，无需维护第二套状态枚举。
+Experiment 状态维护在 Backlog；有可玩实现后，在其 README 的 Result 和首页同步对应状态。尚无实现的 IDEA / READY 课题不添加 Play 入口。Result 另记录试玩结论；未试玩可写 Untested，失败可写 Not Interesting，无需维护第二套状态枚举。
 
 生命周期：Idea → Build → Play → Evaluate → Kill / Iterate / Promote。每次评估更新 Notes，明确下一步 Continue / Kill / Promote。
 

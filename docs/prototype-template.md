@@ -7,6 +7,10 @@
 ## Prototype Name
 XXX
 
+## Experiment
+
+关联 Experiment ID：EXP-XXX。试玩后同步 Backlog 的 Status、Result、Notes。
+
 ## Gameplay Hypothesis
 要验证的玩法假设，以及预期玩家会产生的行为或感受。
 
@@ -33,7 +37,7 @@ XXX
 - 试玩结论：Untested
 - 下一步：Continue / Kill / Promote（试玩后选择）
 
-状态可选：IDEA / BUILDING / TESTING / INTERESTING / MAYBE / DEAD / PROMOTED。
+状态可选：IDEA / READY / BUILDING / TESTING / INTERESTING / MAYBE / DEAD / PROMOTED。
 试玩结论可以记录 Interesting / Maybe / Not Interesting 等，不必为了凑状态继续开发。
 
 ## Notes
