@@ -14,7 +14,7 @@ const route = document.querySelector<HTMLElement>('#route')!;
 
 async function start() {
   let renderer: THREE.WebGLRenderer | SVGRenderer;
-  let surface: HTMLCanvasElement | SVGSVGElement = canvas;
+  let surface: HTMLCanvasElement | SVGElement = canvas;
   const context = canvas.getContext('webgl2', { antialias: true });
   if (context) {
     renderer = new THREE.WebGLRenderer({ canvas, context, antialias: true });
@@ -36,8 +36,8 @@ async function start() {
   scene.background = new THREE.Color('#b5b9ac');
   const camera = new THREE.OrthographicCamera(-12, 12, 11, -11, 0.1, 100);
   camera.position.set(0, 27, 21); camera.lookAt(0, 0, -0.7);
-  scene.add(new THREE.HemisphereLight('#e6f1e3', '#6e6553', 2.4));
-  const sun = new THREE.DirectionalLight('#ffe4b2', 3.2);
+  scene.add(context ? new THREE.HemisphereLight('#e6f1e3', '#6e6553', 2.4) : new THREE.AmbientLight('#e6f1e3', 0.65));
+  const sun = new THREE.DirectionalLight('#ffe4b2', context ? 3.2 : 0.85);
   sun.position.set(-9, 20, 8); sun.castShadow = true;
   Object.assign(sun.shadow.camera, { left: -15, right: 15, top: 20, bottom: -20, near: 1, far: 60 });
   sun.shadow.mapSize.set(2048, 2048); sun.shadow.normalBias = 0.03; scene.add(sun);
