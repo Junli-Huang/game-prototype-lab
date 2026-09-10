@@ -47,6 +47,20 @@ BUILDING
 
 - XXX
 
+## Visual Fidelity
+
+Level: V0 / V1 / V2（选择适合当前 Question 的一项，不是越高越好）
+
+Reason: 为什么当前实验需要这个表现层？
+
+Required Feedback:
+
+- 验证体验必需的视觉 / 动作 / 声音反馈：XXX
+
+参考：V0 为程序绘图与抽象 UI；V1 为简单图片、图标、基础音效与程序化动作；V2 为 Low Poly 3D、基础灯光与空间表现。只做当前问题必需的反馈，不要求正式动画或完整资产。
+
+填写示例（非默认要求）：Level 为 V2；Reason 为判断固定箱庭与尸体留存带来的空间感；Required Feedback 为 Low Poly 场景、角色摇摆移动、尸体倒地、简单受击反馈和基础环境光。
+
 ## Controls
 
 - 启动与入口：XXX

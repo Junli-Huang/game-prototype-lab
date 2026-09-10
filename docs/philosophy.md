@@ -40,6 +40,34 @@ Prototype → 小规模继续验证 → Vertical Slice → 独立 Game Repositor
 
 候选课题、无默认实施顺序的 READY 候选池和观察格式见 [Experiment Backlog](experiment-backlog.md)。每次只选择一个问题，真实记录有趣、无聊、决策与意外行为，再决定是否继续；DEAD 是正常实验结果。
 
+## 11. Visual Fidelity Should Match the Question
+
+Prototype 的表现层应服务于体验判断，允许使用低成本但有辨识度的视觉、动作和声音反馈。Prototype 不等于 Debug Scene，也不等于 Vertical Slice。
+
+不追求正式美术，也不要求一律使用矩形、圆形和 Debug Text。当空间感、物品辨识、动作反馈、氛围、声音、角色生命感或交互可读性会明显影响实验结果时，使用最低成本的代表性资源与表现方式。
+
+允许简单图片、图标、Low Poly 3D、基础灯光、简单音效、轻量动画和程序化变换动画。不要求序列帧、完整骨骼动画、正式角色动画集、完整 VFX 或正式美术资产。
+
+只做到足以让玩家感受到当前玩法，不追求接近成品。具体表现层选择与必要反馈记录在 Prototype README 的 Visual Fidelity 中。
+
+### Toy / Board-game Motion
+
+角色、怪物和交互对象可以优先采用桌游棋子或玩具式动作语言：
+
+| 行为 | 低成本表现 |
+| --- | --- |
+| 移动 | 整体轻微左右摇摆、前后倾、上下浮动 |
+| 停止 | 回正 |
+| 攻击 | 整体向前碰一下或顶一下 |
+| 受击 | 后仰或弹开 |
+| 拾取 | 靠近、轻碰，并给予物体反馈 |
+| 交互 | 朝目标倾一下或碰一下 |
+| 死亡 | 整体倒下 |
+
+这些动作可通过图片或模型整体的位移、旋转、缩放完成，不依赖序列帧或复杂骨骼。目标是低成本、高可读性、有生命感、统一风格和快速迭代，不要求每个实验做齐所有动作。
+
+若实验问题本身涉及真实动画质量，再相应提高表现精度。不要据此预建 Animation Framework、Character Controller Framework、Tween Framework、通用 VFX、统一 Low Poly Renderer 或美术资源管理系统。
+
 ## 状态与决策
 
 | 状态 | 含义 |

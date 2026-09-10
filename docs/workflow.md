@@ -53,6 +53,22 @@ Minimum Scope 只包含回答 Question 必需的内容。空间背包可以只�
 
 确实缺少某项功能导致当前实验无法进行时，Work 可以补充最小必要实现，并在 Notes 记录原因和边界。它必须服务当前 Question，不借机新增玩法问题。
 
+### 最低可用表现层
+
+Work 不应默认 Debug 图形一定足够，也不应默认必须制作正式动画。依据 Experiment Question 选择足以支持体验判断的最低成本表现，并在 Prototype README 的 Visual Fidelity 记录 Level、Reason、Required Feedback。
+
+| Level | 参考表现方式 |
+| --- | --- |
+| V0 — Abstract | 程序绘图、几何图形、Debug UI |
+| V1 — Representative | 简单图片、图标、基础音效、程序化动作 |
+| V2 — Spatial | Low Poly 3D、基础灯光、简单空间表现 |
+
+这只是开发判断参考，不是版本升级路线、质量评分或正式系统配置。按问题选择，不默认追求 V2；所选层级也不意味着必须使用该行的所有资源。空间、辨识、动作、氛围或声音影响判断时，把必要反馈纳入 Minimum Scope，做到足够判断即停止。
+
+角色和交互对象可使用 [Toy / Board-game Motion](philosophy.md#toy--board-game-motion)：摇摆移动、停止回正、攻击轻碰、受击后仰、死亡倒下。无需默认制作序列帧或完整骨骼动画；实验确实研究真实动画质量时再提高精度。
+
+不为这些表现预建动画、角色控制、Tween、VFX、Low Poly 渲染或美术资源管理框架。
+
 ## 5. 竞争方案与组合实验
 
 竞争方案尽量保持地图、怪物、角色能力、资源和操作一致，只改变 Core Variable。例如篝火与红月刷新对照刷新条件，尸体数值与类型计数对照影响模型。记录不能保持一致的条件及其对结论的限制。
