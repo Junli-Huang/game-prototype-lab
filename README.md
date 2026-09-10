@@ -2,7 +2,7 @@
 
 快速游戏玩法实验室。Small experiments for finding fun.
 
-V0.2 — Experiment Backlog。当前只有 Launcher 空列表，没有正式玩法 Prototype。
+V0.2.1 — Experiment Workflow & Handoff。当前只有 Launcher 空列表，没有正式玩法 Prototype。
 
 - **game-dev-lab / Game Tech Prototype**：验证技术、机制、实现方案是否可行。
 - **game-prototype-lab / Game Prototype**：验证某个玩法假设是否有趣。
@@ -12,6 +12,12 @@ V0.2 — Experiment Backlog。当前只有 Launcher 空列表，没有正式玩�
 ## Experiment Backlog
 
 [查看全部 47 个实验课题](docs/experiment-backlog.md)。首批 8 项为 READY，其余为 IDEA；先选择一个问题，再创建最小 Prototype，试玩后记录和比较结果。任何候选机制都不是最终设计。
+
+## Workflow
+
+[实验执行与交接规范](docs/workflow.md)：Experiment → Minimum Prototype → Play → Record → Compare → Kill / Iterate / Promote。
+
+新 Work / Chat 开发前优先阅读 README、Philosophy、Workflow、Backlog 中对应 Experiment，以及已有 Prototype README。确认问题、变量、范围、Non-goals 和状态后再开工；首批 READY 是无默认实施顺序的候选池。
 
 ## Development
 
@@ -50,6 +56,7 @@ src/style.css
 prototypes/README.md         实验目录说明；目前没有实验
 docs/experiment-backlog.md   实验课题、状态与结论
 docs/philosophy.md           开发原则与状态
+docs/workflow.md             执行、Review 与会话交接规范
 docs/prototype-template.md   可复制的实验说明模板
 package.json
 package-lock.json
@@ -85,7 +92,7 @@ input: ['index.html', 'prototypes/001_example/index.html'],
 6. 根目录 `npm run dev`，从首页试玩；然后 `npm run build`、`npm run preview`，确认直接访问子页面和刷新都正常。
 7. 更新 README 的 Result / Notes 和首页状态，决定 Continue / Kill / Promote。
 
-以上只是文档示例，V0.1 / V0.2 均不创建 example 实验。
+以上只是文档示例，V0.1 至 V0.2.1 均不创建 example 实验。
 
 ### 资源与删除
 

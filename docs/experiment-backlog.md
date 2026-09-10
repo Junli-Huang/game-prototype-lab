@@ -1,4 +1,4 @@
-# Experiment Backlog — V0.2
+# Experiment Backlog — V0.2.1
 
 Experiment 是要验证的问题；Prototype 是回答该问题的可玩实现。这里仅用 Markdown 手工记录候选课题、状态与结论，当前没有任何试玩结果，也不创建玩法实现。
 
@@ -21,11 +21,20 @@ Experiment 是要验证的问题；Prototype 是回答该问题的可玩实现�
 | DEAD | 结果不值得继续 |
 | PROMOTED | 进入更高层级 Prototype 或正式项目 |
 
-## 第一批推荐队列
+## First READY Pool
 
-EXP-001 → EXP-007 → EXP-008 → EXP-017 → EXP-018 → EXP-020 → EXP-021 → EXP-013。
+首批 READY Candidate Pool：
 
-仅以上 8 项标为 READY，其余 39 项为 IDEA。此顺序不代表最终采用倾向；READY 也不意味着已经实现。
+- EXP-001
+- EXP-007
+- EXP-008
+- EXP-013
+- EXP-017
+- EXP-018
+- EXP-020
+- EXP-021
+
+无默认实施顺序。仅以上 8 项标为 READY，其余 39 项为 IDEA；READY 不意味着已经实现，也不代表最终采用倾向。开工前按 [Workflow](workflow.md) 核对实验定义，选择本次要回答的一个问题。
 
 ## 实施与对照原则
 

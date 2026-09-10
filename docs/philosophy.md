@@ -38,7 +38,7 @@ Prototype → 小规模继续验证 → Vertical Slice → 独立 Game Repositor
 ## 10. Competing Ideas Should Be Tested
 竞争方案应公平对照，不预设采用倾向。尽量保持地图、怪物、能力和资源一致，只改变核心变量。可复制极小场景，仍保持实验代码独立；不因场景复用混入多个变量。
 
-候选课题、推荐队列和观察格式见 [Experiment Backlog](experiment-backlog.md)。每次只选择一个问题，真实记录有趣、无聊、决策与意外行为，再决定是否继续；DEAD 是正常实验结果。
+候选课题、无默认实施顺序的 READY 候选池和观察格式见 [Experiment Backlog](experiment-backlog.md)。每次只选择一个问题，真实记录有趣、无聊、决策与意外行为，再决定是否继续；DEAD 是正常实验结果。
 
 ## 状态与决策
 
@@ -61,3 +61,7 @@ Experiment 状态维护在 Backlog；有可玩实现后，在其 README 的 Resu
 默认 TypeScript + Canvas 2D / DOM + 浏览器原生 API。实时实验自行使用 requestAnimationFrame；主 Canvas、尺寸、缩放和循环由各实验决定。
 
 不使用 Unity、GDevelop、React、Vue 或大型引擎搭建初始骨架。未来某个实验确实需要 WebGL、Three.js、Matter.js、PixiJS 或 Phaser 时可以单独采用，先说明它如何帮助更快试玩当前玩法。不要为了未来需求升级整个 Lab。
+
+## 执行与交接
+
+开发、Review、完成条件及新会话交接遵循 [Workflow](workflow.md)。先确认当前问题与变量，再做最小实现；技术验收不等于玩法结论。Prototype README 保存实施和真实试玩记录，所有状态手工同步。
