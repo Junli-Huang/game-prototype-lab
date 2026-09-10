@@ -1,6 +1,6 @@
 # Experiment Backlog — V0.2.1
 
-Experiment 是要验证的问题；Prototype 是回答该问题的可玩实现。这里仅用 Markdown 手工记录候选课题、状态与结论，当前没有任何试玩结果，也不创建玩法实现。
+Experiment 是要验证的问题；Prototype 是回答该问题的可玩实现。这里仅用 Markdown 手工记录候选课题、状态与结论，已有实现与真实试玩结果链接到对应 Prototype README；不把候选机制视为最终设计。
 
 ## 方向背景
 
@@ -34,7 +34,7 @@ Experiment 是要验证的问题；Prototype 是回答该问题的可玩实现�
 - EXP-020
 - EXP-021
 
-无默认实施顺序。该池记录最初的 8 个候选；当前 EXP-001 为 TESTING，另 7 项为 READY，其余 39 项为 IDEA；READY 不意味着已经实现，也不代表最终采用倾向。开工前按 [Workflow](workflow.md) 核对实验定义，选择本次要回答的一个问题。
+无默认实施顺序。该池记录最初的 8 个候选；当前 EXP-001 为 MAYBE，EXP-007 为 BUILDING，另 6 项为 READY，其余 39 项为 IDEA；READY 不意味着已经实现，也不代表最终采用倾向。开工前按 [Workflow](workflow.md) 核对实验定义，选择本次要回答的一个问题。
 
 ## 实施与对照原则
 
@@ -55,13 +55,13 @@ Experiment 是要验证的问题；Prototype 是回答该问题的可玩实现�
 
 | ID | Name | Category | Status |
 | --- | --- | --- | --- |
-| EXP-001 | [Spatial Backpack Placement](#exp-001-spatial-backpack-placement) | Inventory | TESTING |
+| EXP-001 | [Spatial Backpack Placement](#exp-001-spatial-backpack-placement) | Inventory | MAYBE |
 | EXP-002 | [Backpack Limits Exploration](#exp-002-backpack-limits-exploration) | Inventory | IDEA |
 | EXP-003 | [Equipment vs Loot Space](#exp-003-equipment-vs-loot-space) | Inventory | IDEA |
 | EXP-004 | [Fixed Map Exploration](#exp-004-fixed-map-exploration) | Exploration | IDEA |
 | EXP-005 | [Box-Level Exploration](#exp-005-box-level-exploration) | Exploration | IDEA |
 | EXP-006 | [Shortcut Unlocking](#exp-006-shortcut-unlocking) | Exploration | IDEA |
-| EXP-007 | [Campfire Respawn](#exp-007-campfire-respawn) | World Refresh | READY |
+| EXP-007 | [Campfire Respawn](#exp-007-campfire-respawn) | World Refresh | BUILDING |
 | EXP-008 | [Blood Moon Respawn](#exp-008-blood-moon-respawn) | World Refresh | READY |
 | EXP-009 | [Campfire + Blood Moon Respawn](#exp-009-campfire--blood-moon-respawn) | World Refresh | IDEA |
 | EXP-010 | [Time Respawn](#exp-010-time-respawn) | World Refresh | IDEA |
@@ -113,11 +113,11 @@ Name: Spatial Backpack Placement
 
 Category: Inventory
 
-Status: TESTING
+Status: MAYBE
 
 ### Hypothesis
 
-如果不同物品具有不同尺寸，并且玩家必须在有限二维背包空间中实际摆放、旋转、重新整理和取舍，那么背包管理本身会产生有意义的决策乐趣。尚未由 Player 验证。
+如果不同物品具有不同尺寸，并且玩家必须在有限二维背包空间中实际摆放、旋转、重新整理和取舍，那么背包管理本身会产生有意义的决策乐趣。首次 Player 反馈见 Result，尚不足以得出明确结论。
 
 ### Core Variable
 
@@ -139,19 +139,19 @@ Status: TESTING
 
 ### Result
 
-TBD — 尚未试玩。
+MAYBE — 2026-09-10 首次 Player 试玩：“还可以，有点意思。”当前证据为轻度正向，不足以判断为 INTERESTING。
 
-- Observed（实际观察）：TBD
+- Observed（实际观察）：收到轻度正向评价，暂未记录具体整理或取舍行为
 - 有趣开始的时机：TBD
 - 无聊开始的时机：TBD
 - 玩家产生的决策：TBD
 - Unexpected（预期外玩法）：TBD
-- Next（是否继续，Kill / Iterate / Promote）：TBD
+- Next（是否继续，Kill / Iterate / Promote）：保留 MAYBE，暂停 #001 功能扩展，继续独立实验
 
 ### Notes
 
-- Prototype：[001_spatial_backpack](../prototypes/001_spatial_backpack/README.md)，已完成技术验收，等待 Player 试玩。
-- 试玩日期、条件、参数与对照版本：TBD
+- Prototype：[001_spatial_backpack](../prototypes/001_spatial_backpack/README.md)，已完成首次 Player 试玩，保留 MAYBE。
+- 试玩日期、条件、参数与对照版本：2026-09-10，项目所有者试玩当时线上 #001；具体反馈见其 README。
 - 其他观察：TBD
 
 ## EXP-002 Backpack Limits Exploration
@@ -432,11 +432,11 @@ Name: Campfire Respawn
 
 Category: World Refresh
 
-Status: READY
+Status: BUILDING
 
 ### Hypothesis
 
-候选假设（尚未验证）：篝火刷新敌人。
+如果篝火恢复生命，同时让已击败敌人重新出现，那么恢复资源与已清理进度之间会形成取舍，使休息成为有意义的决策。尚未由 Player 验证。
 
 规则：
 
@@ -451,15 +451,15 @@ Status: READY
 
 ### Core Variable
 
-篝火刷新敌人。
+使用篝火 = 玩家恢复 + 全部敌人恢复出生位置、生命与存活状态。
 
 ### Question
 
-恢复和敌人重生绑定后，是否会产生“现在要不要休息”的决策。
+玩家受伤后是否会权衡剩余生命、已清理敌人和接下来的路线，再决定是否使用篝火？
 
 ### Minimum Scope
 
-- 一张小地图、固定敌人和可休息节点；休息恢复生命并刷新已击败敌人。
+- 一个 V2 Low Poly 小场景、四个固定同种敌人、简单移动/攻击/受击、篝火和终点；休息恢复生命并重置全部敌人。
 - 只提供验证此问题所需的操作与可读反馈；固定其他条件。
 
 ### Non-goals
@@ -480,8 +480,8 @@ TBD — 尚未试玩。
 
 ### Notes
 
-- Prototype：尚无实现。
-- 试玩日期、条件、参数与对照版本：TBD
+- Prototype：[002_campfire_respawn](../prototypes/002_campfire_respawn/README.md)，2026-09-10 READY → BUILDING；技术验收完成后进入 TESTING。
+- 试玩日期：TBD；固定条件与参数见 Prototype README。
 - 其他观察：TBD
 
 ## EXP-008 Blood Moon Respawn
