@@ -201,7 +201,9 @@ Untested — 本次实现与技术验收不填写 Player 玩法结论。EXP-007 
 - 三个资源各可接近收集一次并隐藏；刷新后可再次收集，累计数继续增加。三个固定位置不参与碰撞。
 - Blood Moon 30 秒周期、最后 10 秒警告、月亮视觉、事件后 0.7 秒接触伤害保护、Trial Failed 与 Restart 保持原行为。
 - `common_herb.gltf`、`supply_cache.gltf`、`ore_node.gltf` 与既有 `blood_moon.gltf` 均通过 glTF 2.0 / embedded buffer 结构检查，并由页面直接加载。
-- `npm run build` 通过。Pages 部署与线上实际页面验收记录在本节后续提交中。
+- `npm run build` 通过；GitHub Pages 实现提交 `c671c52` 部署成功。线上确认 R2 标题、默认 ON / ON、三件 Ready glTF 与 Blood Moon 模型正常加载，页面无 Prototype 运行错误。
+- 线上实际操作：Common Resources 关闭后立即重置，切到 Campfire 与 Restart 后仍保持关闭；恢复 ON 后收集 Common Herb，HUD 从 Total 0 / Available 3/3 变为 1 / 2/3；返回篝火 Rest 后为 Total 1 / Available 3/3，并显示 `已应用 Refresh Profile`。Campfire / Blood Moon 标题、规则与计时显示随 Mode 正确切换。
+- 远程 Chrome 禁用 WebGL，本次实际画面与交互验收使用既有 SVGRenderer 兼容分支；三个模型在完整路线中可辨认且不遮挡窄道。WebGL 分支通过 TypeScript / Vite 构建，GPU 阴影画面留给 Player 桌面浏览器，不作为玩法结论。
 
 ## Notes / Handoff
 
