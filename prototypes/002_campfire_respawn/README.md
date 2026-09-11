@@ -9,13 +9,14 @@ Enemy Respawn Lab
 | Mode | Experiment | Status | Core Variable |
 | --- | --- | --- | --- |
 | Campfire Respawn | [EXP-007](../../docs/experiment-backlog.md#exp-007-campfire-respawn) | MAYBE | Rest → 恢复玩家 + 重置全部敌人 |
+| Blood Moon Respawn | [EXP-008](../../docs/experiment-backlog.md#exp-008-blood-moon-respawn) | TESTING | Blood Moon → 重置全部敌人；Rest → 只恢复玩家 |
 
-当前没有其他已实现 Mode。本文件保存实验实施与试玩记录，遵循 [Workflow](../../docs/workflow.md)。
+当前默认 Mode：EXP-008 Blood Moon Respawn。本文件保存各实验独立的实施与试玩记录，遵循 [Workflow](../../docs/workflow.md)。
 
 ## Status
 
-当前已实现 Mode：EXP-007 — Campfire Respawn — MAYBE。
-当前没有 BUILDING 中的 Experiment。Campfire Respawn 仍可试玩，实验结论已记录。
+当前已实现 Mode：EXP-007 — MAYBE；EXP-008 — TESTING / Result: Untested。
+当前没有 BUILDING 中的 Experiment。两个 Mode 均可试玩，切换会完整重置测试场景。
 
 ## Gameplay Hypothesis
 
@@ -42,9 +43,9 @@ Enemy Respawn Lab
 - 棋子式摇摆、前顶、受击后仰、敌人倒地后移除。
 - 篝火恢复与全敌人重置，明确显示恢复的代价，Restart。
 
-## Non-goals
+## EXP-007 Baseline Non-goals
 
-不做背包、Loot、装备、武器切换、经验、升级、货币、资源掉落、持久尸体、捡尸、红月、时间、生态、种植、基地、任务、剧情、Boss、复杂战斗、耐力、翻滚、格挡、Parry、传送、存档或程序生成地图。不搭建 Three.js / Camera / Animation 共享框架。
+EXP-007 本身不加入红月或时间刷新；其余仍不做背包、Loot、装备、武器切换、经验、升级、货币、资源掉落、持久尸体、捡尸、生态、种植、基地、任务、剧情、Boss、复杂战斗、耐力、翻滚、格挡、Parry、传送、存档或程序生成地图。不搭建 Three.js / Camera / Animation 共享框架。
 
 ## Visual Fidelity
 
@@ -66,14 +67,51 @@ Required Feedback:
 
 - WASD / 方向键：沿画面上下左右移动。
 - Space / 场景内鼠标左键：向当前面朝方向攻击；按住可重复攻击。不使用鼠标瞄准。
-- E：靠近篝火时休息。无确认框，立即恢复 HP 并重置全部敌人。
+- Respawn Mode：Campfire / Blood Moon 按钮；切换后完整重置并从头开始。
+- E：靠近篝火时休息。Campfire Mode 恢复 HP 并重置全部敌人；Blood Moon Mode 只恢复 HP，不改变敌人或倒计时。
 - R / Restart 按钮：相同场景重新开始。
 - 切换窗口、切换标签、取消指针时释放输入，避免卡住移动或攻击。
 - 桌面键鼠实验，优先使用支持 WebGL 2 的现代浏览器；没有移动触屏操作。禁用 WebGL 时自动使用兼容画面，页面会注明“无阴影”。
 
 ## Implementation Notes
 
-实现目录：`prototypes/002_campfire_respawn/`。`main.ts` 仅负责本实验的 3D、输入与 UI；`simulation.ts` 保存本实验固定规则，便于直接检查恢复与伤害逻辑。没有其他 Prototype 代码依赖。Three.js 从根 npm 安装，但只被 #002 引用，Launcher 与 #001 不加载它。WebGL 不可用时按需加载 Three.js 官方 SVGRenderer，以相同 3D 几何、相机和规则进行软件投影；只补偿当前运行环境限制，不建立通用渲染系统。兼容画面没有阴影，灯光强度单独降低以保持辨识度；后续试玩应记录所用画面，避免把不同表现条件混为一谈。
+实现目录：`prototypes/002_campfire_respawn/`。`main.ts` 仅负责本 Prototype 的 3D、输入与 UI；`simulation.ts` 保存两个受控对照 Mode 的固定规则。Mode 只是局部联合类型和条件分支，没有通用 Mode Framework。没有其他 Prototype 代码依赖。Three.js 从根 npm 安装，但只被 #002 引用，Launcher 与 #001 不加载它。WebGL 不可用时按需加载 Three.js 官方 SVGRenderer，以相同 3D 几何、相机和规则进行软件投影；兼容画面没有阴影。
+
+## EXP-008 — Blood Moon Respawn
+
+### Hypothesis / Question
+
+如果敌人由明确预告的全局 Blood Moon 周期统一刷新，玩家可能会围绕周期调整推进、返回和战斗时机。问题是：30 秒可预期周期能否产生“赶在刷新前做什么 / 什么时候行动”的节奏感？
+
+### Core Variable / Fixed Comparison
+
+只改变刷新触发：Campfire Mode 为 Rest → 回满 HP + 全敌人重置；Blood Moon Mode 为 Rest → 只回满 HP，Blood Moon → 全敌人重置。地图、窄道、玩家、四敌人、战斗、终点、Trial Failed 与 Restart 全部沿用 EXP-007。
+
+30 秒倒计时在 Mode 开始、切换或 Restart 时重置。最后 10 秒红色环境提示逐渐增强；事件发生时全部敌人同时回出生点、满 HP、复活，存活敌人也重置，Route Cleared 清除。玩家 HP 与位置不变，并获得 0.7 秒接触伤害保护。随后立即开始下一个 30 秒周期。Trial Failed 时玩法和倒计时都冻结。
+
+### Visual Fidelity / Asset Handoff
+
+Level: V2 — Spatial，沿用基线场景。直接加载 Ready 资源 [`assets/blood_moon.gltf`](assets/blood_moon.gltf) 作为周期视觉锚点；格式为 embedded glTF 2.0、Y-up、中心 pivot、无外部依赖。只对整个模型做位置、旋转与缩放，未重新程序建模。完整资产说明见 [`assets/README.md`](assets/README.md)。
+
+### Non-goals
+
+不做昼夜、日历、真实月相、随机时机、敌人 Buff、特殊敌人或 Loot、天气、生态、Boss、音乐、通用世界事件、EXP-009 / EXP-010 / EXP-016、AssetManager、Mode Framework 或 Rule Engine。
+
+### Result — EXP-008
+
+Untested — 技术验收不作为 Player 玩法结论。
+
+- 试玩者、日期、版本与条件：TBD。
+- Observed / Interesting Moment / Boring Moment / Decisions / Unexpected：TBD。
+- Next：等待 Player 正式试玩，之后独立记录 EXP-008 结果并与 EXP-007 比较。
+
+### Technical Acceptance — EXP-008
+
+- 直接对实际 `simulation.ts` 执行规则断言：EXP-007 Rest 基线、Mode 完整重置、EXP-008 heal-only Rest、事件前死亡敌人保持死亡、事件同步重置死亡与存活敌人、玩家 HP / 位置不被事件重置、新 30 秒周期、Trial Failed 冻结、Restart 当前 Mode 全重置，全部通过。
+- Blood Moon 事件后的接触伤害保护固定为 0.7 秒，只用于避免传送重置造成同帧伤害。
+- Ready 资源 `assets/blood_moon.gltf` 保持原文件，已通过 glTF JSON / embedded buffer 结构检查并由 `GLTFLoader` 直接纳入页面；未增加替代几何体或资产系统。
+- `npm run build`：TypeScript 与 Vite MPA 生产构建通过；#001 与 #002 均保留构建入口。
+- Pages 部署、实际 Mode 操作与 WebGL / SVG 兼容画面验收：见本次完成提交后的验收补记。
 
 ### 固定参数与临时条件
 
@@ -145,8 +183,8 @@ MAYBE — 2026-09-11 Player 正式试玩。
 
 ## 2026-09-11 试玩收口与容器定位
 
-EXP-007 已记录 MAYBE，停止继续调整。Prototype #002 显示名称为 Enemy Respawn Lab，目录与 Pages URL 保留 `prototypes/002_campfire_respawn/`。页面直接进入现有 Campfire Respawn Mode，没有 Mode Selector。
+当时 EXP-007 已记录 MAYBE 并停止调整。Prototype #002 显示名称改为 Enemy Respawn Lab，目录与 Pages URL 保留 `prototypes/002_campfire_respawn/`；当时页面直接进入 Campfire Respawn Mode，尚无 Mode Selector。
 
-EXP-008 Blood Moon Respawn、EXP-009 Campfire + Blood Moon Respawn、EXP-010 Time Respawn、EXP-011 Permanent Enemy Death、EXP-012 Ecological Replacement 仅为候选对照 Experiment，均未在本容器实现；后续逐项选择并保持独立结果。
+当时 EXP-008 Blood Moon Respawn、EXP-009 Campfire + Blood Moon Respawn、EXP-010 Time Respawn、EXP-011 Permanent Enemy Death、EXP-012 Ecological Replacement 仅为候选对照 Experiment，均未在本容器实现；此后 EXP-008 已作为独立 Mode 实现，其他候选仍未实现。
 
 本次只更新真实试玩记录、显示名称和状态，不修改地图、玩法、参数或资产。Asset Handoff 适用于后续新资产，现有程序几何不返工。#001 继续保持原样，EXP-001 为 MAYBE。

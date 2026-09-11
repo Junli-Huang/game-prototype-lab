@@ -34,7 +34,7 @@ Experiment 是要验证的问题；Prototype 是回答该问题的可玩实现�
 - EXP-020
 - EXP-021
 
-无默认实施顺序。该池记录最初的 8 个候选；当前 EXP-001 为 MAYBE，EXP-007 为 MAYBE，另 6 项为 READY，其余 39 项为 IDEA；READY 不意味着已经实现，也不代表最终采用倾向。开工前按 [Workflow](workflow.md) 核对实验定义，选择本次要回答的一个问题。
+无默认实施顺序。该池记录最初的 8 个候选；当前 EXP-001、EXP-007 为 MAYBE，EXP-008 为 TESTING，另 5 项为 READY，其余 39 项为 IDEA；READY 不意味着已经实现，也不代表最终采用倾向。开工前按 [Workflow](workflow.md) 核对实验定义，选择本次要回答的一个问题。
 
 ## 实施与对照原则
 
@@ -62,7 +62,7 @@ Experiment 是要验证的问题；Prototype 是回答该问题的可玩实现�
 | EXP-005 | [Box-Level Exploration](#exp-005-box-level-exploration) | Exploration | IDEA |
 | EXP-006 | [Shortcut Unlocking](#exp-006-shortcut-unlocking) | Exploration | IDEA |
 | EXP-007 | [Campfire Respawn](#exp-007-campfire-respawn) | World Refresh | MAYBE |
-| EXP-008 | [Blood Moon Respawn](#exp-008-blood-moon-respawn) | World Refresh | READY |
+| EXP-008 | [Blood Moon Respawn](#exp-008-blood-moon-respawn) | World Refresh | TESTING |
 | EXP-009 | [Campfire + Blood Moon Respawn](#exp-009-campfire--blood-moon-respawn) | World Refresh | IDEA |
 | EXP-010 | [Time Respawn](#exp-010-time-respawn) | World Refresh | IDEA |
 | EXP-011 | [Permanent Enemy Death](#exp-011-permanent-enemy-death) | World Refresh | IDEA |
@@ -498,35 +498,34 @@ Name: Blood Moon Respawn
 
 Category: World Refresh
 
-Status: READY
+Status: TESTING
 
 ### Hypothesis
 
-候选假设（尚未验证）：红月刷新敌人。
-
-待验证的体验预期：世界周期统一刷新可能能形成清晰的行动节奏。
+如果敌人不是由玩家 Rest 主动刷新，而是在一个明确预告的全局 Blood Moon 周期中统一刷新，那么玩家可能会围绕世界周期调整推进、返回和战斗时机，从而形成比 Campfire Respawn 更明显的行动节奏。
 
 ### Core Variable
 
-红月刷新敌人。
+30 秒全局 Blood Moon 周期结束时统一重置全部敌人；Rest 只恢复玩家生命，不改变敌人或倒计时。
 
 ### Question
 
-世界周期统一刷新是否能形成清晰的行动节奏。
+一个明确可预期的全局 Blood Moon 周期，是否会让玩家产生“赶在刷新前做什么 / 什么时候行动”的节奏感？
 
 ### Minimum Scope
 
-- 沿用相同测试条件；固定可见周期结束时统一刷新敌人，恢复规则独立且固定。
-- 只提供验证此问题所需的操作与可读反馈；固定其他条件。
+- 复用 #002 与 EXP-007 相同地图、玩家、敌人、战斗、终点、Trial Failed 与 Restart 条件。
+- Blood Moon Mode、简单 Mode Selector、30 秒可见全局周期、最后 10 秒警告、同步敌人重置与 heal-only Rest。
+- 直接加载 `prototypes/002_campfire_respawn/assets/blood_moon.gltf` 作为事件视觉锚点。
 
 ### Non-goals
 
-- 不制作完整游戏、美术包装、完整装备属性、制作或存档系统。
-- 不引入 Minimum Scope 之外的其他实验机制；必要的场景条件保持固定，不作为本实验结论。
+- 不制作昼夜、日历、真实月相、随机时间、敌人 Buff / 特殊敌人 / Loot、天气、生态、Boss、音乐或通用世界事件系统。
+- 不实现 EXP-009、EXP-010、EXP-016，不建立 AssetManager、Mode Framework 或 Rule Engine。
 
 ### Result
 
-TBD — 尚未试玩。
+Untested — 技术验收完成，等待 Player 正式试玩。
 
 - Observed（实际观察）：TBD
 - 有趣开始的时机：TBD
@@ -537,9 +536,9 @@ TBD — 尚未试玩。
 
 ### Notes
 
-- Prototype：尚无实现。
-- 试玩日期、条件、参数与对照版本：TBD
-- 其他观察：TBD
+- Prototype：[Enemy Respawn Lab / Blood Moon Mode](../prototypes/002_campfire_respawn/README.md)。2026-09-11 READY → BUILDING → TESTING。
+- 对照基线：同容器 EXP-007 Campfire Respawn — MAYBE；只改变敌人刷新触发。
+- 技术条件与验收记录见 Prototype README；玩法结论保持 Untested。
 
 ## EXP-009 Campfire + Blood Moon Respawn
 

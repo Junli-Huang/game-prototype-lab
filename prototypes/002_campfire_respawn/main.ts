@@ -1,7 +1,8 @@
 import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import type { SVGRenderer } from 'three/addons/renderers/SVGRenderer.js';
 import './style.css';
-import { state, tick, attack, rest, restart, nearCamp, CAMP, END, SPAWNS, PASSAGES, PLAYER_HP, type Pawn } from './simulation';
+import { state, tick, attack, rest, restart, switchMode, nearCamp, CAMP, END, SPAWNS, PASSAGES, PLAYER_HP, type Pawn, type RespawnMode } from './simulation';
 
 const canvas = document.querySelector<HTMLCanvasElement>('#world')!;
 const host = document.querySelector<HTMLElement>('#scene')!;
@@ -11,6 +12,11 @@ const alive = document.querySelector<HTMLElement>('#alive')!;
 const message = document.querySelector<HTMLElement>('#message')!;
 const prompt = document.querySelector<HTMLElement>('#camp-prompt')!;
 const route = document.querySelector<HTMLElement>('#route')!;
+const moonTimer = document.querySelector<HTMLElement>('#moon-timer')!;
+const rule = document.querySelector<HTMLElement>('#rule')!;
+const experiment = document.querySelector<HTMLElement>('#experiment')!;
+const status = document.querySelector<HTMLElement>('#status')!;
+const modeButtons = [...document.querySelectorAll<HTMLButtonElement>('[data-mode]')];
 
 async function start() {
   let renderer: THREE.WebGLRenderer | SVGRenderer;
@@ -33,7 +39,8 @@ async function start() {
     document.querySelector<HTMLElement>('#render-note')!.hidden = false;
   }
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color('#b5b9ac');
+  const normalBackground = new THREE.Color('#b5b9ac'), warningBackground = new THREE.Color('#7e6662');
+  scene.background = normalBackground.clone();
   const camera = new THREE.OrthographicCamera(-12, 12, 11, -11, 0.1, 100);
   camera.position.set(0, 27, 21); camera.lookAt(0, 0, -0.7);
   scene.add(context ? new THREE.HemisphereLight('#e6f1e3', '#6e6553', 2.4) : new THREE.AmbientLight('#e6f1e3', 0.65));
@@ -88,6 +95,8 @@ async function start() {
   const endMat = new THREE.MeshStandardMaterial({ color: '#acd8be', emissive: '#457c5e', emissiveIntensity: 0.5, flatShading: true });
   mesh(new THREE.BoxGeometry(0.65, 1.8, 0.5), endMat, END.x, 1, END.z).rotation.z = -0.06;
   mesh(new THREE.BoxGeometry(0.1, 0.9, 0.06), new THREE.MeshBasicMaterial({ color: '#ddf7c7' }), END.x, 1.15, END.z + 0.27);
+  const moon = (await new GLTFLoader().loadAsync(new URL('./assets/blood_moon.gltf', import.meta.url).href)).scene;
+  moon.position.set(-5.4, 6.8, -8.5); moon.scale.setScalar(1.25); scene.add(moon);
 
   function createPawn(player: boolean) {
     const root = new THREE.Group(); scene.add(root);
@@ -125,6 +134,16 @@ async function start() {
   const taps = new Set<string>();
   let mouseAttack = false;
   const clearInput = () => { keys.clear(); taps.clear(); mouseAttack = false; };
+  function selectMode(mode: RespawnMode) {
+    clearInput(); switchMode(mode);
+    modeButtons.forEach(button => {
+      const selected = button.dataset.mode === mode;
+      button.classList.toggle('selected', selected); button.setAttribute('aria-pressed', String(selected));
+    });
+    surface.focus();
+  }
+  modeButtons.forEach(button => button.addEventListener('click', () => selectMode(button.dataset.mode as RespawnMode)));
+  selectMode(state.mode);
   window.addEventListener('keydown', event => {
     if ((event.target as HTMLElement)?.closest('button, a')) return;
     if (['KeyW', 'KeyA', 'KeyS', 'KeyD', 'Space', 'KeyE', 'KeyR', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.code)) event.preventDefault();
@@ -161,10 +180,24 @@ async function start() {
     flame.scale.set(1 + state.firePulse * 0.5, 1 + Math.sin(time * 7) * 0.12 + state.firePulse * 0.6, 1);
     flame.rotation.y = time * 0.4; glow.intensity = context ? 9 + Math.sin(time * 9) + state.firePulse * 18 : 0;
     restRing.scale.setScalar(1 + state.firePulse * 0.4);
+    const bloodMoon = state.mode === 'blood-moon';
+    const urgency = bloodMoon ? Math.max(0, Math.min(1, (10 - state.bloodMoonIn) / 10)) : 0;
+    const eventPulse = state.bloodMoonPulse / 1.2;
+    moon.visible = bloodMoon;
+    moon.rotation.y = time * 0.08;
+    moon.scale.setScalar(1.25 + urgency * 0.55 + Math.sin(eventPulse * Math.PI) * 0.65);
+    (scene.background as THREE.Color).copy(normalBackground).lerp(warningBackground, Math.min(1, urgency * 0.65 + eventPulse * 0.55));
     hp.textContent = `${state.player.hp} / ${PLAYER_HP}`;
     hp.classList.toggle('low', state.player.hp <= 2);
     hearts.textContent = Array.from({ length: PLAYER_HP }, (_, i) => i < state.player.hp ? '●' : '○').join(' ');
     alive.textContent = `${state.enemies.filter(e => e.hp > 0).length} / ${SPAWNS.length}`;
+    moonTimer.hidden = !bloodMoon;
+    moonTimer.textContent = `Blood Moon in ${Math.max(0, Math.ceil(state.bloodMoonIn))}s`;
+    moonTimer.classList.toggle('urgent', urgency > 0);
+    rule.textContent = bloodMoon ? '休息 = 只恢复生命 · Blood Moon = 重置全部敌人' : '休息 = 恢复生命 + 重置全部敌人';
+    prompt.textContent = bloodMoon ? 'E — Rest · 只回满生命，敌人与倒计时不变' : 'E — Rest · 回满生命，敌人全部返回';
+    experiment.textContent = bloodMoon ? 'EXP-008 Blood Moon Respawn' : 'EXP-007 Campfire Respawn';
+    status.textContent = bloodMoon ? 'TESTING' : 'MAYBE';
     message.textContent = state.messageFor > 0 ? state.message : '';
     prompt.hidden = !nearCamp() || state.player.hp === 0;
     route.hidden = !state.cleared;
