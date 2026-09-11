@@ -76,6 +76,20 @@ Prototype 的表现层应服务于体验判断，允许使用低成本但有辨�
 
 只做到足以让玩家感受到当前玩法，不追求接近成品。具体表现层选择与必要反馈记录在 Prototype README 的 Visual Fidelity 中。
 
+### Prototype-local Asset Handoff
+
+如果 Designer / Chat 已经为当前实验制作并提交了简单图片、图标或 Low Poly 3D 资源，应把这些资源视为当前 Prototype 的输入条件，而不是让 Work 再做一次相同的程序建模。
+
+默认放在：
+
+```text
+prototypes/00X_xxx/assets/
+```
+
+并在 Prototype README 的 `Assets / Asset Handoff` 写清路径、格式、用途和必要的朝向 / pivot / scale 信息。Work 默认直接加载 Ready 资源，只做实验需要的 Transform、颜色或整体动作；资源损坏或确实阻碍实验时才做最低成本替换。
+
+简单地面、墙体、路径和碰撞边界仍可程序生成。不要为了资产复用预建 AssetManager、全局资源注册、shared assets、通用 Loader Framework。完整规则见 [Asset Handoff](asset-handoff.md)。
+
 ### Toy / Board-game Motion
 
 角色、怪物和交互对象可以优先采用桌游棋子或玩具式动作语言：
@@ -120,4 +134,4 @@ Experiment 状态维护在 Backlog；有可玩实现后，在 Prototype README �
 
 ## 执行与交接
 
-开发、Review、完成条件及新会话交接遵循 [Workflow](workflow.md)。先确认当前 Experiment / Mode 的问题与变量，再做最小实现；技术验收不等于玩法结论。Prototype README 保存实施和真实试玩记录，所有状态手工同步。
+开发、Review、完成条件及新会话交接遵循 [Workflow](workflow.md) 和 [Asset Handoff](asset-handoff.md)。先确认当前 Experiment / Mode 的问题与变量，再确认已有 Ready Assets，之后做最小实现；技术验收不等于玩法结论。Prototype README 保存实施、资产交接和真实试玩记录，所有状态手工同步。
