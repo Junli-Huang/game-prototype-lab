@@ -111,7 +111,10 @@ Untested — 技术验收不作为 Player 玩法结论。
 - Blood Moon 事件后的接触伤害保护固定为 0.7 秒，只用于避免传送重置造成同帧伤害。
 - Ready 资源 `assets/blood_moon.gltf` 保持原文件，已通过 glTF JSON / embedded buffer 结构检查并由 `GLTFLoader` 直接纳入页面；未增加替代几何体或资产系统。
 - `npm run build`：TypeScript 与 Vite MPA 生产构建通过；#001 与 #002 均保留构建入口。
-- Pages 部署、实际 Mode 操作与 WebGL / SVG 兼容画面验收：见本次完成提交后的验收补记。
+- GitHub Actions / Pages 部署成功（实现提交 `e25dd56`）。线上默认进入 EXP-008；Ready Blood Moon glTF 在场景中正常显示，30 秒倒计时可见，最后 10 秒具有 `urgent` 警告，事件后倒计时进入下一周期。
+- 线上实际操作确认：Blood Moon Mode 在篝火按 E 显示 heal-only 提示且倒计时没有重置；切到 Campfire 显示 EXP-007 / MAYBE、隐藏 Blood Moon 计时与模型并执行完整 Reset；切回 Blood Moon 显示 EXP-008 / TESTING 且从 30 秒开始。
+- 远程 Chrome 禁用 WebGL，以上实际画面验收使用原有 SVGRenderer 兼容分支；WebGL 分支与 GLTFLoader 通过 TypeScript / Vite 构建和代码路径检查，但 GPU 阴影画面仍需 Player 桌面浏览器确认。
+- 验收后停止功能开发。EXP-008 保持 TESTING / Result: Untested；EXP-007 历史玩法与 MAYBE Result 未改。
 
 ### 固定参数与临时条件
 

@@ -538,7 +538,7 @@ Untested — 技术验收完成，等待 Player 正式试玩。
 
 - Prototype：[Enemy Respawn Lab / Blood Moon Mode](../prototypes/002_campfire_respawn/README.md)。2026-09-11 READY → BUILDING → TESTING。
 - 对照基线：同容器 EXP-007 Campfire Respawn — MAYBE；只改变敌人刷新触发。
-- 技术条件与验收记录见 Prototype README；玩法结论保持 Untested。
+- 技术条件与验收记录见 Prototype README；规则断言、构建、GitHub Actions / Pages 及 SVG 兼容画面操作通过。WebGL GPU 画面待 Player 桌面浏览器确认；玩法结论保持 Untested。
 
 ## EXP-009 Campfire + Blood Moon Respawn
 
