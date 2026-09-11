@@ -157,7 +157,11 @@ Light / Heavy 共用现有 #001 的 6×8 棋盘、拖拽、R 旋转、越界/重
 - Locked Equipment 使用 Ready SVG，参与 Loot 合法性判断但不可操作；Loot 继续使用原拖拽、旋转、回退、重排与丢弃路径。
 - Summary 独立报告 Loadout、Equipment Area、Loot Kept、Loot Value Kept 与 Loot Discarded，不提供分数或正确 Loadout。
 - EXP-001 Mode 仍使用原 12 件、60 格固定序列和原 MAYBE Result；切回时不含 Equipment，操作说明恢复为“物品”。
-- `npm run build` 通过；Pages 实际资源与交互验收记录将在部署后补充。
+- `npm run build` 通过；GitHub Pages 实现提交 `de466e7` 部署成功。线上默认进入 EXP-003 Light，标题、状态、占格统计与 1 / 7 当前 Loot 正确。
+- 线上核对 Light 的 Sidearm / Medkit 与 Heavy 的 Rifle / Armor / Medkit：名称、尺寸、位置和 3 / 48、11 / 48 均正确；四个构建后 SVG 地址分别返回 HTTP 200，画面可见。
+- 线上实际将装备拖向丢弃区，位置、数量、进度与丢弃列表不变；将当前 Loot 放到装备占格会被拒绝并完整回到 Tray。
+- Light 与 Heavy 均逐件完成同一顺序：罐装肉、废旧电池、机械零件、未知组织、黑色遗物、木板、密封仪器；两个条件都到达 7 / 7 并显示各自 Loadout / Equipment Area / Loot Kept / Value / Discarded Summary。
+- 切回 Spatial Placement 后确认 EXP-001 · MAYBE、无 Locked Equipment、Loadout 控件隐藏、原第一件急救药与 1 / 12 进度恢复。未填写 EXP-003 Player 玩法结论。
 
 ### Non-goals / Next
 
