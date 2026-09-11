@@ -1,7 +1,7 @@
 # Prototype 00X - XXX
 
 > 复制到 `prototypes/00X_xxx/README.md`。本文是实验实施记录 + 试玩记录，不是完整游戏设计文档。
-> 开始前阅读 [Workflow](workflow.md)（复制到 Prototype 目录后将链接改为 `../../docs/workflow.md`）。默认一个 Prototype 可只承载一个 Experiment；高度相关的竞争实验也可以作为独立 Experiment Mode 共享同一测试场景。
+> 开始前阅读 [Workflow](workflow.md)（复制到 Prototype 目录后将链接改为 `../../docs/workflow.md`）和 [Asset Handoff](asset-handoff.md)（复制后改为 `../../docs/asset-handoff.md`）。默认一个 Prototype 可只承载一个 Experiment；高度相关的竞争实验也可以作为独立 Experiment Mode 共享同一测试场景。
 
 ## Prototype Name
 
@@ -83,6 +83,33 @@ Required Feedback:
 
 参考：V0 为程序绘图与抽象 UI；V1 为简单图片、图标、基础音效与程序化动作；V2 为 Low Poly 3D、基础灯光与空间表现。只做当前问题必需的反馈，不要求正式动画或完整资产。
 
+## Assets / Asset Handoff
+
+Asset Status: None / Partial / Ready
+
+若 Designer / Chat 已经准备资源，必须列出实际仓库路径；Work 默认直接加载使用，不重新制作同一个对象。规则见 [Asset Handoff](../../docs/asset-handoff.md)。
+
+| Asset | Path | Format | Purpose | Notes |
+| --- | --- | --- | --- | --- |
+| XXX | `prototypes/00X_xxx/assets/xxx.gltf` | glTF | XXX | forward / up / pivot / scale 等必要说明 |
+
+Work Instructions:
+
+- Ready 资源：直接加载；只做当前实验需要的 position / rotation / scale / tint / whole-object motion。
+- 不用 Three.js primitive、Canvas 或其它方式重新制作同一对象，除非现有资源确实阻碍 Experiment Question。
+- 简单地面、墙体、路径、碰撞边界等仍可使用程序几何，不要求全部资产化。
+- 不建立 AssetManager、全局 Asset Registry、shared assets 或通用 Loader Framework。
+- 若资源无法使用，记录原因和最低成本替代方案。
+
+若没有预制资源，写：
+
+```text
+Asset Status: None
+Assets Ready: None
+```
+
+此时 Work 才自行使用最低成本临时表现。
+
 ## Controls
 
 - 启动与入口：XXX
@@ -97,10 +124,11 @@ Required Feedback:
 - 已实现的其他 Mode（若有）：XXX
 - 共享固定条件：XXX
 - 当前 Mode 独有规则：XXX
+- Assets：哪些 Ready 资源已加载 / 哪些未使用及原因：XXX
 - 固定参数 / 临时实验条件及理由：XXX（不代表最终设计）
 - 已完成：XXX
 - 阻碍试玩的问题：XXX / 无
-- 技术验证（启动、操作、变量、Mode Reset、build、Pages）：待验证
+- 技术验证（启动、操作、变量、Mode Reset、资源加载、build、Pages）：待验证
 - 部署地址与状态：尚未部署
 
 ## Result — EXP-XXX / Mode XXX
@@ -126,6 +154,7 @@ Required Feedback:
 - 其他已实现 Mode 与状态：XXX
 - 当前进度与未解决事项：XXX
 - 共享固定条件与 Mode 独有变量：XXX
+- Assets Ready：资源路径、用途、加载状态；新 Work 不重复制作已 Ready 资源。
 - Mode Reset / Restart 规则：XXX
 - 下一步及理由：XXX
 - 若 Iterate：为什么改、改变哪个变量、预期回答什么？
