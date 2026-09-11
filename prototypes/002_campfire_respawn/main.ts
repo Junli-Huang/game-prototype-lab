@@ -100,9 +100,13 @@ async function start() {
   mesh(new THREE.BoxGeometry(0.1, 0.9, 0.06), new THREE.MeshBasicMaterial({ color: '#ddf7c7' }), END.x, 1.15, END.z + 0.27);
   const moon = (await new GLTFLoader().loadAsync(new URL('./assets/blood_moon.gltf', import.meta.url).href)).scene;
   moon.position.set(-5.4, 6.8, -8.5); moon.scale.setScalar(1.25); scene.add(moon);
-  const resourceFiles = ['./assets/common_herb.gltf', './assets/supply_cache.gltf', './assets/ore_node.gltf'];
-  const resourceViews = await Promise.all(resourceFiles.map(async (file, index) => {
-    const model = (await new GLTFLoader().loadAsync(new URL(file, import.meta.url).href)).scene;
+  const resourceUrls = [
+    new URL('./assets/common_herb.gltf', import.meta.url).href,
+    new URL('./assets/supply_cache.gltf', import.meta.url).href,
+    new URL('./assets/ore_node.gltf', import.meta.url).href,
+  ];
+  const resourceViews = await Promise.all(resourceUrls.map(async (url, index) => {
+    const model = (await new GLTFLoader().loadAsync(url)).scene;
     const point = RESOURCE_POINTS[index];
     model.position.set(point.x, index === 2 ? 0.08 : 0, point.z);
     model.scale.setScalar(index === 0 ? 0.7 : 0.78);
