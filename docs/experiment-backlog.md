@@ -34,7 +34,7 @@ Experiment 是要验证的问题；Prototype 是回答该问题的可玩实现�
 - EXP-020
 - EXP-021
 
-无默认实施顺序。该池记录最初的 8 个候选；当前 EXP-001、EXP-007 为 MAYBE，EXP-008 为 TESTING，另 5 项为 READY，其余 39 项为 IDEA；READY 不意味着已经实现，也不代表最终采用倾向。开工前按 [Workflow](workflow.md) 核对实验定义，选择本次要回答的一个问题。
+无默认实施顺序。该池记录最初的 8 个候选；当前 EXP-001 为 MAYBE，EXP-007 / EXP-008 的 R2 条件为 TESTING，另 5 项为 READY，其余 39 项为 IDEA；READY 不意味着已经实现，也不代表最终采用倾向。开工前按 [Workflow](workflow.md) 核对实验定义，选择本次要回答的一个问题。
 
 ## 实施与对照原则
 
@@ -61,8 +61,8 @@ Experiment 是要验证的问题；Prototype 是回答该问题的可玩实现�
 | EXP-004 | [Fixed Map Exploration](#exp-004-fixed-map-exploration) | Exploration | IDEA |
 | EXP-005 | [Box-Level Exploration](#exp-005-box-level-exploration) | Exploration | IDEA |
 | EXP-006 | [Shortcut Unlocking](#exp-006-shortcut-unlocking) | Exploration | IDEA |
-| EXP-007 | [Campfire Respawn](#exp-007-campfire-respawn) | World Refresh | MAYBE |
-| EXP-008 | [Blood Moon Respawn](#exp-008-blood-moon-respawn) | World Refresh | TESTING |
+| EXP-007 | [Campfire World Refresh](#exp-007-campfire-world-refresh) | World Refresh | TESTING |
+| EXP-008 | [Blood Moon World Refresh](#exp-008-blood-moon-world-refresh) | World Refresh | TESTING |
 | EXP-009 | [Campfire + Blood Moon Respawn](#exp-009-campfire--blood-moon-respawn) | World Refresh | IDEA |
 | EXP-010 | [Time Respawn](#exp-010-time-respawn) | World Refresh | IDEA |
 | EXP-011 | [Permanent Enemy Death](#exp-011-permanent-enemy-death) | World Refresh | IDEA |
@@ -424,15 +424,15 @@ TBD — 尚未试玩。
 
 # World Refresh
 
-## EXP-007 Campfire Respawn
+## EXP-007 Campfire World Refresh
 
 ID: EXP-007
 
-Name: Campfire Respawn
+Name: Campfire World Refresh
 
 Category: World Refresh
 
-Status: MAYBE
+Status: TESTING
 
 ### Hypothesis
 
@@ -469,6 +469,10 @@ Status: MAYBE
 
 ### Result
 
+R2 Result: Untested — World Refresh Profile R2 等待 Player 对照试玩；技术验收不构成玩法结论。
+
+R1 历史 Result（保留）：
+
 MAYBE — 2026-09-11 Player 正式试玩。
 
 整体反馈：
@@ -488,13 +492,14 @@ MAYBE — 2026-09-11 Player 正式试玩。
 - Prototype：[Enemy Respawn Lab](../prototypes/002_campfire_respawn/README.md)，2026-09-10 READY → BUILDING → TESTING；已完成规则、构建与 Pages 兼容画面操作验收。WebGL 阴影画面未在远程环境实测，详见 Prototype README。
 - 2026-09-11 验收修正：三段岩壁窄道 + 活敌实体阻挡；死亡改为 Trial Failed，只有 Restart 重试。战斗与 Rest 数值不变，当时保持 TESTING / Untested（技术验收历史）。
 - 2026-09-11 Player 正式试玩当前线上修正版：TESTING → MAYBE。停止调整 EXP-007，保留当前可玩版本；固定条件与参数见 Prototype README。
+- 2026-09-11 World Refresh Profile R2：MAYBE → TESTING。R1 的 MAYBE 与原始反馈不覆盖；R2 与 EXP-008 使用同一 ON / ON Profile，仅 Rest 触发不同，Result: Untested。
 - 其他观察：TBD
 
-## EXP-008 Blood Moon Respawn
+## EXP-008 Blood Moon World Refresh
 
 ID: EXP-008
 
-Name: Blood Moon Respawn
+Name: Blood Moon World Refresh
 
 Category: World Refresh
 
@@ -525,7 +530,7 @@ Status: TESTING
 
 ### Result
 
-Untested — 技术验收完成，等待 Player 正式试玩。
+R2 Result: Untested — 技术验收完成后等待 Player 与 EXP-007 使用相同 Refresh Profile 对照试玩。
 
 - Observed（实际观察）：TBD
 - 有趣开始的时机：TBD
@@ -538,6 +543,7 @@ Untested — 技术验收完成，等待 Player 正式试玩。
 
 - Prototype：[Enemy Respawn Lab / Blood Moon Mode](../prototypes/002_campfire_respawn/README.md)。2026-09-11 READY → BUILDING → TESTING。
 - 对照基线：同容器 EXP-007 Campfire Respawn — MAYBE；只改变敌人刷新触发。
+- World Refresh Profile R2：Enemies / Common Resources 默认 ON；与 EXP-007 完全共享刷新内容，只保留 Blood Moon Trigger 差异。未填写 Player 结论。
 - 技术条件与验收记录见 Prototype README；规则断言、构建、GitHub Actions / Pages 及 SVG 兼容画面操作通过。WebGL GPU 画面待 Player 桌面浏览器确认；玩法结论保持 Untested。
 
 ## EXP-009 Campfire + Blood Moon Respawn

@@ -8,9 +8,15 @@ export const ATTACK_COOLDOWN = 0.48;
 export const INVULNERABILITY = 0.95;
 export const BLOOD_MOON_CYCLE = 30;
 export type RespawnMode = 'campfire' | 'blood-moon';
+export type RefreshProfile = { enemies: boolean; commonResources: boolean };
 export const CAMP = { x: 0, z: 10 };
 export const END = { x: 0, z: -12 };
 export const SPAWNS = [{ x: 0, z: 5 }, { x: -0.25, z: 0 }, { x: 0.25, z: -1.5 }, { x: 0, z: -7 }];
+export const RESOURCE_POINTS = [
+  { id: 'herb', name: 'Common Herb', x: 1.5, z: 8.1 },
+  { id: 'supply', name: 'Supply Cache', x: -1.5, z: -3.9 },
+  { id: 'ore', name: 'Ore Node', x: 1.5, z: -9.8 },
+] as const;
 // Fixed rock passages, not encounter gates. Bounds include pawn radius.
 export const PASSAGES = [{ min: 3, max: 7 }, { min: -3, max: 2 }, { min: -9, max: -5 }];
 const BODY_DISTANCE = 0.8;
@@ -24,12 +30,21 @@ export const state = {
   mode: 'blood-moon' as RespawnMode,
   player: pawn(CAMP.x, CAMP.z + 1, PLAYER_HP),
   enemies: SPAWNS.map(p => pawn(p.x, p.z, ENEMY_HP)),
+  refreshProfile: { enemies: true, commonResources: true } as RefreshProfile,
+  resources: RESOURCE_POINTS.map(() => true), resourcesCollected: 0,
+  resourcePickupGrace: 0,
   invulnerable: 0, cooldown: 0, firePulse: 0, bloodMoonPulse: 0, bloodMoonIn: BLOOD_MOON_CYCLE, cleared: false,
   message: 'Blood Moon in 30s · 休息只恢复生命。', messageFor: 6,
 };
 export function announce(message: string, seconds = 3) { state.message = message; state.messageFor = seconds; }
 export function nearCamp() { return Math.hypot(state.player.x - CAMP.x, state.player.z - CAMP.z) < 2; }
 function resetEnemies() { state.enemies = SPAWNS.map(p => pawn(p.x, p.z, ENEMY_HP)); }
+function resetResources() { state.resources = RESOURCE_POINTS.map(() => true); }
+function applyWorldRefresh() {
+  if (state.refreshProfile.enemies) resetEnemies();
+  if (state.refreshProfile.commonResources) { resetResources(); state.resourcePickupGrace = 0.6; }
+  state.cleared = false;
+}
 function openingMessage() {
   return state.mode === 'campfire'
     ? '向北出发。休息会恢复生命，也会重置所有敌人。'
@@ -39,18 +54,23 @@ export function restart(mode: RespawnMode = state.mode) {
   state.mode = mode;
   Object.assign(state.player, pawn(CAMP.x, CAMP.z + 1, PLAYER_HP));
   resetEnemies(); state.invulnerable = 0; state.cooldown = 0; state.firePulse = 0; state.bloodMoonPulse = 0;
+  resetResources(); state.resourcesCollected = 0; state.resourcePickupGrace = 0;
   state.bloodMoonIn = BLOOD_MOON_CYCLE; state.cleared = false;
   announce(openingMessage(), 6);
 }
 export function switchMode(mode: RespawnMode) { restart(mode); }
+export function setRefreshProfile(key: keyof RefreshProfile, enabled: boolean) {
+  state.refreshProfile[key] = enabled;
+  restart();
+}
 export function rest() {
   if (state.player.hp <= 0 || !nearCamp()) return false;
   state.player.hp = PLAYER_HP;
   state.firePulse = 1;
   if (state.mode === 'campfire') {
     state.player.hit = 0; state.invulnerable = 0;
-    resetEnemies(); state.cleared = false;
-    announce('Rested · 生命恢复 — Enemies returned · 所有敌人已重置', 4);
+    applyWorldRefresh();
+    announce('Rested · 生命恢复 — 已应用 Refresh Profile', 4);
   } else {
     announce('Rested · 生命恢复 — 敌人与 Blood Moon 倒计时不变', 4);
   }
@@ -89,14 +109,15 @@ export function tick(dt: number, dx: number, dz: number) {
   const p = state.player;
   if (p.hp <= 0) { p.moving = false; p.deadFor = Math.min(0.3, p.deadFor + dt); return; }
   state.messageFor = Math.max(0, state.messageFor - dt); state.firePulse = Math.max(0, state.firePulse - dt);
+  state.resourcePickupGrace = Math.max(0, state.resourcePickupGrace - dt);
   state.bloodMoonPulse = Math.max(0, state.bloodMoonPulse - dt);
   if (state.mode === 'blood-moon') {
     state.bloodMoonIn -= dt;
     if (state.bloodMoonIn <= 0) {
-      resetEnemies(); state.cleared = false; state.invulnerable = Math.max(state.invulnerable, 0.7);
+      applyWorldRefresh(); state.invulnerable = Math.max(state.invulnerable, 0.7);
       state.bloodMoonPulse = 1.2;
       do state.bloodMoonIn += BLOOD_MOON_CYCLE; while (state.bloodMoonIn <= 0);
-      announce('Blood Moon · Enemies returned · 所有敌人同时重置', 4);
+      announce('Blood Moon · 已应用 Refresh Profile', 4);
     }
   }
   state.cooldown = Math.max(0, state.cooldown - dt); state.invulnerable = Math.max(0, state.invulnerable - dt);
@@ -104,6 +125,13 @@ export function tick(dt: number, dx: number, dz: number) {
   const length = Math.hypot(dx, dz);
   p.moving = length > 0;
   if (length) { movePlayer(dx / length * MOVE_SPEED * dt, dz / length * MOVE_SPEED * dt); p.facing = Math.atan2(dx, dz); }
+  RESOURCE_POINTS.forEach((resource, index) => {
+    if (state.resourcePickupGrace === 0 && state.resources[index] && Math.hypot(p.x - resource.x, p.z - resource.z) < 0.82) {
+      state.resources[index] = false;
+      state.resourcesCollected++;
+      announce(`${resource.name} collected · Total ${state.resourcesCollected}`, 2.5);
+    }
+  });
   for (const e of state.enemies) {
     e.moving = false;
     if (!e.hp) { e.deadFor += dt; continue; }

@@ -2,13 +2,15 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import type { SVGRenderer } from 'three/addons/renderers/SVGRenderer.js';
 import './style.css';
-import { state, tick, attack, rest, restart, switchMode, nearCamp, CAMP, END, SPAWNS, PASSAGES, PLAYER_HP, type Pawn, type RespawnMode } from './simulation';
+import { state, tick, attack, rest, restart, switchMode, setRefreshProfile, nearCamp, CAMP, END, SPAWNS, PASSAGES, RESOURCE_POINTS, PLAYER_HP, type Pawn, type RespawnMode } from './simulation';
 
 const canvas = document.querySelector<HTMLCanvasElement>('#world')!;
 const host = document.querySelector<HTMLElement>('#scene')!;
 const hp = document.querySelector<HTMLElement>('#hp')!;
 const hearts = document.querySelector<HTMLElement>('#hearts')!;
 const alive = document.querySelector<HTMLElement>('#alive')!;
+const resourceTotal = document.querySelector<HTMLElement>('#resource-total')!;
+const resourceAvailable = document.querySelector<HTMLElement>('#resource-available')!;
 const message = document.querySelector<HTMLElement>('#message')!;
 const prompt = document.querySelector<HTMLElement>('#camp-prompt')!;
 const route = document.querySelector<HTMLElement>('#route')!;
@@ -17,6 +19,7 @@ const rule = document.querySelector<HTMLElement>('#rule')!;
 const experiment = document.querySelector<HTMLElement>('#experiment')!;
 const status = document.querySelector<HTMLElement>('#status')!;
 const modeButtons = [...document.querySelectorAll<HTMLButtonElement>('[data-mode]')];
+const profileInputs = [...document.querySelectorAll<HTMLInputElement>('[data-profile]')];
 
 async function start() {
   let renderer: THREE.WebGLRenderer | SVGRenderer;
@@ -97,6 +100,16 @@ async function start() {
   mesh(new THREE.BoxGeometry(0.1, 0.9, 0.06), new THREE.MeshBasicMaterial({ color: '#ddf7c7' }), END.x, 1.15, END.z + 0.27);
   const moon = (await new GLTFLoader().loadAsync(new URL('./assets/blood_moon.gltf', import.meta.url).href)).scene;
   moon.position.set(-5.4, 6.8, -8.5); moon.scale.setScalar(1.25); scene.add(moon);
+  const resourceFiles = ['./assets/common_herb.gltf', './assets/supply_cache.gltf', './assets/ore_node.gltf'];
+  const resourceViews = await Promise.all(resourceFiles.map(async (file, index) => {
+    const model = (await new GLTFLoader().loadAsync(new URL(file, import.meta.url).href)).scene;
+    const point = RESOURCE_POINTS[index];
+    model.position.set(point.x, index === 2 ? 0.08 : 0, point.z);
+    model.scale.setScalar(index === 0 ? 0.7 : 0.78);
+    model.traverse(object => { if (object instanceof THREE.Mesh) { object.castShadow = true; object.receiveShadow = true; } });
+    scene.add(model);
+    return model;
+  }));
 
   function createPawn(player: boolean) {
     const root = new THREE.Group(); scene.add(root);
@@ -143,6 +156,11 @@ async function start() {
     surface.focus();
   }
   modeButtons.forEach(button => button.addEventListener('click', () => selectMode(button.dataset.mode as RespawnMode)));
+  profileInputs.forEach(input => input.addEventListener('change', () => {
+    clearInput();
+    setRefreshProfile(input.dataset.profile as 'enemies' | 'commonResources', input.checked);
+    surface.focus();
+  }));
   selectMode(state.mode);
   window.addEventListener('keydown', event => {
     if ((event.target as HTMLElement)?.closest('button, a')) return;
@@ -177,6 +195,10 @@ async function start() {
     const time = now / 1000;
     drawPawn(playerView, state.player, time, true);
     state.enemies.forEach((e, i) => drawPawn(enemyViews[i], e, time + i, false));
+    resourceViews.forEach((view, index) => {
+      view.visible = state.resources[index];
+      view.rotation.y = Math.sin(time * 0.8 + index) * 0.08;
+    });
     flame.scale.set(1 + state.firePulse * 0.5, 1 + Math.sin(time * 7) * 0.12 + state.firePulse * 0.6, 1);
     flame.rotation.y = time * 0.4; glow.intensity = context ? 9 + Math.sin(time * 9) + state.firePulse * 18 : 0;
     restRing.scale.setScalar(1 + state.firePulse * 0.4);
@@ -191,13 +213,16 @@ async function start() {
     hp.classList.toggle('low', state.player.hp <= 2);
     hearts.textContent = Array.from({ length: PLAYER_HP }, (_, i) => i < state.player.hp ? '●' : '○').join(' ');
     alive.textContent = `${state.enemies.filter(e => e.hp > 0).length} / ${SPAWNS.length}`;
+    resourceTotal.textContent = String(state.resourcesCollected);
+    resourceAvailable.textContent = `${state.resources.filter(Boolean).length} / ${RESOURCE_POINTS.length}`;
+    profileInputs.forEach(input => { input.checked = state.refreshProfile[input.dataset.profile as 'enemies' | 'commonResources']; });
     moonTimer.hidden = !bloodMoon;
     moonTimer.textContent = `Blood Moon in ${Math.max(0, Math.ceil(state.bloodMoonIn))}s`;
     moonTimer.classList.toggle('urgent', urgency > 0);
-    rule.textContent = bloodMoon ? '休息 = 只恢复生命 · Blood Moon = 重置全部敌人' : '休息 = 恢复生命 + 重置全部敌人';
-    prompt.textContent = bloodMoon ? 'E — Rest · 只回满生命，敌人与倒计时不变' : 'E — Rest · 回满生命，敌人全部返回';
-    experiment.textContent = bloodMoon ? 'EXP-008 Blood Moon Respawn' : 'EXP-007 Campfire Respawn';
-    status.textContent = bloodMoon ? 'TESTING' : 'MAYBE';
+    rule.textContent = bloodMoon ? 'Rest = 只恢复生命 · Blood Moon = 应用 Refresh Profile' : 'Rest = 恢复生命 + 应用 Refresh Profile';
+    prompt.textContent = bloodMoon ? 'E — Rest · 只回满生命，世界状态不变' : 'E — Rest · 回满生命并应用 Refresh Profile';
+    experiment.textContent = bloodMoon ? 'EXP-008 Blood Moon World Refresh' : 'EXP-007 Campfire World Refresh';
+    status.textContent = 'R2 TESTING';
     message.textContent = state.messageFor > 0 ? state.message : '';
     prompt.hidden = !nearCamp() || state.player.hp === 0;
     route.hidden = !state.cleared;

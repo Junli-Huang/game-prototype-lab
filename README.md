@@ -2,7 +2,7 @@
 
 快速游戏玩法实验室。Small experiments for finding fun.
 
-V0.2.3 — Experiment Modes & Asset Handoff。[Prototype #001：空间背包](prototypes/001_spatial_backpack/README.md) 对应 EXP-001，当前 MAYBE。[Prototype #002：Enemy Respawn Lab](prototypes/002_campfire_respawn/README.md) 已实现 EXP-007 Campfire Respawn — MAYBE 与 EXP-008 Blood Moon Respawn — TESTING，当前默认进入 EXP-008。
+V0.2.3 — Experiment Modes & Asset Handoff。[Prototype #001：空间背包](prototypes/001_spatial_backpack/README.md) 对应 EXP-001，当前 MAYBE。[Prototype #002：Enemy Respawn Lab](prototypes/002_campfire_respawn/README.md) 已进入 EXP-007 / EXP-008 World Refresh Profile R2 对照测试，两个 R2 Result 均为 Untested；EXP-007 的 R1 MAYBE 历史结果保留。
 
 - **game-dev-lab / Game Tech Prototype**：验证技术、机制、实现方案是否可行。
 - **game-prototype-lab / Game Prototype**：验证某个玩法假设是否有趣。
@@ -11,7 +11,7 @@ V0.2.3 — Experiment Modes & Asset Handoff。[Prototype #001：空间背包](pr
 
 ## Experiment Backlog
 
-[查看全部 47 个实验课题](docs/experiment-backlog.md)。首批候选中 EXP-001、EXP-007 为 MAYBE，EXP-008 为 TESTING，5 项为 READY，其余 39 项为 IDEA。任何候选机制都不是最终设计。
+[查看全部 47 个实验课题](docs/experiment-backlog.md)。首批候选中 EXP-001 为 MAYBE，EXP-007 / EXP-008 的当前 R2 条件为 TESTING，5 项为 READY，其余 39 项为 IDEA。任何候选机制都不是最终设计。
 
 Experiment 是待回答的问题；Prototype 是可玩的测试容器。默认一个 Prototype 可以只承载一个 Experiment；高度相关、需要公平对照的竞争 Experiment 也可以共享同一 Prototype，以独立 Experiment Mode 切换测试。
 

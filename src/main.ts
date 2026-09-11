@@ -16,9 +16,9 @@ interface PrototypeEntry {
 const prototypes: PrototypeEntry[] = [
   {
     id: '002',
-    name: 'Enemy Respawn Lab · EXP-008 Blood Moon Respawn',
+    name: 'Enemy Respawn Lab · EXP-007 / EXP-008 World Refresh R2',
     status: 'TESTING',
-    hypothesis: '明确预告的全局刷新周期，是否会让玩家围绕事件调整行动时机？',
+    hypothesis: '同一 World Refresh Profile 由主动 Rest 或全局 Blood Moon 触发，会形成怎样不同的行动节奏？',
     url: 'prototypes/002_campfire_respawn/',
   },{ id: '001', name: 'Spatial Backpack Placement · EXP-001', status: 'MAYBE', hypothesis: '有限二维空间中的摆放与取舍，是否能让背包整理本身产生乐趣？', url: 'prototypes/001_spatial_backpack/' }];
 

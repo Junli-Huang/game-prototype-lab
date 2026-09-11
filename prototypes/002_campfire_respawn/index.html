@@ -1,11 +1,12 @@
 <!doctype html>
 <html lang="zh-CN">
-<head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Enemy Respawn Lab · EXP-008 Blood Moon Respawn</title></head>
+<head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Enemy Respawn Lab · World Refresh Profile R2</title></head>
 <body>
-<header><a href="../../">← Lab</a><div><h1>Enemy Respawn Lab</h1><p>#002 · <span id="experiment">EXP-008 Blood Moon Respawn</span> · <span id="status">TESTING</span></p></div><button id="restart" type="button">Restart <kbd>R</kbd></button></header>
+<header><a href="../../">← Lab</a><div><h1>Enemy Respawn Lab</h1><p>#002 · <span id="experiment">EXP-008 Blood Moon World Refresh</span> · <span id="status">R2 TESTING</span></p></div><button id="restart" type="button">Restart <kbd>R</kbd></button></header>
 <main>
   <nav class="modes" aria-label="Respawn Mode"><span>Respawn Mode</span><button type="button" data-mode="campfire">Campfire</button><button type="button" data-mode="blood-moon" class="selected">Blood Moon</button></nav>
-  <div class="topline"><div><span class="label">生命 / HP</span><strong id="hp">5 / 5</strong><span id="hearts" aria-hidden="true">● ● ● ● ●</span></div><div><span class="label">Enemies alive</span><strong id="alive">4 / 4</strong></div><strong id="moon-timer">Blood Moon in 30s</strong><p id="rule">休息 = 只恢复生命 · Blood Moon = 重置全部敌人</p></div>
+  <section class="profile" aria-label="World Refresh Profile"><strong>World Refresh Profile</strong><label><input type="checkbox" data-profile="enemies" checked /> Enemies</label><label><input type="checkbox" data-profile="commonResources" checked /> Common Resources</label><small>切换选项会完整重置当前测试；切换 Mode 与 Restart 会保留选择。</small></section>
+  <div class="topline"><div><span class="label">生命 / HP</span><strong id="hp">5 / 5</strong><span id="hearts" aria-hidden="true">● ● ● ● ●</span></div><div><span class="label">Enemies alive</span><strong id="alive">4 / 4</strong></div><div><span class="label">Resources · Total / Available</span><strong><span id="resource-total">0</span> / <span id="resource-available">3 / 3</span></strong></div><strong id="moon-timer">Blood Moon in 30s</strong><p id="rule">Rest = 只恢复生命 · Blood Moon = 应用 Refresh Profile</p></div>
   <div id="scene"><canvas id="world" tabindex="0" aria-label="篝火实验 3D 场景。WASD 移动，空格攻击，E 休息。"></canvas><div id="message" role="status"></div><div id="camp-prompt">E — Rest · 回满生命，敌人全部返回</div><div id="failed" role="status" hidden><strong>Trial Failed</strong><p>本次尝试结束</p><span>R / Restart — Retry</span></div><div id="route" hidden>Route Cleared</div><p id="unavailable" hidden>无法启动 3D 场景。请刷新页面，或换用现代桌面浏览器。</p></div>
   <footer><p><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> 移动 · <kbd>Space</kbd> / 左键 向面朝方向攻击 · <kbd>E</kbd> 篝火休息 · <kbd>R</kbd> 重开</p><p><span id="render-note" hidden>兼容画面 · 无阴影<br></span>蓝色棋子是你 · 向北到达石碑 · 按住 Space 可连续攻击</p></footer>
 </main><script type="module" src="./main.ts"></script>

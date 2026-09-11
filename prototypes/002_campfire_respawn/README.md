@@ -8,14 +8,14 @@ Enemy Respawn Lab
 
 | Mode | Experiment | Status | Core Variable |
 | --- | --- | --- | --- |
-| Campfire Respawn | [EXP-007](../../docs/experiment-backlog.md#exp-007-campfire-respawn) | MAYBE | Rest → 恢复玩家 + 重置全部敌人 |
-| Blood Moon Respawn | [EXP-008](../../docs/experiment-backlog.md#exp-008-blood-moon-respawn) | TESTING | Blood Moon → 重置全部敌人；Rest → 只恢复玩家 |
+| Campfire World Refresh | [EXP-007](../../docs/experiment-backlog.md#exp-007-campfire-world-refresh) | R2 TESTING | Rest → 恢复玩家 + 应用同一 Refresh Profile |
+| Blood Moon World Refresh | [EXP-008](../../docs/experiment-backlog.md#exp-008-blood-moon-world-refresh) | R2 TESTING | Blood Moon → 应用同一 Refresh Profile；Rest → 只恢复玩家 |
 
-当前默认 Mode：EXP-008 Blood Moon Respawn。本文件保存各实验独立的实施与试玩记录，遵循 [Workflow](../../docs/workflow.md)。
+当前默认 Mode：EXP-008 Blood Moon World Refresh。本文件保存各实验独立的实施与试玩记录，遵循 [Workflow](../../docs/workflow.md)。
 
 ## Status
 
-当前已实现 Mode：EXP-007 — MAYBE；EXP-008 — TESTING / Result: Untested。
+当前已实现 Mode：EXP-007 / EXP-008 — R2 TESTING / Result: Untested。EXP-007 的敌人-only R1 Player 结果仍为 MAYBE，完整保留在下方历史记录中。
 当前没有 BUILDING 中的 Experiment。两个 Mode 均可试玩，切换会完整重置测试场景。
 
 ## Gameplay Hypothesis
@@ -168,6 +168,40 @@ MAYBE — 2026-09-11 Player 正式试玩。
 - Next：停止继续调整 EXP-007，保留 MAYBE；后续与其他 Enemy Respawn 规则进行受控比较。
 
 试玩条件：2026-09-11 当前线上验收修正版（三段窄道、Trial Failed）；Player 未报告浏览器或渲染分支，不作推测。
+
+## World Refresh Profile R2（2026-09-11）
+
+R2 是 EXP-007 / EXP-008 的受控对照修订。两个 Mode 使用同一地图、玩家与战斗参数、敌人与出生点、三件 Common Resource、Refresh Profile、终点、Trial Failed、Mode Reset 与 Restart；唯一变量仍是 World Refresh Trigger。
+
+| Mode | Player restore | World Refresh trigger |
+| --- | --- | --- |
+| EXP-007 Campfire World Refresh | Rest → HP Full | Rest |
+| EXP-008 Blood Moon World Refresh | Rest → HP Full | 30 秒 Blood Moon |
+
+Refresh Profile 默认采用 Designer 建议条件：`Enemies = ON`、`Common Resources = ON`。改变任一选项会立即完整重置当前测试；Mode 切换与 Restart 也完整重置场景，但保留当前 Profile。World Refresh 只恢复已开启类别；Route Cleared 在两种触发下统一清除。资源刷新后有 0.6 秒拾取保护，避免事件发生在资源点上时同帧重新拾取。
+
+三件资源均为 `1 Common Resource`，接近后收集一次并隐藏，不产生治疗、物品、制作或经济效果。Supply Cache 的 medkit 只作视觉识别。资源总收集数允许跨多次刷新累加。
+
+| Resource | Ready glTF | Fixed x,z |
+| --- | --- | --- |
+| Common Herb | `assets/common_herb.gltf` | (1.5, 8.1) |
+| Supply Cache | `assets/supply_cache.gltf` | (-1.5, -3.9) |
+| Ore Node | `assets/ore_node.gltf` | (1.5, -9.8) |
+
+三个模型均由 `GLTFLoader` 从 Prototype 本地 Ready 资源直接加载，只调整整个模型的位置、比例与轻微朝向，没有程序重建资源、AssetManager 或共享资源系统。位置不参与碰撞，不改变三段窄道与敌人遭遇几何。
+
+### R2 Result
+
+Untested — 本次实现与技术验收不填写 Player 玩法结论。EXP-007 R1 的 MAYBE 与原始反馈“没有好坏的感受，就一般。”保留不变，不作为 R2 结论。
+
+### R2 Technical Acceptance
+
+- 实际 `simulation.ts` 断言通过：默认 ON / ON；选项改变完整 Reset；Mode 与 Restart 保留 Profile；Restart / Mode Reset 无条件恢复全部初始资源与敌人。
+- EXP-007 Rest 和 EXP-008 Blood Moon 调用同一 `applyWorldRefresh`；Enemies 与 Common Resources 分别验证 ON 时恢复、OFF 时保持。EXP-008 Rest 只恢复 HP，不改变敌人、资源或倒计时。
+- 三个资源各可接近收集一次并隐藏；刷新后可再次收集，累计数继续增加。三个固定位置不参与碰撞。
+- Blood Moon 30 秒周期、最后 10 秒警告、月亮视觉、事件后 0.7 秒接触伤害保护、Trial Failed 与 Restart 保持原行为。
+- `common_herb.gltf`、`supply_cache.gltf`、`ore_node.gltf` 与既有 `blood_moon.gltf` 均通过 glTF 2.0 / embedded buffer 结构检查，并由页面直接加载。
+- `npm run build` 通过。Pages 部署与线上实际页面验收记录在本节后续提交中。
 
 ## Notes / Handoff
 
