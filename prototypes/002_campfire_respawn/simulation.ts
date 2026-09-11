@@ -8,7 +8,14 @@ export const ATTACK_COOLDOWN = 0.48;
 export const INVULNERABILITY = 0.95;
 export const CAMP = { x: 0, z: 10 };
 export const END = { x: 0, z: -12 };
-export const SPAWNS = [{ x: 0, z: 5 }, { x: -0.9, z: 0 }, { x: 0.9, z: -1.5 }, { x: 0, z: -7 }];
+export const SPAWNS = [{ x: 0, z: 5 }, { x: -0.25, z: 0 }, { x: 0.25, z: -1.5 }, { x: 0, z: -7 }];
+// Fixed rock passages, not encounter gates. Bounds include pawn radius.
+export const PASSAGES = [{ min: 3, max: 7 }, { min: -3, max: 2 }, { min: -9, max: -5 }];
+const BODY_DISTANCE = 0.8;
+export function walkable(x: number, z: number) {
+  return Math.abs(x) <= 2.6 && z >= -13 && z <= 12 &&
+    PASSAGES.every(g => z < g.min - 0.4 || z > g.max + 0.4 || Math.abs(x) <= 0.3);
+}
 export type Pawn = { x: number; z: number; hp: number; facing: number; hit: number; swing: number; moving: boolean; deadFor: number };
 const pawn = (x: number, z: number, hp: number): Pawn => ({ x, z, hp, facing: Math.PI, hit: 0, swing: 0, moving: false, deadFor: 0 });
 export const state = {
@@ -32,7 +39,18 @@ export function rest() {
   announce('Rested · 生命恢复 — Enemies returned · 所有敌人已重置', 4);
   return true;
 }
-function clamp(p: Pawn) { p.x = Math.max(-2.6, Math.min(2.6, p.x)); p.z = Math.max(-13, Math.min(12, p.z)); }
+function clampEnemy(e: Pawn) {
+  const i = state.enemies.indexOf(e), g = PASSAGES[i === 0 ? 0 : i === 3 ? 2 : 1];
+  e.x = Math.max(-0.3, Math.min(0.3, e.x));
+  e.z = Math.max(g.min + 0.4, Math.min(g.max - 0.4, e.z));
+}
+function movePlayer(dx: number, dz: number) {
+  const p = state.player;
+  const allowed = (x: number, z: number) => walkable(x, z) && state.enemies.every(e =>
+    e.hp <= 0 || Math.hypot(x - e.x, z - e.z) >= BODY_DISTANCE);
+  if (allowed(p.x + dx, p.z)) p.x += dx;
+  if (allowed(p.x, p.z + dz)) p.z += dz;
+}
 export function attack() {
   const p = state.player;
   if (p.hp <= 0 || state.cooldown > 0) return false;
@@ -45,28 +63,20 @@ export function attack() {
   if (e) {
     e.hp--; e.hit = 0.22;
     const distance = Math.hypot(e.x - p.x, e.z - p.z) || 1;
-    e.x += (e.x - p.x) / distance * 0.38; e.z += (e.z - p.z) / distance * 0.38; clamp(e);
+    e.x += (e.x - p.x) / distance * 0.38; e.z += (e.z - p.z) / distance * 0.38; clampEnemy(e);
     if (!e.hp) { e.deadFor = 0; e.moving = false; }
   }
   return true;
 }
 export function tick(dt: number, dx: number, dz: number) {
   const p = state.player;
+  if (p.hp <= 0) { p.moving = false; p.deadFor = Math.min(0.3, p.deadFor + dt); return; }
   state.messageFor = Math.max(0, state.messageFor - dt); state.firePulse = Math.max(0, state.firePulse - dt);
   state.cooldown = Math.max(0, state.cooldown - dt); state.invulnerable = Math.max(0, state.invulnerable - dt);
   for (const actor of [p, ...state.enemies]) { actor.hit = Math.max(0, actor.hit - dt); actor.swing = Math.max(0, actor.swing - dt); }
-  if (p.hp <= 0) {
-    p.moving = false; p.deadFor += dt;
-    if (p.deadFor >= 1.2) {
-      Object.assign(p, pawn(CAMP.x, CAMP.z + 1, PLAYER_HP)); resetEnemies();
-      state.invulnerable = 0; state.cooldown = 0; state.firePulse = 1; state.cleared = false;
-      announce('回到篝火 · 生命恢复，所有敌人回到初始状态', 4);
-    }
-    return;
-  }
   const length = Math.hypot(dx, dz);
   p.moving = length > 0;
-  if (length) { p.x += dx / length * MOVE_SPEED * dt; p.z += dz / length * MOVE_SPEED * dt; p.facing = Math.atan2(dx, dz); clamp(p); }
+  if (length) { movePlayer(dx / length * MOVE_SPEED * dt, dz / length * MOVE_SPEED * dt); p.facing = Math.atan2(dx, dz); }
   for (const e of state.enemies) {
     e.moving = false;
     if (!e.hp) { e.deadFor += dt; continue; }
@@ -74,10 +84,10 @@ export function tick(dt: number, dx: number, dz: number) {
     // A small fixed refuge prevents enemies from camping the respawn point.
     if (distance < 4.1 && p.z < 8 && e.hit === 0) {
       e.facing = Math.atan2(ex, ez);
-      if (distance > 0.66) { e.x += ex / distance * ENEMY_SPEED * dt; e.z += ez / distance * ENEMY_SPEED * dt; e.moving = true; clamp(e); }
+      if (distance > BODY_DISTANCE) { const step = Math.min(ENEMY_SPEED * dt, distance - BODY_DISTANCE); e.x += ex / distance * step; e.z += ez / distance * step; e.moving = true; clampEnemy(e); }
       if (distance < 0.83 && state.invulnerable === 0) {
         p.hp = Math.max(0, p.hp - ENEMY_DAMAGE); p.hit = 0.24; e.swing = 0.2; state.invulnerable = INVULNERABILITY;
-        if (!p.hp) { p.deadFor = 0; announce('倒下了 · 即将返回篝火', 2); break; }
+        if (!p.hp) { p.deadFor = 0; p.moving = false; state.cleared = false; state.enemies.forEach(e => e.moving = false); announce('Trial Failed · 本次尝试结束。R / Restart — Retry', 4); break; }
       }
     }
   }

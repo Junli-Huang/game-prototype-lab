@@ -5,7 +5,7 @@
 <header><a href="../../">← Lab</a><div><h1>Campfire Respawn</h1><p>#002 · EXP-007 · <span id="status">TESTING</span></p></div><button id="restart" type="button">Restart <kbd>R</kbd></button></header>
 <main>
   <div class="topline"><div><span class="label">生命 / HP</span><strong id="hp">5 / 5</strong><span id="hearts" aria-hidden="true">● ● ● ● ●</span></div><div><span class="label">Enemies alive</span><strong id="alive">4 / 4</strong></div><p>休息 = 恢复生命 + 所有敌人重置</p></div>
-  <div id="scene"><canvas id="world" tabindex="0" aria-label="篝火实验 3D 场景。WASD 移动，空格攻击，E 休息。"></canvas><div id="message" role="status"></div><div id="camp-prompt">E — Rest · 回满生命，敌人全部返回</div><div id="route" hidden>Route Cleared</div><p id="unavailable" hidden>无法启动 3D 场景。请刷新页面，或换用现代桌面浏览器。</p></div>
+  <div id="scene"><canvas id="world" tabindex="0" aria-label="篝火实验 3D 场景。WASD 移动，空格攻击，E 休息。"></canvas><div id="message" role="status"></div><div id="camp-prompt">E — Rest · 回满生命，敌人全部返回</div><div id="failed" role="status" hidden><strong>Trial Failed</strong><p>本次尝试结束</p><span>R / Restart — Retry</span></div><div id="route" hidden>Route Cleared</div><p id="unavailable" hidden>无法启动 3D 场景。请刷新页面，或换用现代桌面浏览器。</p></div>
   <footer><p><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> 移动 · <kbd>Space</kbd> / 左键 向面朝方向攻击 · <kbd>E</kbd> 篝火休息 · <kbd>R</kbd> 重开</p><p><span id="render-note" hidden>兼容画面 · 无阴影<br></span>蓝色棋子是你 · 向北到达石碑 · 按住 Space 可连续攻击</p></footer>
 </main><script type="module" src="./main.ts"></script>
 </body></html>

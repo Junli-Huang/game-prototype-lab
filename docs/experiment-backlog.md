@@ -38,7 +38,7 @@ Experiment 是要验证的问题；Prototype 是回答该问题的可玩实现�
 
 ## 实施与对照原则
 
-- 每次选择一个问题，理想关系为 1 Experiment → 1 Prototype；在实验 Notes 中记录实现目录，在 Prototype README 中记录 Experiment ID。编号各自独立，不要求 EXP-017 对应 Prototype #017。
+- Experiment 是独立问题，Prototype 是测试容器。默认可以 1:1；高度相关的竞争实验可以作为独立 Experiment Mode 共享同一测试场景。每次选择一个问题；在实验 Notes 中记录实现目录，在 Prototype README 中记录 Experiment ID。编号各自独立，不要求 EXP-017 对应 Prototype #017。
 - 可以复制一个极小基础场景进行对照，保持 Prototype 代码独立；不因此创建共享框架或让实验之间产生代码依赖。
 - 竞争方案尽量保持地图、敌人、玩家能力、资源一致，只改变核心变量。EXP-007/008 对照刷新条件；EXP-020/021 对照数值与类型计数，并保持尸体生成条件一致。
 - 不同时加入篝火、红月、时段、尸体污染、背包与种田。组合模型 EXP-009、EXP-022 自身也是独立实验，不因单项有趣便直接采用组合。
@@ -481,6 +481,7 @@ Untested — 技术验收完成，等待 Player 正式试玩。
 ### Notes
 
 - Prototype：[002_campfire_respawn](../prototypes/002_campfire_respawn/README.md)，2026-09-10 READY → BUILDING → TESTING；已完成规则、构建与 Pages 兼容画面操作验收。WebGL 阴影画面未在远程环境实测，详见 Prototype README。
+- 2026-09-11 验收修正：三段岩壁窄道 + 活敌实体阻挡；死亡改为 Trial Failed，只有 Restart 重试。战斗与 Rest 数值不变，保持 TESTING / Untested。
 - 试玩日期：TBD；固定条件与参数见 Prototype README。
 - 其他观察：TBD
 

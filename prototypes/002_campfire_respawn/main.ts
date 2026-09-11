@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import type { SVGRenderer } from 'three/addons/renderers/SVGRenderer.js';
 import './style.css';
-import { state, tick, attack, rest, restart, nearCamp, CAMP, END, SPAWNS, PLAYER_HP, type Pawn } from './simulation';
+import { state, tick, attack, rest, restart, nearCamp, CAMP, END, SPAWNS, PASSAGES, PLAYER_HP, type Pawn } from './simulation';
 
 const canvas = document.querySelector<HTMLCanvasElement>('#world')!;
 const host = document.querySelector<HTMLElement>('#scene')!;
@@ -54,6 +54,10 @@ async function start() {
       const stone = mesh(new THREE.DodecahedronGeometry(0.43 + (i % 3) * 0.05, 0), rockMat, side * 3.23, 0.17, 12.2 - i);
       stone.scale.set(0.85, 0.55, 1); stone.rotation.y = i * 1.7;
     }
+  }
+  // Rock walls leave a 1.4-unit physical gap (0.6 for pawn centers).
+  for (const g of PASSAGES) for (const side of [-1, 1]) {
+    mesh(new THREE.BoxGeometry(2.3, 0.65, g.max - g.min), rockMat, side * 1.85, 0.3, (g.min + g.max) / 2);
   }
   for (const z of [6.5, 1, -5, -9.5]) {
     for (const side of [-1, 1]) {
@@ -164,6 +168,7 @@ async function start() {
     message.textContent = state.messageFor > 0 ? state.message : '';
     prompt.hidden = !nearCamp() || state.player.hp === 0;
     route.hidden = !state.cleared;
+    document.querySelector<HTMLElement>('#failed')!.hidden = state.player.hp > 0;
     renderer.render(scene, camera); requestAnimationFrame(frame);
   }
   requestAnimationFrame(frame);
