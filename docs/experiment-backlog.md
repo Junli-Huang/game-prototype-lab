@@ -1,4 +1,4 @@
-# Experiment Backlog — V0.2.1
+# Experiment Backlog — V0.2.3
 
 Experiment 是要验证的问题；Prototype 是回答该问题的可玩实现。这里仅用 Markdown 手工记录候选课题、状态与结论，已有实现与真实试玩结果链接到对应 Prototype README；不把候选机制视为最终设计。
 
@@ -34,7 +34,7 @@ Experiment 是要验证的问题；Prototype 是回答该问题的可玩实现�
 - EXP-020
 - EXP-021
 
-无默认实施顺序。该池记录最初的 8 个候选；当前 EXP-001 为 MAYBE，EXP-007 为 TESTING，另 6 项为 READY，其余 39 项为 IDEA；READY 不意味着已经实现，也不代表最终采用倾向。开工前按 [Workflow](workflow.md) 核对实验定义，选择本次要回答的一个问题。
+无默认实施顺序。该池记录最初的 8 个候选；当前 EXP-001 为 MAYBE，EXP-007 为 MAYBE，另 6 项为 READY，其余 39 项为 IDEA；READY 不意味着已经实现，也不代表最终采用倾向。开工前按 [Workflow](workflow.md) 核对实验定义，选择本次要回答的一个问题。
 
 ## 实施与对照原则
 
@@ -61,7 +61,7 @@ Experiment 是要验证的问题；Prototype 是回答该问题的可玩实现�
 | EXP-004 | [Fixed Map Exploration](#exp-004-fixed-map-exploration) | Exploration | IDEA |
 | EXP-005 | [Box-Level Exploration](#exp-005-box-level-exploration) | Exploration | IDEA |
 | EXP-006 | [Shortcut Unlocking](#exp-006-shortcut-unlocking) | Exploration | IDEA |
-| EXP-007 | [Campfire Respawn](#exp-007-campfire-respawn) | World Refresh | TESTING |
+| EXP-007 | [Campfire Respawn](#exp-007-campfire-respawn) | World Refresh | MAYBE |
 | EXP-008 | [Blood Moon Respawn](#exp-008-blood-moon-respawn) | World Refresh | READY |
 | EXP-009 | [Campfire + Blood Moon Respawn](#exp-009-campfire--blood-moon-respawn) | World Refresh | IDEA |
 | EXP-010 | [Time Respawn](#exp-010-time-respawn) | World Refresh | IDEA |
@@ -432,11 +432,11 @@ Name: Campfire Respawn
 
 Category: World Refresh
 
-Status: TESTING
+Status: MAYBE
 
 ### Hypothesis
 
-如果篝火恢复生命，同时让已击败敌人重新出现，那么恢复资源与已清理进度之间会形成取舍，使休息成为有意义的决策。尚未由 Player 验证。
+如果篝火恢复生命，同时让已击败敌人重新出现，那么恢复资源与已清理进度之间会形成取舍，使休息成为有意义的决策。正式试玩反馈为中性，尚不足以支持或否定该假设。
 
 规则：
 
@@ -469,20 +469,25 @@ Status: TESTING
 
 ### Result
 
-Untested — 技术验收完成，等待 Player 正式试玩。
+MAYBE — 2026-09-11 Player 正式试玩。
 
-- Observed（实际观察）：TBD
-- 有趣开始的时机：TBD
-- 无聊开始的时机：TBD
-- 玩家产生的决策：TBD
-- Unexpected（预期外玩法）：TBD
-- Next（是否继续，Kill / Iterate / Promote）：TBD
+整体反馈：
+> “没有好坏的感受，就一般。”
+
+当前没有形成明显正向或负向体验信号，不足以证明 Campfire Respawn 本身产生明显的决策乐趣，但也没有得到明确否定。
+
+- Observed：Player 完成实际试玩，整体体验中性，没有明显觉得好，也没有明显觉得不好。
+- Interesting Moment：本次未报告明确的有趣时刻。
+- Boring Moment：本次未报告明确的负面或无聊时刻。
+- Decisions：本次没有记录足够具体的决策行为，不补充推测。
+- Unexpected：本次未记录。
+- Next：停止继续调整 EXP-007，保留 MAYBE；后续与其他 Enemy Respawn 规则进行受控比较。
 
 ### Notes
 
-- Prototype：[002_campfire_respawn](../prototypes/002_campfire_respawn/README.md)，2026-09-10 READY → BUILDING → TESTING；已完成规则、构建与 Pages 兼容画面操作验收。WebGL 阴影画面未在远程环境实测，详见 Prototype README。
-- 2026-09-11 验收修正：三段岩壁窄道 + 活敌实体阻挡；死亡改为 Trial Failed，只有 Restart 重试。战斗与 Rest 数值不变，保持 TESTING / Untested。
-- 试玩日期：TBD；固定条件与参数见 Prototype README。
+- Prototype：[Enemy Respawn Lab](../prototypes/002_campfire_respawn/README.md)，2026-09-10 READY → BUILDING → TESTING；已完成规则、构建与 Pages 兼容画面操作验收。WebGL 阴影画面未在远程环境实测，详见 Prototype README。
+- 2026-09-11 验收修正：三段岩壁窄道 + 活敌实体阻挡；死亡改为 Trial Failed，只有 Restart 重试。战斗与 Rest 数值不变，当时保持 TESTING / Untested（技术验收历史）。
+- 2026-09-11 Player 正式试玩当前线上修正版：TESTING → MAYBE。停止调整 EXP-007，保留当前可玩版本；固定条件与参数见 Prototype README。
 - 其他观察：TBD
 
 ## EXP-008 Blood Moon Respawn

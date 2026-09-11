@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="zh-CN">
-<head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Campfire Respawn · EXP-007</title></head>
+<head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Enemy Respawn Lab · EXP-007 Campfire Respawn</title></head>
 <body>
-<header><a href="../../">← Lab</a><div><h1>Campfire Respawn</h1><p>#002 · EXP-007 · <span id="status">TESTING</span></p></div><button id="restart" type="button">Restart <kbd>R</kbd></button></header>
+<header><a href="../../">← Lab</a><div><h1>Enemy Respawn Lab</h1><p>#002 · EXP-007 Campfire Respawn · <span id="status">MAYBE</span></p></div><button id="restart" type="button">Restart <kbd>R</kbd></button></header>
 <main>
   <div class="topline"><div><span class="label">生命 / HP</span><strong id="hp">5 / 5</strong><span id="hearts" aria-hidden="true">● ● ● ● ●</span></div><div><span class="label">Enemies alive</span><strong id="alive">4 / 4</strong></div><p>休息 = 恢复生命 + 所有敌人重置</p></div>
   <div id="scene"><canvas id="world" tabindex="0" aria-label="篝火实验 3D 场景。WASD 移动，空格攻击，E 休息。"></canvas><div id="message" role="status"></div><div id="camp-prompt">E — Rest · 回满生命，敌人全部返回</div><div id="failed" role="status" hidden><strong>Trial Failed</strong><p>本次尝试结束</p><span>R / Restart — Retry</span></div><div id="route" hidden>Route Cleared</div><p id="unavailable" hidden>无法启动 3D 场景。请刷新页面，或换用现代桌面浏览器。</p></div>

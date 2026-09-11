@@ -1,16 +1,21 @@
-# Prototype 002 — Campfire Respawn
+# Prototype 002 — Enemy Respawn Lab
 
 ## Prototype Name
 
-Campfire Respawn · World Refresh
+Enemy Respawn Lab
 
 ## Experiments / Modes
 
-当前 Active Experiment / 唯一 Mode：[EXP-007 — Campfire Respawn](../../docs/experiment-backlog.md#exp-007-campfire-respawn)。没有实现其他 Mode，也不预建模式切换系统。本文件是实验实施记录 + 试玩记录；遵循 [Workflow](../../docs/workflow.md)。
+| Mode | Experiment | Status | Core Variable |
+| --- | --- | --- | --- |
+| Campfire Respawn | [EXP-007](../../docs/experiment-backlog.md#exp-007-campfire-respawn) | MAYBE | Rest → 恢复玩家 + 重置全部敌人 |
+
+当前没有其他已实现 Mode。本文件保存实验实施与试玩记录，遵循 [Workflow](../../docs/workflow.md)。
 
 ## Status
 
-当前 Active Experiment EXP-007：TESTING。Result: Untested。
+当前已实现 Mode：EXP-007 — Campfire Respawn — MAYBE。
+当前没有 BUILDING 中的 Experiment。Campfire Respawn 仍可试玩，实验结论已记录。
 
 ## Gameplay Hypothesis
 
@@ -107,15 +112,21 @@ Required Feedback:
 
 ## Result — EXP-007 / Campfire Respawn
 
-Untested — Work 技术验收不作为 Player 玩法结论。
+MAYBE — 2026-09-11 Player 正式试玩。
 
-- 试玩者、日期、版本与条件：TBD。
-- Observed：TBD。是否犹豫休息？开始考虑回头时 HP 是多少？
-- Interesting Moment：TBD。清理越多后，是否越舍不得重置？
-- Boring Moment：TBD。重复清理是有趣的代价还是单纯麻烦？
-- Decisions：TBD。是否选择低 HP 继续？
-- Unexpected：TBD。是否绕过敌人、无伤或以死亡代替休息？
-- Next：等待 Player 正式试玩；再决定 INTERESTING / MAYBE / DEAD。
+整体反馈：
+> “没有好坏的感受，就一般。”
+
+当前没有形成明显正向或负向体验信号，不足以证明 Campfire Respawn 本身产生明显的决策乐趣，但也没有得到明确否定。
+
+- Observed：Player 完成实际试玩，整体体验中性，没有明显觉得好，也没有明显觉得不好。
+- Interesting Moment：本次未报告明确的有趣时刻。
+- Boring Moment：本次未报告明确的负面或无聊时刻。
+- Decisions：本次没有记录足够具体的决策行为，不补充推测。
+- Unexpected：本次未记录。
+- Next：停止继续调整 EXP-007，保留 MAYBE；后续与其他 Enemy Respawn 规则进行受控比较。
+
+试玩条件：2026-09-11 当前线上验收修正版（三段窄道、Trial Failed）；Player 未报告浏览器或渲染分支，不作推测。
 
 ## Notes / Handoff
 
@@ -123,11 +134,19 @@ Untested — Work 技术验收不作为 Player 玩法结论。
 
 ## 2026-09-11 验收修正 — EXP-007
 
-Status: TESTING / Result: Untested。本次是实验条件修正，不构成玩法结果。
+当时状态：TESTING / Result: Untested（技术验收历史）。本次是实验条件修正，不构成玩法结果。
 
 - 保留 Player HP 5、Enemy HP 2、Damage 1、攻击冷却 0.48 秒、无敌时间 0.95 秒、移动速度及 Rest 全重置规则。
 - 三段固定岩壁：z=[3,7]、[-3,2]、[-9,-5]；实际通道宽 1.4，计入半径 0.4 后棋子中心横向范围 ±0.3。活敌与玩家中心间距至少 0.8，死亡立即解除阻挡。玩家沿墙滑动，不穿墙；敌人仅在对应窄道内追击/受击后退，不能被引到宽处绕过。B/C 横坐标收至 ±0.25，其他出生坐标不变。没有门、钥匙或击杀数量判胜。
 - 死亡：Trial Failed，停止玩法推进，保留失败现场，仅完成倒下反馈。E 和攻击无效；R / Restart 完整重置玩家、敌人、提示、冷却与终点。
 - 本次实际规则模块检查通过：五种横向起点配合左右移动不攻击均无法通过第一段；死亡后等待 10 秒不复活、敌人冻结；Restart 恢复全部出生点/HP；自然接触受伤后击杀 A，得到 HP 3/5、敌人 3/4、前方还有路线；原路返回 E 后 HP 5/5、敌人 4/4；直走连续攻击可到达终点（HP 1/5）。这是技术操控证据，不是难度或趣味结论。
 - 本地 npm run build 通过；GitHub Actions / Pages 部署成功（实现提交 34ae220）。线上已核对修正版资源、三段岩壁与棋子显示，并实际不攻击前进至第一段受阻、逐次扣血到 Trial Failed，随后点击 Restart 恢复 HP 5/5、Enemies 4/4 和篝火初始位置。远程环境只验证 SVG 兼容画面，WebGL 阴影需桌面试玩确认。
-- 下一步：等待 Player 正式试玩，观察是否愿意低血量继续或主动回头 Rest。
+- 当时下一步：等待 Player 正式试玩；现已完成，结果见上方 Result。
+
+## 2026-09-11 试玩收口与容器定位
+
+EXP-007 已记录 MAYBE，停止继续调整。Prototype #002 显示名称为 Enemy Respawn Lab，目录与 Pages URL 保留 `prototypes/002_campfire_respawn/`。页面直接进入现有 Campfire Respawn Mode，没有 Mode Selector。
+
+EXP-008 Blood Moon Respawn、EXP-009 Campfire + Blood Moon Respawn、EXP-010 Time Respawn、EXP-011 Permanent Enemy Death、EXP-012 Ecological Replacement 仅为候选对照 Experiment，均未在本容器实现；后续逐项选择并保持独立结果。
+
+本次只更新真实试玩记录、显示名称和状态，不修改地图、玩法、参数或资产。Asset Handoff 适用于后续新资产，现有程序几何不返工。#001 继续保持原样，EXP-001 为 MAYBE。
