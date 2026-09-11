@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Compact sidearm">
+  <path d="M10 20h31l8 8-5 8H31l-5 20H14l4-20h-8z" fill="#46545a"/>
+  <path d="M17 24h24l4 4-3 4H17z" fill="#819399"/>
+  <path d="M22 36h10l-4 16h-9z" fill="#8e6e4e"/>
+  <circle cx="42" cy="28" r="2.5" fill="#d6c28b"/>
+</svg>
