@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Field armor">
+  <path d="M20 9l12 7 12-7 8 11-5 36H17l-5-36z" fill="#64756f"/>
+  <path d="M24 18h16l4 9-5 22H25l-5-22z" fill="#889891"/>
+  <path d="M27 24h10v18H27z" fill="#a9b5a8"/>
+  <path d="M15 21l8 6m26-6-8 6" stroke="#4b5955" stroke-width="4"/>
+  <path d="M24 52h16" stroke="#d0c08d" stroke-width="3"/>
+</svg>
