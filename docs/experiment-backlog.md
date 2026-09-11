@@ -57,7 +57,7 @@ Experiment 是要验证的问题；Prototype 是回答该问题的可玩实现�
 | --- | --- | --- | --- |
 | EXP-001 | [Spatial Backpack Placement](#exp-001-spatial-backpack-placement) | Inventory | MAYBE |
 | EXP-002 | [Backpack Limits Exploration](#exp-002-backpack-limits-exploration) | Inventory | IDEA |
-| EXP-003 | [Equipment vs Loot Space](#exp-003-equipment-vs-loot-space) | Inventory | IDEA |
+| EXP-003 | [Equipment vs Loot Space](#exp-003-equipment-vs-loot-space) | Inventory | TESTING |
 | EXP-004 | [Fixed Map Exploration](#exp-004-fixed-map-exploration) | Exploration | IDEA |
 | EXP-005 | [Box-Level Exploration](#exp-005-box-level-exploration) | Exploration | IDEA |
 | EXP-006 | [Shortcut Unlocking](#exp-006-shortcut-unlocking) | Exploration | IDEA |
@@ -213,7 +213,7 @@ Name: Equipment vs Loot Space
 
 Category: Inventory
 
-Status: IDEA
+Status: TESTING
 
 ### Hypothesis
 
@@ -241,7 +241,7 @@ Status: IDEA
 
 ### Result
 
-TBD — 尚未试玩。
+Untested — 技术验收完成后等待 Player 先 Light、后 Heavy 对照试玩；不预填玩法结论。
 
 - Observed（实际观察）：TBD
 - 有趣开始的时机：TBD
@@ -252,7 +252,9 @@ TBD — 尚未试玩。
 
 ### Notes
 
-- Prototype：尚无实现。
+- Prototype：[Backpack Lab / Equipment vs Loot Mode](../prototypes/001_spatial_backpack/README.md)，2026-09-11 IDEA → BUILDING → TESTING。
+- 固定条件：两个 Loadout 使用同一七件 Loot 序列、尺寸、Value 与操作；只改变开局 Locked Equipment 3 / 48 与 11 / 48。
+- Ready SVG、完整参数和技术验收见 Prototype README。EXP-001 的 MAYBE 与原始 Player 反馈保持不变。
 - 试玩日期、条件、参数与对照版本：TBD
 - 其他观察：TBD
 

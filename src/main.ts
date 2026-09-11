@@ -20,7 +20,7 @@ const prototypes: PrototypeEntry[] = [
     status: 'TESTING',
     hypothesis: '同一 World Refresh Profile 由主动 Rest 或全局 Blood Moon 触发，会形成怎样不同的行动节奏？',
     url: 'prototypes/002_campfire_respawn/',
-  },{ id: '001', name: 'Spatial Backpack Placement · EXP-001', status: 'MAYBE', hypothesis: '有限二维空间中的摆放与取舍，是否能让背包整理本身产生乐趣？', url: 'prototypes/001_spatial_backpack/' }];
+  },{ id: '001', name: 'Backpack Lab · EXP-003 Equipment vs Loot Space', status: 'TESTING', hypothesis: '相同 Loot 序列下，不同 Locked Equipment 占格是否会形成准备与带回空间的取舍？', url: 'prototypes/001_spatial_backpack/' }];
 
 const list = document.querySelector<HTMLDivElement>('#prototype-list')!;
 document.querySelector<HTMLDivElement>('#empty-state')!.hidden = prototypes.length > 0;

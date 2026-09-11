@@ -1,4 +1,15 @@
-# Prototype 001 — Spatial Backpack Placement
+# Prototype 001 — Backpack Lab
+
+## Experiments / Modes
+
+| Mode | Experiment | Status | Core Variable |
+| --- | --- | --- | --- |
+| Spatial Placement | [EXP-001](../../docs/experiment-backlog.md#exp-001-spatial-backpack-placement) | MAYBE | 有限二维空间中的摆放、旋转与取舍 |
+| Equipment vs Loot | [EXP-003](../../docs/experiment-backlog.md#exp-003-equipment-vs-loot-space) | TESTING | 同一 Loot 序列下，开局 Locked Equipment 占 3 格或 11 格 |
+
+当前默认 Mode：EXP-003 Equipment vs Loot Space；默认 Loadout：Light。Experiment Mode 或 Loadout 切换均开始完整的新 Session。
+
+## EXP-001 — Spatial Backpack Placement（历史记录）
 
 ## Experiment ID
 
@@ -107,6 +118,51 @@ MAYBE — 2026-09-10 首次 Player 试玩反馈：“还可以，有点意思。
 - Unexpected: TBD — 本次未记录预期外玩法。
 - Next: 暂停 #001 功能扩展，保留为 MAYBE；进入新的独立 Prototype 继续验证其他玩法假设，未来需要时可回到与背包关联的 EXP-002 / EXP-003 做组合关系实验。
 
-## Notes / Handoff
+## EXP-003 — Equipment vs Loot Space
+
+### Status / Result
+
+TESTING / Result: Untested。技术验收不构成 Player 玩法结论。
+
+### Hypothesis / Question
+
+如果固定出门装备和之后获得的 Loot 占用同一个 6×8 背包，那么 Heavy Loadout 应比 Light Loadout 更明显地增加战利品保留与重排压力。问题是：“准备更多”与“为战利品留更多空间”是否会自然形成有意义的取舍？本实验不提供装备属性，不能回答装备强度或战斗平衡问题。
+
+### Controlled Conditions
+
+Light / Heavy 共用现有 #001 的 6×8 棋盘、拖拽、R 旋转、越界/重叠拒绝、取消回退、丢弃、价值统计与 Session Summary，并引用完全相同的七件固定 Loot 序列：罐装肉、废旧电池、机械零件、未知组织、黑色遗物、木板、密封仪器；尺寸、顺序和 Value 均相同，总面积 45。唯一变量是开局 Locked Equipment 占格。
+
+| Loadout | Fixed Equipment | Cells |
+| --- | --- | ---: |
+| Light | Compact Sidearm 1×2 at (0,0); Field Medkit 1×1 at (1,0) | 3 / 48 |
+| Heavy | Old Rifle 1×4 at (0,0); Field Armor 2×3 at (1,0); Field Medkit 1×1 at (3,0) | 11 / 48 |
+
+装备占用普通格并参与同一重叠判断，但不注册 pointerdown 拖拽入口，因此不能移动、旋转或丢弃；Value 固定为 0，没有攻击、防御、治疗或其它效果。Light 的 3 + 45 = 48，离线穷举确认存在容纳全部 Loot 的合法摆法但页面不展示答案；Heavy 的 11 + 45 = 56，必然不能保留全部 Loot。
+
+### Assets / Asset Handoff
+
+以下 Ready SVG 由页面以显式 `new URL(..., import.meta.url)` 直接加载，没有 CSS 重画、inline SVG 复制、AssetManager 或共享资源系统：
+
+| Asset | Path | Use |
+| --- | --- | --- |
+| Compact Sidearm | `assets/equipment_sidearm.svg` | Light 1×2 Locked Equipment |
+| Field Medkit | `assets/equipment_field_medkit.svg` | 两个 Loadout 的 1×1 Locked Equipment |
+| Old Rifle | `assets/equipment_old_rifle.svg` | Heavy 1×4 Locked Equipment |
+| Field Armor | `assets/equipment_field_armor.svg` | Heavy 2×3 Locked Equipment |
+
+### EXP-003 Technical Acceptance
+
+- EXP-003 默认启动 Light；Experiment Mode、Light / Heavy 和 Restart 均完整清空 Loot、丢弃列表、序号、价值、Summary 与临时拖拽状态，再应用目标初始条件。
+- Light / Heavy 都引用同一个七件 Loot 数组；Equipment 面积分别为 3 / 48、11 / 48，固定位置与 Work Item 一致。
+- Locked Equipment 使用 Ready SVG，参与 Loot 合法性判断但不可操作；Loot 继续使用原拖拽、旋转、回退、重排与丢弃路径。
+- Summary 独立报告 Loadout、Equipment Area、Loot Kept、Loot Value Kept 与 Loot Discarded，不提供分数或正确 Loadout。
+- EXP-001 Mode 仍使用原 12 件、60 格固定序列和原 MAYBE Result；切回时不含 Equipment，操作说明恢复为“物品”。
+- `npm run build` 通过；Pages 实际资源与交互验收记录将在部署后补充。
+
+### Non-goals / Next
+
+没有新增装备属性、使用、随机 Loot、重量、堆叠、自动整理、探索、战斗、共享 Inventory / Asset Framework 或 EXP-002。下一步仅等待 Player 依次试玩 Light 与 Heavy；当前不填写 Observed、Interesting Moment、Boring Moment、Decisions 或 Unexpected。
+
+## Historical Notes / Handoff
 
 EXP-001 已完成最小实现和首次 Player 试玩。当前结论是“有一定趣味，但证据不足以标记 INTERESTING”。不要为了提高评价继续给 #001 增加装备、探索、非矩形物品或自动整理等功能；这些问题应作为独立 Experiment 验证。
