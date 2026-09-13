@@ -1,8 +1,8 @@
 # Inventory / Equipment Experiment Notes
 
-Status: Design candidates only. These are not yet assigned Experiment IDs and are not implementation requests.
+Status: Design chain with EXP-048 selected; remaining items are candidates only.
 
-Purpose: preserve the current design direction so the next experiment can be chosen deliberately without folding multiple questions into EXP-003.
+Purpose: preserve the Inventory / Equipment design direction while keeping each experiment isolated. EXP-048 has now been promoted out of the candidate pool into a selected READY experiment; later ideas remain unselected.
 
 ## Current tested foundation
 
@@ -26,43 +26,64 @@ EXP-003 deliberately does not implement equipment effects, body slots, external 
 
 ---
 
-# Candidate experiment chain
+# Selected next experiment
 
-The following ideas should generally be explored in the order **space → access → exposure / risk**, rather than implemented together.
+## EXP-048 — Body Equipment Storage
 
-## Candidate A — Body Equipment Slots
+Status: **READY / Selected**.
+
+Formal definition:
+
+`docs/experiments/EXP-048-body-equipment-storage.md`
 
 ### Core idea
 
-Player inventory is no longer only the backpack interior. The body itself provides spatially distinct equipment locations.
+Player inventory is no longer only the backpack interior. The body itself provides a small number of explicit carry locations outside the backpack grid.
 
-Possible locations:
+Initial locations selected for the first test:
 
-- waist / belt;
-- back;
-- chest;
-- arms / legs;
-- backpack exterior attachment points.
+- Back
+- Waist
+- Chest
 
-Possible item compatibility examples:
+Initial compatibility examples:
 
-- handgun → waist / thigh;
-- long gun → back;
-- grenade → chest / belt;
-- medkit → chest / belt;
-- tool → limb / belt / backpack exterior.
+- Old Rifle → Backpack or Back
+- Compact Sidearm → Backpack or Waist
+- Field Medkit → Backpack or Chest
 
-### Candidate question
+### Question
 
-> 当部分物品可以装备到身体槽位、从而不占背包内部空间时，玩家是否会主动区分“随身装备”和“储存 Loot”，并产生有意义的位置选择？
+> 当玩家身体本身也成为有限携带空间，而且部分物品可以选择放入背包或挂到身体位置时，“物品放在哪里”是否会产生新的、有意义的空间分配决策？
 
-### Important isolation
+### Isolation
 
-First version should test only **where items may be stored**.
+EXP-048 tests only **where items may be stored**.
 
-Do not add combat effectiveness, durability, damage, draw speed, or exposure risk in the same first test.
+Do not add combat effectiveness, durability, damage, draw speed, quick access, weight, or exposure risk in this experiment.
+
+The intended comparison is Backpack Only vs Body Slots Available using the same item sequence. These are Test Conditions inside EXP-048, not separate Experiment Modes.
+
+EXP-048 should reuse Backpack Lab only because the comparison benefits from the same spatial-inventory interaction. Do not turn the reuse into a general Inventory / Equipment framework.
+
+### Implementation gate
+
+EXP-048 is selected but not yet authorized for Work implementation.
+
+Before creating the Work Item, freeze:
+
+- exact item sequence and dimensions;
+- body-slot capacities;
+- legal item-location mappings;
+- any Ready visual assets.
+
+`docs/work-items/CURRENT.md` remains No active task until the formal Work Item is ready.
 
 ---
+
+# Remaining candidate experiment chain
+
+The following ideas remain candidates and should generally be explored in the order **space → access → exposure / risk**, rather than implemented together.
 
 ## Candidate B — Spatial / Anatomical Mount Points
 
@@ -70,7 +91,7 @@ Do not add combat effectiveness, durability, damage, draw speed, or exposure ris
 
 Body slots become more spatial and less abstract.
 
-Instead of generic equipment slots, individual regions can have attachment capacity, inspired by games such as *Death Stranding*:
+Instead of only three simple carry locations, individual regions may have attachment capacity, inspired by games such as *Death Stranding*:
 
 ```text
 Back
@@ -86,11 +107,13 @@ Item shape / class may determine legal mount positions.
 
 ### Candidate question
 
-> 相比抽象 Equipment Slots，具有明确身体部位与挂载位置的系统，是否会让“物品放在哪里”本身变成有趣且可理解的空间决策？
+> 相比简单 Body Equipment Storage，具有更明确身体部位与挂载位置的系统，是否会让“物品放在哪里”本身变成更有趣且可理解的空间决策？
 
 ### Important isolation
 
 This is about **location readability and spatial allocation**, not damage or quick access yet.
+
+Do not assume EXP-048 must evolve into this. Promote it only if a separate experiment is justified by the EXP-048 result.
 
 ---
 
@@ -116,7 +139,7 @@ Examples:
 
 ### Important isolation
 
-First version should not yet make exterior items more fragile. Otherwise space benefit and exposure cost become inseparable.
+First version should not make exterior items more fragile. Otherwise space benefit and exposure cost become inseparable.
 
 ---
 
@@ -253,7 +276,7 @@ This should be compared against binary loss rather than assumed superior.
 
 # Design relationship
 
-These candidates can eventually produce a location model such as:
+These experiments and candidates may eventually produce a location model such as:
 
 ```text
 Player Carry Space
@@ -268,7 +291,7 @@ Player Carry Space
    └─ Exterior Mounts
 ```
 
-But this diagram is a **design space**, not a system architecture requirement.
+But this diagram is a **design space**, not a system architecture requirement or a promised final system.
 
 Do not build a universal Inventory / Equipment framework from this note.
 
@@ -276,19 +299,26 @@ Each selected experiment should implement only the minimum locations and rules n
 
 # Current sequencing recommendation
 
-When choosing future experiments, prefer:
+Current step:
 
 ```text
-1. Does body / external space create useful allocation decisions?
-2. Does location affect access in an interesting way?
-3. Does external exposure create meaningful risk?
-4. Only then test durability / quantity-loss details.
+EXP-048 — Does body space create useful allocation decisions?
 ```
 
-Do not jump directly from EXP-003 to a combined system containing body slots + quick access + durability + combat damage.
+Only after its result should later experiments be selected deliberately:
+
+```text
+1. Does more spatial / anatomical mounting add useful decisions?
+2. Do external backpack mounts add useful allocation decisions?
+3. Does location affect access in an interesting way?
+4. Does external exposure create meaningful risk?
+5. Only then test durability / quantity-loss details.
+```
+
+Do not jump from EXP-048 directly to a combined system containing body slots + quick access + durability + combat damage.
 
 # Status
 
-All candidates above remain **unselected design notes**.
+EXP-048 is selected / READY and has a formal experiment definition.
 
-No official Experiment ID, READY status, Work Item, Prototype, or implementation is created by this document.
+All other candidates in this document remain **unselected design notes** with no automatic Experiment ID, READY status, Work Item, Prototype change, or implementation authorization.
