@@ -12,7 +12,14 @@
 docs/work-items/CURRENT.md
 ```
 
-`CURRENT.md` 只负责指向当前正式需求文件，并附最少执行说明。Work 不需要从聊天记录里恢复需求。
+`CURRENT.md` 有两种合法状态：
+
+1. 指向一个当前正式 Work Item；
+2. 明确写出 `No active implementation task`。
+
+第二种状态表示当前处于试玩 / Review / 设计讨论阶段。Work 不得从 Backlog、Project State 或设计笔记自行挑选一个任务开始实现。
+
+新 Chat 可先读取 `docs/project-state.md` 了解当前整体状态，再读取 `CURRENT.md` 判断当前是否存在实施任务。
 
 ## Naming
 
@@ -28,12 +35,21 @@ docs/work-items/EXP-XXX-short-name.md
 docs/work-items/EXP-008-blood-moon-respawn.md
 ```
 
+Review / Result 收口文件可以在名称中追加明确后缀，例如：
+
+```text
+docs/work-items/EXP-007-008-world-refresh-profile-r2-result.md
+```
+
+它们是历史记录，不代表仍是 Active task。
+
 ## Rules
 
 - 一个 work item 对应当前被选择执行的一个 Experiment / 明确修正任务。
 - 完整需求写在独立文件；`CURRENT.md` 只做稳定入口，不复制整份需求。
-- Work 开工前仍需阅读根 README、Workflow、Backlog 中对应 Experiment、当前 Prototype README，以及需求案要求的 Asset Handoff。
+- Work 开工前仍需阅读根 README、`docs/project-state.md`、Workflow、Backlog 中对应 Experiment、当前 Prototype README，以及需求案要求的 Asset Handoff。
 - Work 必须以 work item 中的 Scope / Non-goals / Acceptance 为边界，不自行扩展其它 Experiment。
 - Designer / Chat 更新需求时直接修改对应 work item；用户只需让 Work 重新读取 `CURRENT.md`。
 - 完成后保留 work item 作为历史记录；下一个任务只更新 `CURRENT.md` 指向，不删除旧需求。
+- 完成一轮实现 / 试玩 / Review 后同步 `docs/project-state.md`，避免新 Chat 依赖旧对话恢复当前决策。
 - 不建立 Issue Bot、任务数据库、CLI、自动执行器或复杂状态系统。
