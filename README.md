@@ -2,18 +2,24 @@
 
 快速游戏玩法实验室。Small experiments for finding fun.
 
-V0.2.3 — Experiment Modes & Asset Handoff。[Prototype #001：Backpack Lab](prototypes/001_spatial_backpack/README.md) 保留 EXP-001 MAYBE，并新增 EXP-003 Equipment vs Loot Space — TESTING / Untested。[Prototype #002：Enemy Respawn Lab](prototypes/002_campfire_respawn/README.md) 已进入 EXP-007 / EXP-008 World Refresh Profile R2 对照测试。
+V0.2.4 — Cold Start Handoff & Experiment Modes。[Prototype #001：Backpack Lab](prototypes/001_spatial_backpack/README.md) 保留 EXP-001 MAYBE，并已实现 EXP-003 Equipment vs Loot Space — TESTING / Untested。[Prototype #002：Enemy Respawn Lab](prototypes/002_campfire_respawn/README.md) 的 EXP-007 / EXP-008 World Refresh R2 均得到弱信号，当前结论为 MAYBE / Stop，不继续通过增加内容救实验。
 
 - **game-dev-lab / Game Tech Prototype**：验证技术、机制、实现方案是否可行。
 - **game-prototype-lab / Game Prototype**：验证某个玩法假设是否有趣。
 
 目标是低成本实现大量玩法实验，观察是否想继续操作、产生好奇心、有意义的决策和新的玩法方向。不是建设通用游戏框架。
 
+## Current Project State
+
+新 Chat / Designer / Reviewer 优先阅读 [Project State — Cold Start Snapshot](docs/project-state.md)。它只负责回答“现在做到哪、哪些结果已经确定、当前有没有实施任务、下一步正在讨论什么”，详细定义仍以 Backlog、Prototype README、Workflow 和历史 Work Item 为准。
+
+当前没有 Active implementation task。[`docs/work-items/CURRENT.md`](docs/work-items/CURRENT.md) 明确要求不要从 Backlog 自行猜测下一任务。当前阶段是讨论并选择下一个 Experiment。
+
 ## Experiment Backlog
 
-[查看全部 47 个实验课题](docs/experiment-backlog.md)。当前 EXP-001 为 MAYBE，EXP-003 与 EXP-007 / EXP-008 的当前条件为 TESTING；其余状态以 Backlog 为准。任何候选机制都不是最终设计。
+[查看全部 47 个实验课题](docs/experiment-backlog.md)。当前关键状态：EXP-001 为 MAYBE；EXP-003 为 TESTING / Untested；EXP-007 / EXP-008 最新 R2 试玩均为 MAYBE / Stop。其余状态与历史定义以 Backlog 和 [Project State](docs/project-state.md) 为准。任何候选机制都不是最终设计。
 
-Experiment 是待回答的问题；Prototype 是可玩的测试容器。默认一个 Prototype 可以只承载一个 Experiment；高度相关、需要公平对照的竞争 Experiment 也可以共享同一 Prototype，以独立 Experiment Mode 切换测试。
+Experiment 是待回答的问题；Prototype 是可玩的测试容器。默认一个 Prototype 可以只承载一个 Experiment；高度相关、需要公平对照的竞争 Experiment 也可以共享同一 Prototype，以独立 Experiment Mode 切换测试。**同一 Experiment 内的 Low / High、参数档位等 Test Conditions 不自动等于独立 Experiment Mode。**
 
 ## Workflow
 
@@ -21,7 +27,20 @@ Experiment 是待回答的问题；Prototype 是可玩的测试容器。默认�
 
 [Prototype Asset Handoff](docs/asset-handoff.md)：Designer / Chat 可以提前把当前实验需要的简单图片、图标或 Low Poly 3D 资源提交到 Prototype 本地 `assets/`；Work 优先直接加载使用，不重复制作已经 Ready 的资源。
 
-新 Work / Chat 开发前优先阅读 README、Philosophy、Workflow、Asset Handoff、Backlog 中对应 Experiment，以及承载它的 Prototype README。确认问题、变量、范围、Non-goals、状态、当前 Active Experiment / Mode 和已有 Assets 后再开工；READY 是无默认实施顺序的候选池。
+[Work Items](docs/work-items/README.md)：完整开发需求保存在 repo，稳定入口始终是 [`docs/work-items/CURRENT.md`](docs/work-items/CURRENT.md)。没有 Active Work Item 时，Work 不自行从 Backlog 选择任务。
+
+新 Work / Chat 开发前优先按以下顺序阅读：
+
+1. 根 `README.md`。
+2. [`docs/project-state.md`](docs/project-state.md)。
+3. `docs/philosophy.md`。
+4. `docs/workflow.md`。
+5. `docs/experiment-backlog.md`。
+6. [`docs/work-items/CURRENT.md`](docs/work-items/CURRENT.md)。
+7. 当前讨论相关的 Prototype README。
+8. `docs/asset-handoff.md` 与被明确引用的设计笔记 / Work Item。
+
+确认问题、变量、范围、Non-goals、状态、当前 Active Experiment / Mode / Test Condition 和已有 Assets 后再开工；READY 是无默认实施顺序的候选池。
 
 ### Experiment Mode 原则
 
@@ -34,6 +53,7 @@ Experiment 是待回答的问题；Prototype 是可玩的测试容器。默认�
 - 切换 Mode 必须完整 Reset 测试状态。
 - 一次只实现当前选中的 Experiment；不因为预留了实验场就把所有候选 Mode 一次做完。
 - 同一 Prototype 内可以共享测试场景代码，但不得升级为跨 Prototype Shared / Rule / Mode Framework。
+- 同一 Experiment 内用于改变强度或初始条件的 Test Conditions，除非问题本身已经变化，否则仍属于该 Experiment。
 
 例如 World Refresh 的 Campfire / Blood Moon / Time / Permanent 等竞争方案，若基础测试条件一致，可以在同一个 Respawn Lab 中逐个增加 Mode；Spatial Backpack 与 Fixed Map Exploration 这类不同问题则应保持不同 Prototype。
 
@@ -89,19 +109,23 @@ npm run preview
 ## 目录结构
 
 ```text
-.github/workflows/pages.yml  GitHub Actions 构建与部署
-index.html                  Launcher
-src/main.ts                 手工维护的元信息列表与列表 UI
+.github/workflows/pages.yml             GitHub Actions 构建与部署
+index.html                              Launcher
+src/main.ts                             手工维护的元信息列表与列表 UI
 src/style.css
-prototypes/README.md         实验目录说明与独立玩法实验
-docs/experiment-backlog.md   实验课题、状态与结论
-docs/philosophy.md           开发原则与状态
-docs/workflow.md             执行、Review 与会话交接规范
-docs/asset-handoff.md        Prototype-local 美术资源交接规范
-docs/prototype-template.md   可复制的实验说明模板
+prototypes/README.md                    实验目录说明与独立玩法实验
+docs/project-state.md                   新 Chat / Work 冷启动当前状态快照
+docs/experiment-backlog.md              实验课题、状态与结论
+docs/philosophy.md                      开发原则与状态
+docs/workflow.md                        执行、Review 与会话交接规范
+docs/asset-handoff.md                   Prototype-local 美术资源交接规范
+docs/inventory-equipment-experiment-notes.md  Inventory / Equipment 未选候选设计链
+docs/work-items/README.md               Work Item 机制说明
+docs/work-items/CURRENT.md              当前实施任务稳定入口；可明确为 No active task
+docs/prototype-template.md              可复制的实验说明模板
 package.json
 package-lock.json
-vite.config.ts              手工维护的多页面构建入口
+vite.config.ts                          手工维护的多页面构建入口
 tsconfig.json
 ```
 
@@ -116,6 +140,7 @@ tsconfig.json
 7. 新 Prototype 需要在 `vite.config.ts` 的 `build.rollupOptions.input` 手工加入 HTML。这里没有自动发现或自动注册系统。
 8. 根目录 `npm run dev` 试玩；然后 `npm run build`、`npm run preview`，确认直接访问子页面和刷新都正常。
 9. 更新当前 Experiment 的 Result / Notes / Status；多 Mode 时不能用一个笼统的 Prototype 结果覆盖各 Experiment。
+10. 完成 / 停止一轮实验后同步 `docs/project-state.md` 与 `docs/work-items/CURRENT.md`，确保新 Chat 不需要依赖旧对话恢复状态。
 
 ### 资源与删除
 
