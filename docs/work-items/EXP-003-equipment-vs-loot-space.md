@@ -2,66 +2,92 @@
 
 Prototype container: existing `prototypes/001_spatial_backpack/`
 
-Experiments / Modes after this task:
+Experiments in this Prototype:
 
 - `EXP-001 — Spatial Backpack Placement` — historical MAYBE, preserve unchanged.
-- `EXP-003 — Equipment vs Loot Space` — new active experiment.
+- `EXP-003 — Equipment vs Loot Space` — TESTING / Result: Untested.
 
 This is a controlled extension of the existing backpack Prototype, not a new inventory framework.
+
+## Terminology correction
+
+EXP-003 itself is the Experiment.
+
+The experiment-level change relative to EXP-001 is:
+
+> Session 开始时，背包中已经存在一部分不可移动、不可旋转、不可丢弃的 Locked Equipment，占用原本可用于 Loot 的空间。
+
+`Light / Heavy` are NOT separate Experiment Modes and do not represent separate gameplay systems, character classes, builds, or experiments.
+
+They are two fixed **Test Conditions inside EXP-003**, used only to vary the amount of Starting Equipment Occupancy while every later Loot condition remains identical.
+
+Preferred design terminology:
+
+```text
+EXP-003 Equipment vs Loot Space
+
+Starting Equipment Occupancy
+[Low] [High]
+```
+
+The existing UI may continue to display `Light / Heavy` as short labels if changing it is unnecessary, but documentation and interpretation must treat them only as internal test conditions:
+
+```text
+Light = Low Starting Equipment Occupancy
+Heavy = High Starting Equipment Occupancy
+```
+
+Do not interpret the test as “Light Build vs Heavy Build”.
 
 ## Goal
 
 Test one question:
 
-> 当出门装备和战利品占用同一个有限空间时，“准备更多”与“给战利品留更多空间”之间是否会自然形成取舍？
+> 当背包在出发前已经被 Locked Equipment 占据一部分空间时，这种“预先承诺的空间成本”是否会改变之后对 Loot 的整理、保留和丢弃决策？
 
-The experiment does NOT test weapon power, combat balance, equipment stats, exploration, or loot randomness.
+The experiment does NOT test weapon power, combat balance, equipment stats, preparation strength, exploration, or loot randomness.
 
 ## Hypothesis
 
-If fixed expedition equipment occupies the same 6×8 spatial backpack as later loot, then a heavier loadout should make loot retention and rearrangement decisions more consequential than a light loadout.
+If part of the same 6×8 backpack is already occupied by fixed expedition equipment before Loot arrives, then increasing that locked starting occupancy may make later Loot retention and rearrangement decisions more consequential.
+
+The important concept is **Starting Locked Equipment Occupancy**, not the semantic identity of a “light” or “heavy” loadout.
 
 ## Why this belongs in Prototype #001
 
-EXP-003 should reuse the existing #001 backpack because the following are intentionally identical:
+EXP-003 reuses the existing #001 backpack because the following are intentionally identical:
 
 - 6×8 spatial board.
 - Drag / drop.
 - 90° rotation.
 - Overlap / bounds validation.
-- Item visuals and value display.
+- Loot visuals and value display.
 - Discard area.
 - Fixed item sequence.
 - Session summary.
 
 Do not create a second backpack implementation merely to isolate the Experiment ID.
 
-At the same time, EXP-001 and EXP-003 keep independent Hypothesis / Question / Result records.
+EXP-001 and EXP-003 keep independent Hypothesis / Question / Result records.
 
-## Prototype naming
+## Prototype / Experiment Mode
 
-Because #001 now contains more than one backpack experiment, user-facing Prototype name may become:
-
-`Backpack Lab`
-
-Do NOT rename the implementation directory:
-
-`prototypes/001_spatial_backpack/`
-
-Add an Experiment Mode selector similar in spirit to #002, but local and minimal:
+The Prototype may expose the local selector:
 
 ```text
 Experiment Mode
 [Spatial Placement] [Equipment vs Loot]
 ```
 
-While EXP-003 is the active Work Item, default to `Equipment vs Loot`.
+This selector distinguishes EXP-001 from EXP-003.
 
-Mode switch performs a full fresh-session reset.
+Inside EXP-003, Low / High Starting Equipment Occupancy is only a **Test Condition selector**, not another Experiment Mode layer.
+
+A change of Experiment Mode or EXP-003 Test Condition starts a fresh session.
 
 ## EXP-001 preservation
 
-The current EXP-001 gameplay, fixed 12-item sequence, implementation behavior, and Player Result must remain intact.
+The current EXP-001 gameplay, fixed 12-item sequence, implementation behavior, and Player Result remain intact.
 
 Historical result remains:
 
@@ -69,48 +95,22 @@ Historical result remains:
 
 Do not reinterpret or overwrite EXP-001 because EXP-003 shares its container.
 
-## EXP-003 controlled conditions
+## EXP-003 Test Conditions
 
-EXP-003 has two fixed Loadout conditions:
-
-```text
-Loadout
-[Light] [Heavy]
-```
-
-Default recommended condition: `Light` first.
-
-Switching Light / Heavy performs a complete EXP-003 reset.
-
-Both conditions use:
+Both Test Conditions use:
 
 - the same 6×8 backpack;
-- the same loot sequence;
-- the same loot values;
-- the same drag / rotation / discard rules;
+- the same Loot sequence;
+- the same Loot values;
+- the same drag / rotation / rearrangement / discard rules;
 - the same session summary;
 - the same equipment-lock rule.
 
-Only starting equipment occupancy changes.
+Only **Starting Locked Equipment Occupancy** changes.
 
-## Equipment rule
+### Low Starting Equipment Occupancy
 
-Equipment is already packed when the EXP-003 session begins.
-
-Equipment:
-
-- occupies normal backpack cells;
-- blocks loot placement like any other occupied cell;
-- is visually distinguishable from loot;
-- cannot be dragged;
-- cannot be rotated;
-- cannot be discarded;
-- has no sell value in this experiment;
-- has no gameplay effect other than occupying space.
-
-This locking is deliberate experimental isolation. Do not add equip/unequip interactions.
-
-### Light Loadout
+Existing short UI label: `Light`.
 
 Fixed equipment:
 
@@ -121,11 +121,9 @@ Fixed equipment:
 
 Total occupied area: **3 / 48** cells.
 
-Label in UI:
+### High Starting Equipment Occupancy
 
-`Light Loadout · Equipment 3 / 48`
-
-### Heavy Loadout
+Existing short UI label: `Heavy`.
 
 Fixed equipment:
 
@@ -137,15 +135,28 @@ Fixed equipment:
 
 Total occupied area: **11 / 48** cells.
 
-Label in UI:
+These item identities exist to make the locked cells visually understandable. Their weapon / armor / medical meanings have no mechanical effect in EXP-003.
 
-`Heavy Loadout · Equipment 11 / 48`
+## Equipment rule
 
-Do not add abstract attack / defense / preparedness numbers. The experiment is about spatial cost, not stat comparison.
+Equipment is already packed when the EXP-003 session begins.
+
+Equipment:
+
+- occupies normal backpack cells;
+- blocks Loot placement like any other occupied cell;
+- is visually distinguishable from Loot;
+- cannot be dragged;
+- cannot be rotated;
+- cannot be discarded;
+- has no sell value;
+- has no combat, healing, defense, durability, access-speed, body-slot, or other gameplay effect.
+
+This locking is deliberate experimental isolation. Do not add equip / unequip interactions.
 
 ## Assets Ready
 
-Ready assets are already committed under:
+Ready assets are under:
 
 `prototypes/001_spatial_backpack/assets/`
 
@@ -160,13 +171,11 @@ Read:
 
 `prototypes/001_spatial_backpack/assets/README.md`
 
-Do not redraw these as CSS shapes or new inline SVG unless a Ready file is unusable; record the reason if replacement is necessary.
-
-Existing #001 Designer-owned loot drawings may be reused for the loot below. Do not duplicate them into new asset files just to create an asset framework.
+Existing #001 Designer-owned Loot drawings may be reused. Do not duplicate them into new asset files merely to create an asset framework.
 
 ## Fixed Loot sequence
 
-Use exactly seven loot items, in this order:
+Both EXP-003 Test Conditions receive exactly the same seven Loot items, in the same order:
 
 | Order | Loot | Size | Value | Existing visual identity |
 | ---: | --- | ---: | ---: | --- |
@@ -178,174 +187,74 @@ Use exactly seven loot items, in this order:
 | 6 | 木板 | 1×3 | 18 | `plank` |
 | 7 | 密封仪器 | 3×5 | 190 | `device` |
 
-Total loot area: **45 cells**.
+Total Loot area: **45 cells**.
 
 This is deliberate:
 
 ```text
-Light equipment 3 + loot 45 = 48
+Low occupancy: 3 + 45 = 48
 ```
 
-All loot can fit in principle under Light Loadout if arranged successfully.
+All Loot can fit in principle if arranged successfully.
 
 ```text
-Heavy equipment 11 + loot 45 = 56 > 48
+High occupancy: 11 + 45 = 56 > 48
 ```
 
-All loot cannot fit under Heavy Loadout; at least some loot must be refused or discarded.
+All Loot cannot fit; some Loot must be refused or discarded.
 
 Do not display an optimal packing solution.
 
 ## EXP-003 loop
 
 ```text
-Choose / start fixed Loadout
-→ Backpack already contains locked equipment
+Start EXP-003 Test Condition
+→ Backpack already contains Locked Equipment
 → Receive fixed Loot one item at a time
-→ Place / rotate / rearrange loot
-→ Keep or discard loot
+→ Place / rotate / rearrange Loot
+→ Keep or discard Loot
 → Continue until all 7 Loot items are processed
 → Session summary
 ```
 
 The player may rearrange previously kept Loot, but not Equipment.
 
-## UI requirements
+## Player test interpretation
 
-Keep UI minimal.
+Recommended comparison:
 
-EXP-003 must visibly show:
-
-- active Experiment: `EXP-003 Equipment vs Loot Space`;
-- active Loadout: Light / Heavy;
-- equipment occupied cells, visually marked as locked equipment;
-- current Loot item and value;
-- total occupied cells;
-- split occupancy if simple:
-  - `Equipment: 3 / 48` or `11 / 48`
-  - `Loot: N cells`
-- retained Loot value;
-- discarded Loot list;
-- session summary.
-
-Equipment should have a small stable visual marker such as `LOCKED` / lock icon / `Equipment` tag, but do not clutter every cell.
-
-Do not add tutorial overlays beyond a short explanatory sentence.
-
-## Session summary
-
-At completion, show at minimum:
-
-```text
-Loadout: Light / Heavy
-Equipment Area: 3 / 11
-Loot Kept: <items>
-Loot Value Kept: <value>
-Loot Discarded: <items>
-```
-
-No pass/fail score and no “correct” loadout.
-
-## Player test
-
-Recommended first test:
-
-1. Play Light Loadout naturally to completion.
-2. Restart EXP-003 with Heavy Loadout.
-3. Play naturally with the same Loot sequence.
+1. Complete Low Starting Equipment Occupancy naturally.
+2. Start a fresh session under High Starting Equipment Occupancy.
+3. Receive exactly the same Loot sequence again.
 
 Observe, without coaching optimization:
 
-- Did Heavy Loadout make the player reorganize more?
-- Did the player start evaluating Loot by value versus occupied shape?
-- Was there a noticeable feeling that initial preparation consumed future opportunity?
-- Did the player resent locked equipment, or did it create an interesting constraint?
-- Did Light vs Heavy feel meaningfully different despite identical Loot?
-- Was the decision space interesting, or merely an obvious capacity penalty?
+- Does more initial locked occupancy cause more rearrangement or rejection?
+- Does the player evaluate Loot by value versus occupied shape differently?
+- Does the pre-committed space feel like a meaningful cost or merely an obvious capacity reduction?
+- Does the player resent the locked cells, accept them as preparation cost, or barely notice them?
 
-Do not fill Player gameplay conclusions during implementation.
+Do not infer that the player prefers “light equipment” or “heavy equipment”; no equipment benefits exist in this experiment.
 
-## Minimum Scope
+## Future separation
 
-Implement only:
+Body slots, limb attachment points, backpack exterior mounts, quick-access placement, hand-carried items, exposure risk, durability, damage, quantity loss, and equipment effectiveness are NOT part of EXP-003.
 
-- local Experiment Mode selector for EXP-001 / EXP-003;
-- preserve EXP-001 exactly;
-- EXP-003 Light / Heavy Loadout selector;
-- fixed locked equipment occupancy;
-- direct use of Ready equipment SVG assets;
-- fixed 7-item Loot sequence;
-- reuse existing loot visuals;
-- existing placement / rotation / rearrangement / discard behavior for Loot;
-- minimal EXP-003 counters and summary;
-- complete reset on Experiment Mode or Loadout switch;
-- docs/status sync;
-- build and Pages verification.
+Those are separate candidate experiments and must not be retrofitted into EXP-003 merely because Locked Equipment now exists.
 
-Stop there.
+See:
 
-## Non-goals
+`docs/inventory-equipment-experiment-notes.md`
 
-Do NOT add:
+## Result / Stop condition
 
-- characters, map, exploration, route, combat, enemies, damage or healing;
-- weapon or armor stats;
-- equipment effectiveness simulation;
-- equip / unequip / equipment dropping;
-- random Loot;
-- rarity systems;
-- weight / encumbrance;
-- stackable items;
-- shops, crafting or economy;
-- item use;
-- inventory tabs;
-- auto-sort;
-- procedural items;
-- shared Inventory framework;
-- AssetManager / SVG loader framework;
-- integration with Prototype #002;
-- EXP-002 implementation.
+Current state:
 
-## Backlog / documentation status
+```text
+EXP-003 — TESTING
+Result: Untested
+```
 
-Before implementation:
+Stop at the existing implementation. Do not add more inventory mechanics before Player feedback.
 
-- Set EXP-003 from IDEA to BUILDING when work begins.
-
-After technical completion:
-
-- Set EXP-003 to TESTING.
-- Keep EXP-001 MAYBE and its Player Result unchanged.
-- Update `prototypes/001_spatial_backpack/README.md` into a multi-Experiment Prototype record, with independent sections/results for EXP-001 and EXP-003.
-- Update root / `prototypes/README.md` / Launcher summaries only where current active status requires it.
-- Do not write a gameplay Result for EXP-003 beyond `Untested`.
-
-## Technical acceptance
-
-Verify at minimum:
-
-1. Existing EXP-001 mode still starts and behaves as before.
-2. EXP-001 historical MAYBE result remains unchanged in docs.
-3. EXP-003 is default active mode while it is the selected current experiment.
-4. Switching Experiment Mode performs a complete reset.
-5. EXP-003 Light / Heavy switch performs a complete reset.
-6. Ready equipment SVG files load visibly.
-7. Light starts with exactly Sidearm 1×2 + Medkit 1×1 at specified cells.
-8. Heavy starts with exactly Rifle 1×4 + Armor 2×3 + Medkit 1×1 at specified cells.
-9. Equipment cannot be dragged, rotated or discarded.
-10. Equipment cells block Loot placement.
-11. Both Loadouts receive the exact same seven Loot items in the same order and values.
-12. Loot retains existing drag / R rotate / cancel / overlap / bounds / discard behavior.
-13. Light condition has 3 fixed equipment cells and can in principle retain all 45 Loot cells; do not hard-code auto-layout.
-14. Heavy condition has 11 fixed equipment cells and therefore cannot retain all 45 Loot cells.
-15. Summary reports Loadout, Equipment Area, kept Loot/value and discarded Loot.
-16. No equipment stats or combat systems are introduced.
-17. `npm run build` passes.
-18. GitHub Pages loads both Experiment Modes and direct SVG asset paths successfully.
-19. EXP-003 stops at TESTING / Result: Untested.
-
-## Stop condition
-
-Stop once the Player can complete the same Loot sequence under both Light and Heavy starting equipment conditions and directly compare how shared backpack space changes retention/rearrangement pressure.
-
-Do not add any further inventory mechanics before Player feedback.
+EXP-001 remains MAYBE with its historical Player result unchanged.
