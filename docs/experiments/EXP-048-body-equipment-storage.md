@@ -1,6 +1,6 @@
 # EXP-048 — Body Equipment Storage
 
-Status: TESTING / Result: Untested
+Status: MAYBE
 
 Category: Inventory
 
@@ -147,19 +147,27 @@ Those remain separate candidate questions. The sequencing principle remains:
 
 ## Result
 
-Untested — technically implemented on 2026-09-13; not yet played by the Player.
+MAYBE — 2026-09-13 initial Player hands-on feedback: “感觉有使用的价值。”
 
-- Observed: TBD
-- Interesting Moment: TBD
-- Boring Moment: TBD
-- Decisions: TBD
-- Unexpected: TBD
-- Next: TBD
+Interpretation: this is a positive signal that Body Equipment Storage has practical / gameplay value, but the evidence is still too limited to mark the experiment `INTERESTING`.
+
+- Observed: Player reported that the mechanism feels useful / has value.
+- Interesting Moment: TBD — not separately reported.
+- Boring Moment: TBD — not separately reported.
+- Decisions: TBD — no specific allocation decision was separately reported.
+- Unexpected: TBD.
+- Next: preserve MAYBE; complete the review-fix / technical-acceptance task before using future Backpack Only → Body Slots Available comparisons as cleaner controlled evidence.
 
 ## Implementation
 
-The concrete parameters are now frozen in:
+The concrete parameters are frozen in:
 
 `docs/work-items/EXP-048-body-equipment-storage.md`
 
-The Work Item has been implemented in Backpack Lab. Both Test Conditions use the frozen nine-item sequence; Body Slots Available exposes exactly Back / Chest / Waist. Local TypeScript and production build pass. Browser interaction and Player gameplay evaluation remain pending.
+The implementation is present in Backpack Lab. A code review found that the page currently defaults to the treatment condition (`Body Slots Available`) rather than the baseline (`Backpack Only`), and that browser / Pages technical acceptance was not fully closed before CURRENT was cleared.
+
+The active corrective task is:
+
+`docs/work-items/EXP-048-review-fix-01.md`
+
+This review fix must not change the frozen gameplay parameters or reinterpret the Player result above.
