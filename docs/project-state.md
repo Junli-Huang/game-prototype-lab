@@ -21,7 +21,7 @@ Before implementation, also read `docs/asset-handoff.md` and the selected Work I
 
 **No active implementation task.**
 
-EXP-048 has completed local technical implementation and is now `TESTING / Result: Untested`. The preserved Work Item is `docs/work-items/EXP-048-body-equipment-storage.md`; `docs/work-items/CURRENT.md` is closed until another task is explicitly selected.
+EXP-048 Review Fix 01 and EXP-049 have completed implementation, real-browser interaction verification, and GitHub Pages acceptance. EXP-048 remains `MAYBE`; EXP-049 is `TESTING / Result: Untested`. `docs/work-items/CURRENT.md` is closed until another task is explicitly selected.
 
 Core frozen parameters:
 
@@ -54,7 +54,7 @@ Interpretation: light positive signal, not strong enough for INTERESTING. Preser
 
 ### EXP-003 — Equipment vs Loot Space
 
-Status: `TESTING / Result: Untested`
+Status: `MAYBE`
 
 Implemented and technically accepted. Waiting for Player gameplay evaluation.
 
@@ -95,7 +95,18 @@ Each compatible item has exactly one legal body location. Each location has two 
 
 The exact nine-item sequence, dimensions, values, body mappings, interaction rules, Non-goals, and Acceptance are implemented from the frozen Work Item.
 
-Technical implementation must leave Player Result as `TESTING / Untested` until actual gameplay feedback exists.
+Player feedback is preserved exactly as “感觉有使用的价值。” This is a positive but limited signal. Review Fix 01 changed the default to Backpack Only and completed the real-browser / Pages acceptance matrix without changing frozen parameters.
+
+### EXP-049 — Fixed vs Movable Equipment
+
+Status: `TESTING / Result: Untested`
+
+Both Test Conditions use EXP-003 Heavy Required Equipment (11 / 48), identical starting positions, and the same seven-item Loot sequence.
+
+- Movable Required Equipment may move / rotate but cannot be discarded.
+- Locked Required Equipment cannot move / rotate / discard.
+
+Real-browser Pages acceptance confirmed mobility, rotation, overlap / bounds / discard rejection, locked behavior, full resets, Summary, direct refresh, and historical Mode regression. Gameplay comparison remains untested.
 
 ## Prototype #002 — Enemy Respawn Lab
 
@@ -148,7 +159,7 @@ Detailed R2 outcome is preserved in:
 
 ## Inventory / Equipment design direction
 
-The Inventory line is currently waiting for Player evaluation of **EXP-048 — Body Equipment Storage**.
+The Inventory line is currently waiting for Player evaluation of **EXP-049 — Fixed vs Movable Equipment**.
 
 Design history and later candidates remain recorded in:
 
@@ -156,13 +167,14 @@ Design history and later candidates remain recorded in:
 
 Current sequencing:
 
-1. EXP-048 — Body Equipment Storage — **TESTING / Untested**.
-2. Spatial / Anatomical Mount Points — later candidate.
-3. External Backpack Mounts — later candidate.
-4. Access Speed by Location — later candidate.
-5. Hand-Carried Items — later candidate.
-6. External Item Exposure — later candidate.
-7. Quantity / Condition Loss — later candidate.
+1. EXP-048 — Body Equipment Storage — **MAYBE**.
+2. EXP-049 — Fixed vs Movable Equipment — **TESTING / Untested**.
+3. Spatial / Anatomical Mount Points — later candidate.
+4. External Backpack Mounts — later candidate.
+5. Access Speed by Location — later candidate.
+6. Hand-Carried Items — later candidate.
+7. External Item Exposure — later candidate.
+8. Quantity / Condition Loss — later candidate.
 
 Recommended sequencing principle remains:
 
@@ -172,11 +184,11 @@ Do not combine body slots + quick access + durability + combat damage in EXP-048
 
 ## Next step
 
-Player tests EXP-048 in this order:
+Player tests EXP-049 in this order:
 
-1. Backpack Only.
-2. Body Slots Available.
-3. Record actual allocation decisions and whether body locations felt scarce or merely like free capacity.
+1. Movable Required Equipment.
+2. Locked Required Equipment.
+3. Record whether fixed equipment adds interesting planning or only friction.
 4. Only actual Player feedback determines MAYBE / INTERESTING / DEAD / next iteration.
 
 ## Repository handoff rules that must remain true

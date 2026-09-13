@@ -1,8 +1,8 @@
 # Inventory / Equipment Experiment Notes
 
-Status: EXP-048 implemented and awaiting Player evaluation; remaining items are candidates only.
+Status: EXP-048 is MAYBE; EXP-049 is implemented and awaiting Player evaluation; remaining items are candidates only.
 
-Purpose: preserve the Inventory / Equipment design direction while keeping each experiment isolated. EXP-048 has been implemented as a TESTING experiment; later ideas remain unselected.
+Purpose: preserve the Inventory / Equipment design direction while keeping each experiment isolated. EXP-048 produced a limited positive signal; EXP-049 now isolates Required Equipment mobility; later ideas remain unselected.
 
 ## Current tested foundation
 
@@ -30,7 +30,7 @@ EXP-003 deliberately does not implement equipment effects, body slots, external 
 
 ## EXP-048 — Body Equipment Storage
 
-Status: **TESTING / Result: Untested**.
+Status: **MAYBE** — Player feedback: “感觉有使用的价值。”
 
 Formal definition:
 
@@ -310,6 +310,6 @@ Do not jump from EXP-048 directly to a combined system containing body slots + q
 
 # Status
 
-EXP-048 is implemented / TESTING and has no Player result yet.
+EXP-048 is implemented / MAYBE. EXP-049 Fixed vs Movable Equipment is implemented / TESTING and is the current Player comparison target.
 
 All other candidates in this document remain **unselected design notes** with no automatic Experiment ID, READY status, Work Item, Prototype change, or implementation authorization.

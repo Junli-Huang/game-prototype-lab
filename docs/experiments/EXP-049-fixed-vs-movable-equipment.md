@@ -1,6 +1,6 @@
 # EXP-049 — Fixed vs Movable Equipment
 
-Status: READY / Selected
+Status: TESTING / Result: Untested
 
 Category: Inventory
 
@@ -135,7 +135,7 @@ Do not add:
 
 ## Result
 
-TBD — not implemented / not played.
+Untested — implemented and technically accepted on GitHub Pages on 2026-09-13; not yet compared by the Player.
 
 - Observed: TBD
 - Interesting Moment: TBD
@@ -157,4 +157,10 @@ Proposed mode list:
 3. EXP-048 — Body Equipment Storage
 4. EXP-049 — Fixed vs Movable Equipment
 
-Sharing Backpack Lab is for controlled comparison fidelity only. Do not build a generalized mode / inventory framework for speculative reuse.
+Sharing Backpack Lab is for controlled comparison fidelity only. No generalized mode / inventory framework was added.
+
+## Technical Acceptance
+
+- Both conditions use the same Heavy 11 / 48 Required Equipment geometry and the same seven-item Loot sequence.
+- Real-browser Pages verification confirmed movable equipment move / rotate, overlap / bounds / discard rejection, locked non-interaction, full condition / Mode / Restart reset, required-equipment retention, and Session Summary.
+- `npm run build`, deployed direct Prototype loading, refresh, and historical Mode regression passed.

@@ -156,7 +156,7 @@ Interpretation: this is a positive signal that Body Equipment Storage has practi
 - Boring Moment: TBD — not separately reported.
 - Decisions: TBD — no specific allocation decision was separately reported.
 - Unexpected: TBD.
-- Next: preserve MAYBE; complete the review-fix / technical-acceptance task before using future Backpack Only → Body Slots Available comparisons as cleaner controlled evidence.
+- Next: preserve MAYBE; future controlled comparisons begin with Backpack Only before Body Slots Available.
 
 ## Implementation
 
@@ -164,10 +164,4 @@ The concrete parameters are frozen in:
 
 `docs/work-items/EXP-048-body-equipment-storage.md`
 
-The implementation is present in Backpack Lab. A code review found that the page currently defaults to the treatment condition (`Body Slots Available`) rather than the baseline (`Backpack Only`), and that browser / Pages technical acceptance was not fully closed before CURRENT was cleared.
-
-The active corrective task is:
-
-`docs/work-items/EXP-048-review-fix-01.md`
-
-This review fix must not change the frozen gameplay parameters or reinterpret the Player result above.
+Review Fix 01 completed on 2026-09-13. Backpack Only is now the initial condition, and real-browser GitHub Pages acceptance covered both conditions, legal and rejected Body paths, rotation / rearrangement / discard / progression, Restart, condition reset, Mode reset, direct Prototype loading, and EXP-001 / EXP-003 regression. Frozen gameplay parameters and the Player result were not changed.

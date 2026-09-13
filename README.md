@@ -2,7 +2,7 @@
 
 快速游戏玩法实验室。Small experiments for finding fun.
 
-V0.2.5 — Body Equipment Storage。[Prototype #001：Backpack Lab](prototypes/001_spatial_backpack/README.md) 保留 EXP-001 MAYBE、EXP-003 TESTING / Untested，并已实现 EXP-048 Body Equipment Storage — TESTING / Untested。[Prototype #002：Enemy Respawn Lab](prototypes/002_campfire_respawn/README.md) 的 EXP-007 / EXP-008 World Refresh R2 均得到弱信号，当前结论为 MAYBE / Stop。
+V0.2.6 — Equipment Mobility Comparison。[Prototype #001：Backpack Lab](prototypes/001_spatial_backpack/README.md) 保留 EXP-001 MAYBE、EXP-003 TESTING / Untested、EXP-048 MAYBE，并已实现 EXP-049 Fixed vs Movable Equipment — TESTING / Untested。[Prototype #002：Enemy Respawn Lab](prototypes/002_campfire_respawn/README.md) 的 EXP-007 / EXP-008 为 MAYBE / Stop。
 
 - **game-dev-lab / Game Tech Prototype**：验证技术、机制、实现方案是否可行。
 - **game-prototype-lab / Game Prototype**：验证某个玩法假设是否有趣。
@@ -13,11 +13,11 @@ V0.2.5 — Body Equipment Storage。[Prototype #001：Backpack Lab](prototypes/0
 
 新 Chat / Designer / Reviewer 优先阅读 [Project State — Cold Start Snapshot](docs/project-state.md)。它只负责回答“现在做到哪、哪些结果已经确定、当前有没有实施任务、下一步正在讨论什么”，详细定义仍以 Backlog、Prototype README、Workflow 和历史 Work Item 为准。
 
-当前没有 Active implementation task。EXP-048 已完成本地技术实现，下一步是 Player 对比试玩 Backpack Only / Body Slots Available；不要从 Backlog 自行猜测下一任务。
+当前没有 Active implementation task。EXP-049 已完成技术与 Pages 验收，下一步是 Player 对比试玩 Movable / Locked Required Equipment；不要从 Backlog 自行猜测下一任务。
 
 ## Experiment Backlog
 
-[查看全部 48 个实验课题](docs/experiment-backlog.md)。当前关键状态：EXP-001 为 MAYBE；EXP-003、EXP-048 为 TESTING / Untested；EXP-007 / EXP-008 最新 R2 试玩均为 MAYBE / Stop。
+[查看全部 49 个实验课题](docs/experiment-backlog.md)。当前关键状态：EXP-001、EXP-048 为 MAYBE；EXP-003、EXP-049 为 TESTING / Untested；EXP-007 / EXP-008 为 MAYBE / Stop。
 
 Experiment 是待回答的问题；Prototype 是可玩的测试容器。默认一个 Prototype 可以只承载一个 Experiment；高度相关、需要公平对照的竞争 Experiment 也可以共享同一 Prototype，以独立 Experiment Mode 切换测试。**同一 Experiment 内的 Low / High、参数档位等 Test Conditions 不自动等于独立 Experiment Mode。**
 

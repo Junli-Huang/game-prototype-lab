@@ -6,9 +6,10 @@
 | --- | --- | --- | --- |
 | Spatial Placement | [EXP-001](../../docs/experiment-backlog.md#exp-001-spatial-backpack-placement) | MAYBE | 有限二维空间中的摆放、旋转与取舍 |
 | Equipment vs Loot | [EXP-003](../../docs/experiment-backlog.md#exp-003-equipment-vs-loot-space) | TESTING | 同一 Loot 序列下，开局 Locked Equipment 占 3 格或 11 格 |
-| Body Equipment Storage | [EXP-048](../../docs/experiment-backlog.md#exp-048-body-equipment-storage) | TESTING | 相同九件物品下，是否提供 Back / Chest / Waist 身体携带位置 |
+| Body Equipment Storage | [EXP-048](../../docs/experiment-backlog.md#exp-048-body-equipment-storage) | MAYBE | 相同九件物品下，是否提供 Back / Chest / Waist 身体携带位置 |
+| Fixed vs Movable Equipment | [EXP-049](../../docs/experiment-backlog.md#exp-049-fixed-vs-movable-equipment) | TESTING | 相同 Heavy Required Equipment 下，只改变装备能否移动 / 旋转 |
 
-当前默认 Mode：EXP-048 Body Equipment Storage；默认 Test Condition：Body Slots Available。Experiment Mode、Loadout 或 Test Condition 切换均开始完整的新 Session。
+当前默认 Mode：EXP-048 Body Equipment Storage；默认 Test Condition：Backpack Only。Experiment Mode、Loadout 或 Test Condition 切换均开始完整的新 Session。
 
 ## EXP-001 — Spatial Backpack Placement（历史记录）
 
@@ -172,7 +173,7 @@ Light / Heavy 共用现有 #001 的 6×8 棋盘、拖拽、R 旋转、越界/重
 
 ### Status / Result
 
-TESTING / Result: Untested。2026-09-13 完成本地技术实现；技术验收不构成 Player 玩法结论。
+MAYBE — Player 初次试玩反馈：“感觉有使用的价值。”这是正向但有限的信号，不足以标记 INTERESTING。
 
 ### Question / Conditions
 
@@ -207,11 +208,41 @@ TESTING / Result: Untested。2026-09-13 完成本地技术实现；技术验收�
 - 两种 Test Conditions 引用同一个九件物品序列；Body Slots Available 仅提供 Back / Chest / Waist，各一件且严格匹配。
 - Backpack ↔ Body、Tray → Body、Body → Discard 的状态路径已实现；非法和占用放置不提交模型状态。
 - TypeScript 检查、Vite MPA 生产构建和 `git diff --check` 通过。
-- 当前执行环境没有可用浏览器二进制，因此未声称完成真实鼠标交互或线上 Pages 验收；需要 Player 桌面浏览器确认。
+- 2026-09-13 Review Fix 01 将默认条件修正为 Backpack Only；HTML 初始选中与 Body Panel 隐藏状态一致。
+- GitHub Pages 真实 Chrome 验收通过：Backpack Only 的放置、旋转、重排、丢弃、Next、Restart；Body Slots Available 的 Tray → Body、Backpack ↔ Body、Body → Discard、错误槽位与占用槽位拒绝；条件 / Mode / Restart 完整重置。
+- 线上直接加载 Prototype URL、刷新、EXP-001 / EXP-003 回归与生产构建均通过。
 
 ### Non-goals / Next
 
-未加入装备属性、战斗、快速取用、耐久、暴露风险、重量、更多部位、外挂背包、手持物品或通用 Inventory / Slot Framework。下一步仅由 Player 先试玩 Backpack Only、再试玩 Body Slots Available，并记录实际分配决策。
+未加入装备属性、战斗、快速取用、耐久、暴露风险、重量、更多部位、外挂背包、手持物品或通用 Inventory / Slot Framework。历史反馈原样保留为 MAYBE。
+
+## EXP-049 — Fixed vs Movable Equipment
+
+### Status / Result
+
+TESTING / Result: Untested。技术与 Pages 验收完成，等待 Player 实际对比。
+
+### Question / Controlled Conditions
+
+在相同 Required Equipment、起始位置和七件 Loot 下，只改变 Required Equipment 是否可移动 / 旋转，是否会改变背包整理的乐趣与决策质量？
+
+- `Movable Required Equipment`：三件装备可在背包内拖动、旋转，但不可丢弃。
+- `Locked Required Equipment`：同样三件装备固定、不可旋转、不可丢弃。
+- 两者均使用 EXP-003 Heavy：Old Rifle 1×4 at (0,0)、Field Armor 2×3 at (1,0)、Field Medkit 1×1 at (3,0)，总面积 11 / 48。
+- 两者均使用 EXP-003 原七件 Loot 固定序列；不构建 Low / High × Movable / Locked 四条件矩阵。
+
+### Browser / Pages Acceptance
+
+- Movable：实际拖动并旋转 Old Rifle 1×4 → 4×1 成功；重叠、越界、丢弃尝试均被拒绝并回到原状态，三件 Required Equipment 始终存在。
+- Locked：三件装备保持原起始尺寸与位置；拖向丢弃区不产生状态变化。
+- 条件切换和 Restart 均恢复三件装备的初始位置 / 朝向，清空 Loot、Discarded、Summary、Value 与临时拖拽状态。
+- Locked 条件完整处理七件 Loot 后，Summary 正确列出 Test Condition、三件 Required Equipment、Loot Kept / Discarded 与 Loot Kept Value。
+- EXP-001、EXP-003、EXP-048 Mode 切回后均完整重置；EXP-048 仍默认 Backpack Only。
+- `npm run build` 与 GitHub Pages 部署通过，独立 Prototype URL 可直接加载 / 刷新。
+
+### Non-goals / Next
+
+未加入 Body Slots、装备效果、快速取用、耐久、重量、随机 Loot、自动整理、额外占用档位或通用 Inventory Framework。下一步由 Player 对比 Movable → Locked，并提供真实体验反馈。
 
 ## Historical Notes / Handoff
 

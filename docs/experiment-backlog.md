@@ -104,7 +104,8 @@ Experiment 是要验证的问题；Prototype 是回答该问题的可玩实现�
 | EXP-045 | [Resource Knowledge](#exp-045-resource-knowledge) | World Knowledge | IDEA |
 | EXP-046 | [Enemy Ecology Knowledge](#exp-046-enemy-ecology-knowledge) | World Knowledge | IDEA |
 | EXP-047 | [World Knowledge Over Character Level](#exp-047-world-knowledge-over-character-level) | World Knowledge | IDEA |
-| EXP-048 | [Body Equipment Storage](#exp-048-body-equipment-storage) | Inventory | TESTING |
+| EXP-048 | [Body Equipment Storage](#exp-048-body-equipment-storage) | Inventory | MAYBE |
+| EXP-049 | [Fixed vs Movable Equipment](#exp-049-fixed-vs-movable-equipment) | Inventory | TESTING |
 
 # Inventory
 
@@ -216,7 +217,7 @@ Name: Equipment vs Loot Space
 
 Category: Inventory
 
-Status: TESTING
+Status: MAYBE
 
 ### Hypothesis
 
@@ -269,7 +270,7 @@ Name: Body Equipment Storage
 
 Category: Inventory
 
-Status: TESTING
+Status: MAYBE
 
 ### Hypothesis
 
@@ -295,20 +296,69 @@ Status: TESTING
 
 ### Result
 
-Untested — 2026-09-13 完成本地技术实现，等待 Player 对比试玩两个 Test Conditions。
+MAYBE — 2026-09-13 Player 初次试玩反馈：“感觉有使用的价值。”这是正向但有限的信号，不足以标记 INTERESTING。
+
+- Observed：Player 认为该机制有使用价值；未单独报告具体分配行为。
+- 有趣开始的时机：TBD
+- 无聊开始的时机：TBD
+- 玩家产生的决策：TBD
+- Unexpected：TBD
+- Next：保留 MAYBE；后续受控对比从 Backpack Only 开始，再进入 Body Slots Available。
+
+### Notes
+
+- Prototype：[Backpack Lab / Body Equipment Storage](../prototypes/001_spatial_backpack/README.md)。
+- 固定参数与历史 Work Item：[`EXP-048-body-equipment-storage.md`](work-items/EXP-048-body-equipment-storage.md)。
+- Review Fix 01 已完成真实浏览器交互矩阵、Pages 部署和直接刷新验收；默认条件修正为 Backpack Only。
+
+## EXP-049 Fixed vs Movable Equipment
+
+ID: EXP-049
+
+Name: Fixed vs Movable Equipment
+
+Category: Inventory
+
+Status: TESTING
+
+### Hypothesis
+
+在相同 High Occupancy Required Equipment 与 Loot 序列下，允许 Required Equipment 移动 / 旋转可能保留空间规划，同时减少固定障碍带来的任意摩擦。
+
+### Core Variable
+
+Required Equipment 是否允许在背包内移动 / 旋转。
+
+### Question
+
+装备是否允许移动 / 旋转，会不会改变背包整理的乐趣与决策质量？
+
+### Minimum Scope
+
+- Movable / Locked 两个 Test Conditions。
+- 两者均使用 EXP-003 Heavy 三件装备、11 / 48 初始占格和同一七件 Loot。
+- Required Equipment 始终不可丢弃；仅 Movable 条件可移动和旋转。
+
+### Non-goals
+
+不加入 Body Slots、战斗、取用速度、耐久、重量、额外占用档位、随机 Loot、自动整理或通用 Inventory Framework。
+
+### Result
+
+Untested — 2026-09-13 完成实现、真实浏览器与 GitHub Pages 技术验收，等待 Player 对比试玩。
 
 - Observed：TBD
 - 有趣开始的时机：TBD
 - 无聊开始的时机：TBD
 - 玩家产生的决策：TBD
 - Unexpected：TBD
-- Next：先试玩 Backpack Only，再试玩 Body Slots Available；不根据技术验收预填玩法结论。
+- Next：Player 对比 Movable Required Equipment 与 Locked Required Equipment。
 
 ### Notes
 
-- Prototype：[Backpack Lab / Body Equipment Storage](../prototypes/001_spatial_backpack/README.md)。
-- 固定参数与历史 Work Item：[`EXP-048-body-equipment-storage.md`](work-items/EXP-048-body-equipment-storage.md)。
-- 本地 TypeScript 与生产构建通过；浏览器实际交互与 Player 体验仍待验证。
+- Prototype：[Backpack Lab / Fixed vs Movable Equipment](../prototypes/001_spatial_backpack/README.md)。
+- 两种条件的装备集合、起始位置、尺寸、总面积和 Loot 序列一致；只有 mobility 改变。
+- 技术验收不构成玩法结论。
 
 # Exploration
 
