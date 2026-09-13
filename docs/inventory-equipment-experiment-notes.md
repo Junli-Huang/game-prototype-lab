@@ -1,8 +1,8 @@
 # Inventory / Equipment Experiment Notes
 
-Status: Design chain with EXP-048 selected; remaining items are candidates only.
+Status: EXP-048 implemented and awaiting Player evaluation; remaining items are candidates only.
 
-Purpose: preserve the Inventory / Equipment design direction while keeping each experiment isolated. EXP-048 has now been promoted out of the candidate pool into a selected READY experiment; later ideas remain unselected.
+Purpose: preserve the Inventory / Equipment design direction while keeping each experiment isolated. EXP-048 has been implemented as a TESTING experiment; later ideas remain unselected.
 
 ## Current tested foundation
 
@@ -30,7 +30,7 @@ EXP-003 deliberately does not implement equipment effects, body slots, external 
 
 ## EXP-048 — Body Equipment Storage
 
-Status: **READY / Selected**.
+Status: **TESTING / Result: Untested**.
 
 Formal definition:
 
@@ -68,16 +68,7 @@ EXP-048 should reuse Backpack Lab only because the comparison benefits from the 
 
 ### Implementation gate
 
-EXP-048 is selected but not yet authorized for Work implementation.
-
-Before creating the Work Item, freeze:
-
-- exact item sequence and dimensions;
-- body-slot capacities;
-- legal item-location mappings;
-- any Ready visual assets.
-
-`docs/work-items/CURRENT.md` remains No active task until the formal Work Item is ready.
+EXP-048 is implemented from the frozen Work Item. `docs/work-items/CURRENT.md` is now closed; the next step is Player evaluation of both Test Conditions.
 
 ---
 
@@ -319,6 +310,6 @@ Do not jump from EXP-048 directly to a combined system containing body slots + q
 
 # Status
 
-EXP-048 is selected / READY and has a formal experiment definition.
+EXP-048 is implemented / TESTING and has no Player result yet.
 
 All other candidates in this document remain **unselected design notes** with no automatic Experiment ID, READY status, Work Item, Prototype change, or implementation authorization.

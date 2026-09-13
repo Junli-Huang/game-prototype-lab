@@ -19,17 +19,9 @@ Before implementation, also read `docs/asset-handoff.md` and the selected Work I
 
 ## Current implementation task
 
-**ACTIVE: EXP-048 — Body Equipment Storage**
+**No active implementation task.**
 
-Work Item:
-
-`docs/work-items/EXP-048-body-equipment-storage.md`
-
-Stable authorization entry:
-
-`docs/work-items/CURRENT.md`
-
-EXP-048 concrete parameters are frozen. Work is authorized to implement the Work Item on the current `main` branch.
+EXP-048 has completed local technical implementation and is now `TESTING / Result: Untested`. The preserved Work Item is `docs/work-items/EXP-048-body-equipment-storage.md`; `docs/work-items/CURRENT.md` is closed until another task is explicitly selected.
 
 Core frozen parameters:
 
@@ -80,7 +72,7 @@ Do not infer equipment power, combat, body slots, durability, or access-speed co
 
 ### EXP-048 — Body Equipment Storage
 
-Status: `READY / BUILDING authorized`
+Status: `TESTING / Result: Untested`
 
 Work Item: `docs/work-items/EXP-048-body-equipment-storage.md`
 
@@ -101,7 +93,7 @@ Body locations:
 
 Each compatible item has exactly one legal body location. Each location has two competing compatible items in the fixed sequence.
 
-The exact nine-item sequence, dimensions, values, body mappings, interaction rules, Non-goals, and Acceptance are frozen in the Work Item.
+The exact nine-item sequence, dimensions, values, body mappings, interaction rules, Non-goals, and Acceptance are implemented from the frozen Work Item.
 
 Technical implementation must leave Player Result as `TESTING / Untested` until actual gameplay feedback exists.
 
@@ -156,7 +148,7 @@ Detailed R2 outcome is preserved in:
 
 ## Inventory / Equipment design direction
 
-The Inventory line is currently implementing **EXP-048 — Body Equipment Storage**.
+The Inventory line is currently waiting for Player evaluation of **EXP-048 — Body Equipment Storage**.
 
 Design history and later candidates remain recorded in:
 
@@ -164,7 +156,7 @@ Design history and later candidates remain recorded in:
 
 Current sequencing:
 
-1. EXP-048 — Body Equipment Storage — **active implementation**.
+1. EXP-048 — Body Equipment Storage — **TESTING / Untested**.
 2. Spatial / Anatomical Mount Points — later candidate.
 3. External Backpack Mounts — later candidate.
 4. Access Speed by Location — later candidate.
@@ -180,15 +172,12 @@ Do not combine body slots + quick access + durability + combat damage in EXP-048
 
 ## Next step
 
-Work implements the active EXP-048 Work Item.
+Player tests EXP-048 in this order:
 
-After technical acceptance:
-
-1. EXP-048 becomes `TESTING / Result: Untested`.
-2. Prototype README / Project State / Backlog are synchronized.
-3. `CURRENT.md` returns to `No active implementation task`.
-4. Player tests both conditions.
-5. Only actual Player feedback determines MAYBE / INTERESTING / DEAD / next iteration.
+1. Backpack Only.
+2. Body Slots Available.
+3. Record actual allocation decisions and whether body locations felt scarce or merely like free capacity.
+4. Only actual Player feedback determines MAYBE / INTERESTING / DEAD / next iteration.
 
 ## Repository handoff rules that must remain true
 

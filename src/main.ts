@@ -23,9 +23,9 @@ const prototypes: PrototypeEntry[] = [
   },
   {
     id: '001',
-    name: 'Backpack Lab · EXP-003 Equipment vs Loot Space',
+    name: 'Backpack Lab · EXP-048 Body Equipment Storage',
     status: 'TESTING',
-    hypothesis: '相同 Loot 序列下，Starting Locked Equipment Occupancy 是否会改变后续整理与留舍压力？',
+    hypothesis: '同一批物品下，有限的 Back / Chest / Waist 身体携带位置是否会产生新的空间分配决策？',
     url: 'prototypes/001_spatial_backpack/',
   },
 ];

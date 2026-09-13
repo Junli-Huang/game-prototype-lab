@@ -6,8 +6,9 @@
 | --- | --- | --- | --- |
 | Spatial Placement | [EXP-001](../../docs/experiment-backlog.md#exp-001-spatial-backpack-placement) | MAYBE | 有限二维空间中的摆放、旋转与取舍 |
 | Equipment vs Loot | [EXP-003](../../docs/experiment-backlog.md#exp-003-equipment-vs-loot-space) | TESTING | 同一 Loot 序列下，开局 Locked Equipment 占 3 格或 11 格 |
+| Body Equipment Storage | [EXP-048](../../docs/experiment-backlog.md#exp-048-body-equipment-storage) | TESTING | 相同九件物品下，是否提供 Back / Chest / Waist 身体携带位置 |
 
-当前默认 Mode：EXP-003 Equipment vs Loot Space；默认 Loadout：Light。Experiment Mode 或 Loadout 切换均开始完整的新 Session。
+当前默认 Mode：EXP-048 Body Equipment Storage；默认 Test Condition：Body Slots Available。Experiment Mode、Loadout 或 Test Condition 切换均开始完整的新 Session。
 
 ## EXP-001 — Spatial Backpack Placement（历史记录）
 
@@ -166,6 +167,51 @@ Light / Heavy 共用现有 #001 的 6×8 棋盘、拖拽、R 旋转、越界/重
 ### Non-goals / Next
 
 没有新增装备属性、使用、随机 Loot、重量、堆叠、自动整理、探索、战斗、共享 Inventory / Asset Framework 或 EXP-002。下一步仅等待 Player 依次试玩 Light 与 Heavy；当前不填写 Observed、Interesting Moment、Boring Moment、Decisions 或 Unexpected。
+
+## EXP-048 — Body Equipment Storage
+
+### Status / Result
+
+TESTING / Result: Untested。2026-09-13 完成本地技术实现；技术验收不构成 Player 玩法结论。
+
+### Question / Conditions
+
+本实验只测试“有限身体位置是否会让物品存放位置产生新的空间分配决策”。`Backpack Only` 和 `Body Slots Available` 使用完全相同的九件物品、顺序、尺寸和 Value；唯一变量是后者可使用 Back / Chest / Waist，各位置限一件匹配物品。
+
+| # | Item | Size | Value | Body Location |
+| ---: | --- | ---: | ---: | --- |
+| 1 | Compact Sidearm | 1×2 | 30 | Waist |
+| 2 | Canned Food | 1×2 | 20 | — |
+| 3 | Field Medkit | 2×3 | 45 | Chest |
+| 4 | Mechanical Parts | 3×4 | 65 | — |
+| 5 | Old Rifle | 1×5 | 75 | Back |
+| 6 | Ammo Pouch | 2×3 | 40 | Waist |
+| 7 | Utility Pouch | 2×2 | 35 | Chest |
+| 8 | Field Tool | 2×4 | 55 | Back |
+| 9 | Sealed Instrument | 5×5 | 180 | — |
+
+总面积 70。三个身体位置最多转移 20 格，背包仍至少需要容纳 50 格，因此两种条件都保留取舍压力；页面不显示最优分配答案。
+
+### Controls / Interaction
+
+- 拖拽待处理物品或已存物品；`R` 旋转手中物品，`Esc` 取消。
+- 两种条件都可放入 6×8 背包、重排或拖入丢弃区。
+- Body Slots Available 中，兼容物品可由 Tray 或 Backpack 拖到唯一合法身体位置，也可从 Body 拖回 Backpack 或丢弃。
+- 不匹配或已占用的位置拒绝放置且不改变状态；无自动交换、自动装备或最佳位置推荐。
+- Mode、Test Condition 与 Restart 都完整重置背包、Body、丢弃、当前物品、方向、Summary 和拖拽状态。
+- Session Summary 分别列出 Backpack / Body（按位置）/ Discarded 与 Total Kept Value，不评分。
+
+### Technical Acceptance
+
+- EXP-048 已作为第三个 Experiment Mode 加入 Backpack Lab；EXP-001 / EXP-003 的固定序列、Locked Equipment 与历史 Result 保留。
+- 两种 Test Conditions 引用同一个九件物品序列；Body Slots Available 仅提供 Back / Chest / Waist，各一件且严格匹配。
+- Backpack ↔ Body、Tray → Body、Body → Discard 的状态路径已实现；非法和占用放置不提交模型状态。
+- TypeScript 检查、Vite MPA 生产构建和 `git diff --check` 通过。
+- 当前执行环境没有可用浏览器二进制，因此未声称完成真实鼠标交互或线上 Pages 验收；需要 Player 桌面浏览器确认。
+
+### Non-goals / Next
+
+未加入装备属性、战斗、快速取用、耐久、暴露风险、重量、更多部位、外挂背包、手持物品或通用 Inventory / Slot Framework。下一步仅由 Player 先试玩 Backpack Only、再试玩 Body Slots Available，并记录实际分配决策。
 
 ## Historical Notes / Handoff
 

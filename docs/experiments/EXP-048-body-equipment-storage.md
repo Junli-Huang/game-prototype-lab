@@ -1,6 +1,6 @@
 # EXP-048 — Body Equipment Storage
 
-Status: READY / Selected next experiment
+Status: TESTING / Result: Untested
 
 Category: Inventory
 
@@ -147,7 +147,7 @@ Those remain separate candidate questions. The sequencing principle remains:
 
 ## Result
 
-TBD — not implemented / not played.
+Untested — technically implemented on 2026-09-13; not yet played by the Player.
 
 - Observed: TBD
 - Interesting Moment: TBD
@@ -162,4 +162,4 @@ The concrete parameters are now frozen in:
 
 `docs/work-items/EXP-048-body-equipment-storage.md`
 
-Work may begin only while `docs/work-items/CURRENT.md` explicitly points to that Work Item.
+The Work Item has been implemented in Backpack Lab. Both Test Conditions use the frozen nine-item sequence; Body Slots Available exposes exactly Back / Chest / Waist. Local TypeScript and production build pass. Browser interaction and Player gameplay evaluation remain pending.
