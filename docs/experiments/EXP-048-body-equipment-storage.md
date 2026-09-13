@@ -34,11 +34,11 @@ Availability of explicit body storage locations outside the backpack interior.
 
 Everything else should stay as close as practical to the existing Backpack Lab interaction model.
 
-## Proposed Prototype / Mode
+## Prototype / Mode
 
 Reuse `prototypes/001_spatial_backpack/` as another independent Experiment Mode in **Backpack Lab** because EXP-001, EXP-003, and EXP-048 share the same spatial inventory interaction and can form a controlled comparison.
 
-Proposed mode list after implementation:
+Mode list after implementation:
 
 1. EXP-001 — Spatial Placement
 2. EXP-003 — Equipment vs Loot
@@ -52,25 +52,45 @@ Use two Test Conditions inside EXP-048. They are not separate Experiment Modes.
 
 ### Condition A — Backpack Only
 
-All test items must be carried inside the existing 6×8 backpack.
+All nine test items must be carried inside the existing 6×8 backpack or discarded.
 
 ### Condition B — Body Slots Available
 
-The exact same item sequence is used, but compatible items may instead be placed on a limited body carry location.
+The exact same nine-item sequence is used, but compatible items may instead be placed on a limited body carry location.
 
-Initial location set:
+Body locations:
 
-- Back
-- Waist
-- Chest
+- Back — capacity 1 item
+- Waist — capacity 1 item
+- Chest — capacity 1 item
 
-Initial compatibility examples:
+Each compatible item has exactly one legal body location in this experiment.
 
-- Old Rifle → Backpack or Back
-- Compact Sidearm → Backpack or Waist
-- Field Medkit → Backpack or Chest
+## Fixed Item Sequence
 
-Exact item dimensions, sequence, counts, and starting state must be frozen in the implementation Work Item before coding begins.
+| # | Item | Backpack Size | Area | Value | Legal Body Location |
+| ---: | --- | ---: | ---: | ---: | --- |
+| 1 | Compact Sidearm | 1×2 | 2 | 30 | Waist |
+| 2 | Canned Food | 1×2 | 2 | 20 | — |
+| 3 | Field Medkit | 2×3 | 6 | 45 | Chest |
+| 4 | Mechanical Parts | 3×4 | 12 | 65 | — |
+| 5 | Old Rifle | 1×5 | 5 | 75 | Back |
+| 6 | Ammo Pouch | 2×3 | 6 | 40 | Waist |
+| 7 | Utility Pouch | 2×2 | 4 | 35 | Chest |
+| 8 | Field Tool | 2×4 | 8 | 55 | Back |
+| 9 | Sealed Instrument | 5×5 | 25 | 180 | — |
+
+Total item area: **70** cells.
+
+Body-location competition:
+
+- Waist: Compact Sidearm vs Ammo Pouch
+- Chest: Field Medkit vs Utility Pouch
+- Back: Old Rifle vs Field Tool
+
+Maximum area removable from the backpack by using all three body locations for their largest compatible items is **20** cells. Therefore at least **50** cells of item area remain against a **48-cell** backpack. Body Slots Available still preserves storage pressure instead of becoming unconditional free capacity.
+
+Do not expose the optimal allocation arithmetic in the UI.
 
 ## Minimum Scope
 
@@ -118,6 +138,7 @@ Do **not** add any of the following in EXP-048:
 - detailed anatomical simulation;
 - external backpack mounts as a separate system;
 - hand-carried items;
+- multiple legal body locations for one item;
 - a general Inventory / Equipment / Slot / Rule framework for future experiments.
 
 Those remain separate candidate questions. The sequencing principle remains:
@@ -135,16 +156,10 @@ TBD — not implemented / not played.
 - Unexpected: TBD
 - Next: TBD
 
-## Implementation Gate
+## Implementation
 
-EXP-048 is selected and READY, but there is currently **no active implementation task**.
+The concrete parameters are now frozen in:
 
-Before Work begins, Designer / Chat must:
+`docs/work-items/EXP-048-body-equipment-storage.md`
 
-1. freeze the concrete item sequence and dimensions;
-2. freeze body-slot capacities and legal item-location mappings;
-3. decide whether any Ready visual assets are needed;
-4. write `docs/work-items/EXP-048-body-equipment-storage.md` with Scope / Non-goals / Acceptance;
-5. update `docs/work-items/CURRENT.md` to point to that Work Item.
-
-Until then, Work must not infer implementation details from this experiment definition.
+Work may begin only while `docs/work-items/CURRENT.md` explicitly points to that Work Item.
