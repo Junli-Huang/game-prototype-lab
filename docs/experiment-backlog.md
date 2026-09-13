@@ -1,4 +1,4 @@
-# Experiment Backlog — V0.2.3
+# Experiment Backlog — V0.2.4
 
 Experiment 是要验证的问题；Prototype 是回答该问题的可玩实现。这里仅用 Markdown 手工记录候选课题、状态与结论，已有实现与真实试玩结果链接到对应 Prototype README；不把候选机制视为最终设计。
 
@@ -21,6 +21,8 @@ Experiment 是要验证的问题；Prototype 是回答该问题的可玩实现�
 | DEAD | 结果不值得继续 |
 | PROMOTED | 进入更高层级 Prototype 或正式项目 |
 
+`Stop`、`Iterate`、`Promote` 等写在 Result / Next 中，不新增为 Experiment Status。
+
 ## First READY Pool
 
 首批 READY Candidate Pool：
@@ -34,18 +36,18 @@ Experiment 是要验证的问题；Prototype 是回答该问题的可玩实现�
 - EXP-020
 - EXP-021
 
-无默认实施顺序。该池记录最初的 8 个候选；当前 EXP-001 为 MAYBE，EXP-007 / EXP-008 的 R2 条件为 TESTING，另 5 项为 READY，其余 39 项为 IDEA；READY 不意味着已经实现，也不代表最终采用倾向。开工前按 [Workflow](workflow.md) 核对实验定义，选择本次要回答的一个问题。
+无默认实施顺序。该池记录最初的 8 个候选；当前 EXP-001、EXP-007、EXP-008 为 MAYBE，EXP-003 为 TESTING，EXP-013、EXP-017、EXP-018、EXP-020、EXP-021 为 READY，其余 38 项为 IDEA。READY 不意味着已经实现，也不代表最终采用倾向。开工前按 [Workflow](workflow.md) 与 [CURRENT](work-items/CURRENT.md) 核对实施权限；CURRENT 无 Active Work Item 时不得自行从本池开工。
 
 ## 实施与对照原则
 
 - Experiment 是独立问题，Prototype 是测试容器。默认可以 1:1；高度相关的竞争实验可以作为独立 Experiment Mode 共享同一测试场景。每次选择一个问题；在实验 Notes 中记录实现目录，在 Prototype README 中记录 Experiment ID。编号各自独立，不要求 EXP-017 对应 Prototype #017。
 - 可以复制一个极小基础场景进行对照，保持 Prototype 代码独立；不因此创建共享框架或让实验之间产生代码依赖。
-- 竞争方案尽量保持地图、敌人、玩家能力、资源一致，只改变核心变量。EXP-007/008 对照刷新条件；EXP-020/021 对照数值与类型计数，并保持尸体生成条件一致。
+- 竞争方案尽量保持地图、敌人、玩家能力、资源一致，只改变核心变量。EXP-007/008 对照刷新触发；EXP-020/021 对照数值与类型计数，并保持尸体生成条件一致。
 - 不同时加入篝火、红月、时段、尸体污染、背包与种田。组合模型 EXP-009、EXP-022 自身也是独立实验，不因单项有趣便直接采用组合。
 - 下列 Minimum Scope 是用于隔离变量的最小实施边界，不是最终游戏规则；具体数值可在开工时记录。先完成独立方案的观察，再评估组合的增量价值。
 - “永久”默认指当前实验会话内持续存在，不强制跨刷新存档。若实现安全上限，必须明确展示并写入 Notes，不能悄悄覆盖旧尸体后声称验证了永久留存。
 - Result 至少记录实际观察、有趣与无聊出现的时机、玩家决策、预期外玩法及是否继续。没有试玩时保留 TBD，禁止将假设写成结论。
-- DEAD 是正常结果；核心问题已被否定就记录、停止、进入下一个实验。
+- DEAD 是正常结果；核心问题已被否定就记录、停止、进入下一个实验。MAYBE 也可以配合 Next: Stop，表示当前语境下信号不足，不继续堆内容。
 
 生命周期：Idea → Experiment Backlog → Choose One Question → Build Prototype → Play → Record Result → Compare → Kill / Iterate / Promote。
 
@@ -61,8 +63,8 @@ Experiment 是要验证的问题；Prototype 是回答该问题的可玩实现�
 | EXP-004 | [Fixed Map Exploration](#exp-004-fixed-map-exploration) | Exploration | IDEA |
 | EXP-005 | [Box-Level Exploration](#exp-005-box-level-exploration) | Exploration | IDEA |
 | EXP-006 | [Shortcut Unlocking](#exp-006-shortcut-unlocking) | Exploration | IDEA |
-| EXP-007 | [Campfire World Refresh](#exp-007-campfire-world-refresh) | World Refresh | TESTING |
-| EXP-008 | [Blood Moon World Refresh](#exp-008-blood-moon-world-refresh) | World Refresh | TESTING |
+| EXP-007 | [Campfire World Refresh](#exp-007-campfire-world-refresh) | World Refresh | MAYBE |
+| EXP-008 | [Blood Moon World Refresh](#exp-008-blood-moon-world-refresh) | World Refresh | MAYBE |
 | EXP-009 | [Campfire + Blood Moon Respawn](#exp-009-campfire--blood-moon-respawn) | World Refresh | IDEA |
 | EXP-010 | [Time Respawn](#exp-010-time-respawn) | World Refresh | IDEA |
 | EXP-011 | [Permanent Enemy Death](#exp-011-permanent-enemy-death) | World Refresh | IDEA |
@@ -384,7 +386,6 @@ Status: IDEA
 桥
 电梯
 地下通道
-
 ```
 
 待验证的体验预期：“这里居然通回来了”可能能形成强探索反馈。
@@ -434,46 +435,49 @@ Name: Campfire World Refresh
 
 Category: World Refresh
 
-Status: TESTING
+Status: MAYBE
 
 ### Hypothesis
 
-如果篝火恢复生命，同时让已击败敌人重新出现，那么恢复资源与已清理进度之间会形成取舍，使休息成为有意义的决策。正式试玩反馈为中性，尚不足以支持或否定该假设。
+如果篝火恢复生命，同时让已击败敌人和普通可再生资源按同一 Refresh Profile 重新出现，那么玩家主动触发一次 World Refresh 时，可能会在恢复、已清理风险与重新出现的收益机会之间产生取舍。
 
-规则：
-
-```text
-休息
-→ 玩家恢复
-→ 敌人刷新
-
-```
-
-待验证的体验预期：恢复和敌人重生绑定后，可能会产生“现在要不要休息”的决策。
+R1 只包含敌人刷新；R2 增加 Common Resources 后与 EXP-008 使用同一刷新内容，仅比较触发方式。
 
 ### Core Variable
 
-使用篝火 = 玩家恢复 + 全部敌人恢复出生位置、生命与存活状态。
+R2 当前对照条件：`Enemies = ON`、`Common Resources = ON`。EXP-007 由 Rest 主动触发 World Refresh；同一 Profile 在 EXP-008 中由 Blood Moon 触发。
 
 ### Question
 
-玩家受伤后是否会权衡剩余生命、已清理敌人和接下来的路线，再决定是否使用篝火？
+在相同 World Refresh 内容下，由玩家 Rest 主动触发刷新，是否会产生可感知且有意义的行动取舍？
 
 ### Minimum Scope
 
-- 一个 V2 Low Poly 小场景、四个固定同种敌人、简单移动/攻击/受击、篝火和终点；休息恢复生命并重置全部敌人。
-- 只提供验证此问题所需的操作与可读反馈；固定其他条件。
+- 复用 #002 固定 V2 Low Poly 场景、玩家、四个固定敌人、三件 Common Resource、战斗、篝火、终点、Trial Failed 与 Restart。
+- EXP-007 Rest：HP Full + 应用当前 Refresh Profile。
+- 与 EXP-008 使用相同 Refresh Profile 和场景条件，只改变刷新 Trigger。
 
 ### Non-goals
 
 - 不制作完整游戏、美术包装、完整装备属性、制作或存档系统。
-- 不引入 Minimum Scope 之外的其他实验机制；必要的场景条件保持固定，不作为本实验结论。
+- 不通过新增宝箱、特殊资源、更多敌人、生态或其它机制继续“挽救”当前 R2。
 
 ### Result
 
-R2 Result: Untested — World Refresh Profile R2 等待 Player 对照试玩；技术验收不构成玩法结论。
+#### R2 Result
 
-R1 历史 Result（保留）：
+MAYBE — Player 对照试玩反馈：
+
+> “体验下来没有明显的感觉。”
+
+- Observed：在当前短固定路线、固定敌人和普通可再生资源语境下，没有报告明显正向或负向体验信号。
+- Interesting Moment：本次未报告明确有趣时刻。
+- Boring Moment：本次未报告明确负面或无聊时刻。
+- Decisions：没有记录到足够具体、可归因于玩家主动 Refresh Trigger 的决策行为，不补充推测。
+- Unexpected：本次未记录。
+- Next：**Stop**。当前不继续通过增加内容进行 R3。未来只有在更丰富的路线、生态或持久世界上下文中，才考虑以新的明确实验条件重新审视 World Refresh。
+
+#### R1 历史 Result（保留）
 
 MAYBE — 2026-09-11 Player 正式试玩。
 
@@ -487,15 +491,15 @@ MAYBE — 2026-09-11 Player 正式试玩。
 - Boring Moment：本次未报告明确的负面或无聊时刻。
 - Decisions：本次没有记录足够具体的决策行为，不补充推测。
 - Unexpected：本次未记录。
-- Next：停止继续调整 EXP-007，保留 MAYBE；后续与其他 Enemy Respawn 规则进行受控比较。
+- 当时 Next：停止继续调整 EXP-007，保留 MAYBE；随后以 R2 与 EXP-008 进行受控比较。
 
 ### Notes
 
-- Prototype：[Enemy Respawn Lab](../prototypes/002_campfire_respawn/README.md)，2026-09-10 READY → BUILDING → TESTING；已完成规则、构建与 Pages 兼容画面操作验收。WebGL 阴影画面未在远程环境实测，详见 Prototype README。
-- 2026-09-11 验收修正：三段岩壁窄道 + 活敌实体阻挡；死亡改为 Trial Failed，只有 Restart 重试。战斗与 Rest 数值不变，当时保持 TESTING / Untested（技术验收历史）。
-- 2026-09-11 Player 正式试玩当前线上修正版：TESTING → MAYBE。停止调整 EXP-007，保留当前可玩版本；固定条件与参数见 Prototype README。
-- 2026-09-11 World Refresh Profile R2：MAYBE → TESTING。R1 的 MAYBE 与原始反馈不覆盖；R2 与 EXP-008 使用同一 ON / ON Profile，仅 Rest 触发不同，Result: Untested。
-- 其他观察：TBD
+- Prototype：[Enemy Respawn Lab](../prototypes/002_campfire_respawn/README.md)。
+- 2026-09-11 验收修正：三段岩壁窄道 + 活敌实体阻挡；死亡改为 Trial Failed，只有 Restart 重试。该记录属于技术验收历史。
+- 2026-09-11 R1 Player 正式试玩：MAYBE，反馈“没有好坏的感受，就一般。”
+- World Refresh Profile R2：与 EXP-008 使用同一 `Enemies ON / Common Resources ON` Profile，仅 Refresh Trigger 不同。
+- R2 Player 对照试玩：MAYBE，反馈“体验下来没有明显的感觉。”当前 Decision 为 Stop；不覆盖 R1 历史。
 
 ## EXP-008 Blood Moon World Refresh
 
@@ -505,48 +509,50 @@ Name: Blood Moon World Refresh
 
 Category: World Refresh
 
-Status: TESTING
+Status: MAYBE
 
 ### Hypothesis
 
-如果敌人不是由玩家 Rest 主动刷新，而是在一个明确预告的全局 Blood Moon 周期中统一刷新，那么玩家可能会围绕世界周期调整推进、返回和战斗时机，从而形成比 Campfire Respawn 更明显的行动节奏。
+如果相同的敌人与普通可再生资源不是由玩家 Rest 主动刷新，而是在一个明确预告的全局 Blood Moon 周期中统一刷新，那么玩家可能会围绕世界周期调整推进、返回和战斗时机。
 
 ### Core Variable
 
-30 秒全局 Blood Moon 周期结束时统一重置全部敌人；Rest 只恢复玩家生命，不改变敌人或倒计时。
+R2 当前对照条件：`Enemies = ON`、`Common Resources = ON`。30 秒 Blood Moon 触发 World Refresh；Rest 只恢复玩家生命，不改变敌人、资源或倒计时。
 
 ### Question
 
-一个明确可预期的全局 Blood Moon 周期，是否会让玩家产生“赶在刷新前做什么 / 什么时候行动”的节奏感？
+在相同 World Refresh 内容下，由明确可预期的全局 Blood Moon 周期触发刷新，是否会产生可感知的行动节奏与规划？
 
 ### Minimum Scope
 
-- 复用 #002 与 EXP-007 相同地图、玩家、敌人、战斗、终点、Trial Failed 与 Restart 条件。
-- Blood Moon Mode、简单 Mode Selector、30 秒可见全局周期、最后 10 秒警告、同步敌人重置与 heal-only Rest。
+- 复用 #002 与 EXP-007 相同地图、玩家、敌人、资源、战斗、终点、Trial Failed 与 Restart 条件。
+- Blood Moon Mode、30 秒可见全局周期、最后 10 秒警告、同步 World Refresh 与 heal-only Rest。
 - 直接加载 `prototypes/002_campfire_respawn/assets/blood_moon.gltf` 作为事件视觉锚点。
 
 ### Non-goals
 
 - 不制作昼夜、日历、真实月相、随机时间、敌人 Buff / 特殊敌人 / Loot、天气、生态、Boss、音乐或通用世界事件系统。
-- 不实现 EXP-009、EXP-010、EXP-016，不建立 AssetManager、Mode Framework 或 Rule Engine。
+- 不通过 R3 增加内容来放大信号；不实现 EXP-009、EXP-010、EXP-016，不建立 AssetManager、Mode Framework 或 Rule Engine。
 
 ### Result
 
-R2 Result: Untested — 技术验收完成后等待 Player 与 EXP-007 使用相同 Refresh Profile 对照试玩。
+MAYBE — Player 对照试玩反馈：
 
-- Observed（实际观察）：TBD
-- 有趣开始的时机：TBD
-- 无聊开始的时机：TBD
-- 玩家产生的决策：TBD
-- Unexpected（预期外玩法）：TBD
-- Next（是否继续，Kill / Iterate / Promote）：TBD
+> “体验下来没有明显的感觉。”
+
+- Observed：在当前短固定路线、固定敌人和普通可再生资源语境下，没有报告明显正向或负向体验信号。
+- Interesting Moment：本次未报告明确有趣时刻。
+- Boring Moment：本次未报告明确负面或无聊时刻。
+- Decisions：没有记录到足够具体、可归因于 Blood Moon Trigger 的行动规划，不补充推测。
+- Unexpected：本次未记录。
+- Next：**Stop**。当前不继续通过增加内容进行 R3。未来只有在更丰富的路线、生态或持久世界上下文中，才考虑以新的明确实验条件重新审视 World Refresh。
 
 ### Notes
 
-- Prototype：[Enemy Respawn Lab / Blood Moon Mode](../prototypes/002_campfire_respawn/README.md)。2026-09-11 READY → BUILDING → TESTING。
-- 对照基线：同容器 EXP-007 Campfire Respawn — MAYBE；只改变敌人刷新触发。
-- World Refresh Profile R2：Enemies / Common Resources 默认 ON；与 EXP-007 完全共享刷新内容，只保留 Blood Moon Trigger 差异。未填写 Player 结论。
-- 技术条件与验收记录见 Prototype README；规则断言、构建、GitHub Actions / Pages 及 SVG 兼容画面操作通过。WebGL GPU 画面待 Player 桌面浏览器确认；玩法结论保持 Untested。
+- Prototype：[Enemy Respawn Lab / Blood Moon Mode](../prototypes/002_campfire_respawn/README.md)。
+- World Refresh Profile R2：Enemies / Common Resources 默认 ON；与 EXP-007 完全共享刷新内容，只保留 Blood Moon Trigger 差异。
+- 技术验收、Ready glTF、构建、Pages 与环境限制详见 Prototype README；技术验收不构成玩法结论。
+- R2 Player Result 已由 Untested 收口为 MAYBE / Stop，历史技术验收状态保留为当时记录。
 
 ## EXP-009 Campfire + Blood Moon Respawn
 
@@ -570,7 +576,6 @@ Status: IDEA
 
 特殊怪：
 红月刷新
-
 ```
 
 待验证的体验预期：两套刷新节奏可能能产生更丰富的世界行为，还是只是增加复杂度。
@@ -733,7 +738,6 @@ Status: IDEA
 繁殖
 占领
 生成新的生态角色
-
 ```
 
 待验证的体验预期：生态补充可能比传统 Respawn 更有世界连续性。
@@ -897,7 +901,6 @@ Status: IDEA
 夜晚开放某条路
 白天关闭某区域
 特殊时间出现入口
-
 ```
 
 待验证的体验预期：固定地图可能能通过时间变化获得重新探索价值。
@@ -958,7 +961,6 @@ Status: IDEA
 特殊植物出现
 异常区域扩大
 资源结构变化
-
 ```
 
 待验证的体验预期：红月可能能成为真正的世界状态变化，而不是 Reset Timer。
@@ -1018,7 +1020,6 @@ Status: READY
 
 ```text
 新的玩家尸体不会覆盖旧尸体
-
 ```
 
 待验证的体验预期：多次死亡痕迹永久存在可能会增强世界记忆和空间记忆。
@@ -1182,7 +1183,6 @@ Status: READY
 Decay
 Anomaly
 Nutrient
-
 ```
 
 区域按数值积累。
@@ -1244,7 +1244,6 @@ Status: READY
 Human >= 5
 Player >= 2
 Mutant >= 3
-
 ```
 
 待验证的体验预期：类型数量规则可能更容易被玩家理解和主动利用。
@@ -1302,7 +1301,6 @@ Status: IDEA
 数值积累
 +
 类型数量
-
 ```
 
 待验证的体验预期：混合模型可能值得增加复杂度。
@@ -1465,7 +1463,6 @@ Fresh
 → Decaying
 → Rotten
 → Remains
-
 ```
 
 待验证的体验预期：尸体时间状态可能能形成“什么时候处理”的决策。
@@ -1576,7 +1573,6 @@ Status: IDEA
 巢穴
 怪物
 异常物
-
 ```
 
 待验证的体验预期：尸体进入生态循环后可能能产生有趣结果。
@@ -1636,7 +1632,6 @@ Status: IDEA
 食腐动物
 怪物
 昆虫
-
 ```
 
 待验证的体验预期：简单的实体交互可能已经能够产生自然生态变化。
@@ -1697,7 +1692,6 @@ Status: IDEA
 焚烧
 掩埋
 分解
-
 ```
 
 待验证的体验预期：主动处理尸体能否成为决策，而不是重复劳动。
@@ -1758,7 +1752,6 @@ Status: IDEA
 制造污染
 培养特殊植物
 诱导特殊怪物
-
 ```
 
 待验证的体验预期：玩家可能会把“死亡痕迹”主动转化为工具。
@@ -1819,7 +1812,6 @@ Status: IDEA
 ```text
 尸体
 世界影响
-
 ```
 
 待验证的体验预期：世界变化本身可能已经足以构成死亡代价。
@@ -2243,7 +2235,6 @@ Status: IDEA
 污染
 怪物
 异常生态
-
 ```
 
 影响。
@@ -2311,7 +2302,6 @@ Status: IDEA
 仓库
 种植
 长期经营
-
 ```
 
 待验证的体验预期：两级安全节点可能都有清晰价值。
@@ -2425,7 +2415,6 @@ Status: IDEA
 ```text
 种植
 → 收获
-
 ```
 
 待验证的体验预期：最基础的种植行为可能值得保留。
@@ -2484,7 +2473,6 @@ Status: IDEA
 药品
 诱饵
 特殊探索资源
-
 ```
 
 待验证的体验预期：Farming 能否成为 Preparation，而不是独立小游戏。
@@ -2543,7 +2531,6 @@ Status: IDEA
 怪物组织
 腐化物
 异常材料
-
 ```
 
 影响种植。
@@ -2658,7 +2645,6 @@ Status: IDEA
 被什么吸引
 害怕什么
 尸体会引来什么
-
 ```
 
 待验证的体验预期：生态知识可能能形成长期掌握感。
@@ -2720,7 +2706,6 @@ Status: IDEA
 资源知识
 时间知识
 装备准备
-
 ```
 
 待验证的体验预期：“玩家越来越懂世界”可能可以替代传统等级带来的成长体验。
