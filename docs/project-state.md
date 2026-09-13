@@ -21,9 +21,13 @@ Before implementation, also read `docs/asset-handoff.md` and the selected Work I
 
 There is **no active implementation task**.
 
-`docs/work-items/CURRENT.md` intentionally says not to infer a next task from the Backlog.
+The next experiment has now been selected: **EXP-048 — Body Equipment Storage**.
 
-The next Experiment must first be selected in Designer / Player discussion. Only then should Designer / Chat prepare assets if needed, write a Work Item, and update `CURRENT.md`.
+Experiment definition:
+
+`docs/experiments/EXP-048-body-equipment-storage.md`
+
+EXP-048 is READY / Selected, but implementation is intentionally gated until the concrete item sequence, body-slot capacities, legal mappings, and any required assets are frozen in a formal Work Item. `docs/work-items/CURRENT.md` must remain `No active implementation task` until that Work Item exists.
 
 ## Prototype #001 — Backpack Lab
 
@@ -58,6 +62,35 @@ Important terminology:
 - Both conditions receive the same fixed Loot sequence. Only starting locked-equipment occupancy differs.
 
 Do not infer equipment power, combat, body slots, durability, or access-speed conclusions from EXP-003.
+
+### EXP-048 — Body Equipment Storage
+
+Status: `READY / Selected next experiment`
+
+Not implemented yet.
+
+Core change relative to EXP-003:
+
+> Compatible items may be stored on a small number of explicit body carry locations outside the backpack interior instead of consuming backpack grid cells.
+
+Planned first body locations:
+
+- Back
+- Waist
+- Chest
+
+Planned comparison inside EXP-048:
+
+- Backpack Only
+- Body Slots Available
+
+These are Test Conditions inside one Experiment, not separate Experiment Modes.
+
+The experiment tests **storage location only**. Do not add access speed, combat power, quick slots, durability, exposure risk, weight, or general inventory architecture.
+
+Detailed definition:
+
+`docs/experiments/EXP-048-body-equipment-storage.md`
 
 ## Prototype #002 — Enemy Respawn Lab
 
@@ -108,41 +141,42 @@ Detailed R2 outcome is preserved in:
 
 `docs/work-items/EXP-007-008-world-refresh-profile-r2-result.md`
 
-## Inventory / Equipment design direction under discussion
+## Inventory / Equipment design direction
 
-Design candidates are recorded in:
+The Inventory line is now continuing with **EXP-048 — Body Equipment Storage**.
+
+Design history and later candidates remain recorded in:
 
 `docs/inventory-equipment-experiment-notes.md`
 
-They are **not official Experiments yet** and have no assigned IDs or Work Items.
+Current sequencing:
 
-Current candidate chain:
+1. EXP-048 — Body Equipment Storage — **selected / READY**.
+2. Spatial / Anatomical Mount Points — later candidate.
+3. External Backpack Mounts — later candidate.
+4. Access Speed by Location — later candidate.
+5. Hand-Carried Items — later candidate.
+6. External Item Exposure — later candidate.
+7. Quantity / Condition Loss — later candidate.
 
-1. Body Equipment Slots — body provides storage locations outside backpack interior.
-2. Spatial / Anatomical Mount Points — back, waist / hips, chest, limbs, etc.
-3. External Backpack Mounts — limited exterior attachment positions.
-4. Access Speed by Location — hand / body / exterior / backpack interior differ in access cost.
-5. Hand-Carried Items — hands as a temporary carry layer.
-6. External Item Exposure — externally carried items can be affected by combat / world interaction.
-7. Quantity / Condition Loss — gradual charge, quantity, or durability loss versus binary destruction.
-
-Recommended sequencing principle:
+Recommended sequencing principle remains:
 
 `space → access → exposure / risk`
 
-Do not combine body slots + quick access + durability + combat damage in the first experiment.
+Do not combine body slots + quick access + durability + combat damage in EXP-048.
 
 ## Next discussion
 
-The next step is **design discussion, not implementation**.
+The next step is **EXP-048 parameter definition, not implementation yet**.
 
-Candidate directions include:
+Before writing the Work Item, freeze:
 
-- continue the Inventory / Equipment chain above;
-- move to a different READY experiment such as time/ecology or persistent-corpse questions;
-- compare information value before choosing.
+- exact item sequence and dimensions;
+- body-slot capacities;
+- legal item-to-location mappings;
+- whether simple body/location visual assets should be prepared in advance.
 
-No next Experiment has been selected yet.
+After those are fixed, write `docs/work-items/EXP-048-body-equipment-storage.md` and update `CURRENT.md` to authorize Work.
 
 ## Repository handoff rules that must remain true
 
@@ -153,7 +187,7 @@ No next Experiment has been selected yet.
 - Technical acceptance is not a gameplay conclusion.
 - Ready visual assets are Prototype-local under `assets/`; Work should use them directly instead of recreating them unless unusable.
 - Do not build shared Inventory / Rule / Mode / Asset frameworks for speculative reuse.
-- When no active Work Item exists, do not infer or implement the next experiment.
+- A selected READY Experiment is still not implementation authorization; Work begins only when CURRENT points to a formal Work Item.
 
 ## Known documentation caveat
 
