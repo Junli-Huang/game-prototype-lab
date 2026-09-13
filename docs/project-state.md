@@ -19,15 +19,30 @@ Before implementation, also read `docs/asset-handoff.md` and the selected Work I
 
 ## Current implementation task
 
-There is **no active implementation task**.
+**ACTIVE: EXP-048 — Body Equipment Storage**
 
-The next experiment has now been selected: **EXP-048 — Body Equipment Storage**.
+Work Item:
 
-Experiment definition:
+`docs/work-items/EXP-048-body-equipment-storage.md`
 
-`docs/experiments/EXP-048-body-equipment-storage.md`
+Stable authorization entry:
 
-EXP-048 is READY / Selected, but implementation is intentionally gated until the concrete item sequence, body-slot capacities, legal mappings, and any required assets are frozen in a formal Work Item. `docs/work-items/CURRENT.md` must remain `No active implementation task` until that Work Item exists.
+`docs/work-items/CURRENT.md`
+
+EXP-048 concrete parameters are frozen. Work is authorized to implement the Work Item on the current `main` branch.
+
+Core frozen parameters:
+
+- Prototype: `prototypes/001_spatial_backpack/`
+- Backpack: 6×8
+- Test Conditions: Backpack Only / Body Slots Available
+- Body locations: Back ×1, Chest ×1, Waist ×1
+- Fixed item count: 9
+- Fixed total item area: 70 cells
+- Maximum area transferable to Body slots: 20 cells
+- Minimum remaining backpack demand under maximum body-space use: 50 cells against 48-cell capacity
+
+The experiment remains a storage-location test only. Do not add access speed, combat effects, durability, exposure risk, weight, or speculative inventory architecture.
 
 ## Prototype #001 — Backpack Lab
 
@@ -65,32 +80,30 @@ Do not infer equipment power, combat, body slots, durability, or access-speed co
 
 ### EXP-048 — Body Equipment Storage
 
-Status: `READY / Selected next experiment`
+Status: `READY / BUILDING authorized`
 
-Not implemented yet.
+Work Item: `docs/work-items/EXP-048-body-equipment-storage.md`
 
 Core change relative to EXP-003:
 
 > Compatible items may be stored on a small number of explicit body carry locations outside the backpack interior instead of consuming backpack grid cells.
 
-Planned first body locations:
-
-- Back
-- Waist
-- Chest
-
-Planned comparison inside EXP-048:
+Test Conditions inside EXP-048:
 
 - Backpack Only
 - Body Slots Available
 
-These are Test Conditions inside one Experiment, not separate Experiment Modes.
+Body locations:
 
-The experiment tests **storage location only**. Do not add access speed, combat power, quick slots, durability, exposure risk, weight, or general inventory architecture.
+- Back — 1 item
+- Chest — 1 item
+- Waist — 1 item
 
-Detailed definition:
+Each compatible item has exactly one legal body location. Each location has two competing compatible items in the fixed sequence.
 
-`docs/experiments/EXP-048-body-equipment-storage.md`
+The exact nine-item sequence, dimensions, values, body mappings, interaction rules, Non-goals, and Acceptance are frozen in the Work Item.
+
+Technical implementation must leave Player Result as `TESTING / Untested` until actual gameplay feedback exists.
 
 ## Prototype #002 — Enemy Respawn Lab
 
@@ -143,7 +156,7 @@ Detailed R2 outcome is preserved in:
 
 ## Inventory / Equipment design direction
 
-The Inventory line is now continuing with **EXP-048 — Body Equipment Storage**.
+The Inventory line is currently implementing **EXP-048 — Body Equipment Storage**.
 
 Design history and later candidates remain recorded in:
 
@@ -151,7 +164,7 @@ Design history and later candidates remain recorded in:
 
 Current sequencing:
 
-1. EXP-048 — Body Equipment Storage — **selected / READY**.
+1. EXP-048 — Body Equipment Storage — **active implementation**.
 2. Spatial / Anatomical Mount Points — later candidate.
 3. External Backpack Mounts — later candidate.
 4. Access Speed by Location — later candidate.
@@ -165,18 +178,17 @@ Recommended sequencing principle remains:
 
 Do not combine body slots + quick access + durability + combat damage in EXP-048.
 
-## Next discussion
+## Next step
 
-The next step is **EXP-048 parameter definition, not implementation yet**.
+Work implements the active EXP-048 Work Item.
 
-Before writing the Work Item, freeze:
+After technical acceptance:
 
-- exact item sequence and dimensions;
-- body-slot capacities;
-- legal item-to-location mappings;
-- whether simple body/location visual assets should be prepared in advance.
-
-After those are fixed, write `docs/work-items/EXP-048-body-equipment-storage.md` and update `CURRENT.md` to authorize Work.
+1. EXP-048 becomes `TESTING / Result: Untested`.
+2. Prototype README / Project State / Backlog are synchronized.
+3. `CURRENT.md` returns to `No active implementation task`.
+4. Player tests both conditions.
+5. Only actual Player feedback determines MAYBE / INTERESTING / DEAD / next iteration.
 
 ## Repository handoff rules that must remain true
 
@@ -187,7 +199,7 @@ After those are fixed, write `docs/work-items/EXP-048-body-equipment-storage.md`
 - Technical acceptance is not a gameplay conclusion.
 - Ready visual assets are Prototype-local under `assets/`; Work should use them directly instead of recreating them unless unusable.
 - Do not build shared Inventory / Rule / Mode / Asset frameworks for speculative reuse.
-- A selected READY Experiment is still not implementation authorization; Work begins only when CURRENT points to a formal Work Item.
+- Work begins only when CURRENT points to a formal Work Item.
 
 ## Known documentation caveat
 
