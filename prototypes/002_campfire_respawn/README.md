@@ -8,15 +8,22 @@ Enemy Respawn Lab
 
 | Mode | Experiment | Status | Core Variable |
 | --- | --- | --- | --- |
-| Campfire World Refresh | [EXP-007](../../docs/experiment-backlog.md#exp-007-campfire-world-refresh) | R2 TESTING | Rest → 恢复玩家 + 应用同一 Refresh Profile |
-| Blood Moon World Refresh | [EXP-008](../../docs/experiment-backlog.md#exp-008-blood-moon-world-refresh) | R2 TESTING | Blood Moon → 应用同一 Refresh Profile；Rest → 只恢复玩家 |
+| Campfire World Refresh | [EXP-007](../../docs/experiment-backlog.md#exp-007-campfire-world-refresh) | R2 MAYBE / Stop | Rest → 恢复玩家 + 应用同一 Refresh Profile |
+| Blood Moon World Refresh | [EXP-008](../../docs/experiment-backlog.md#exp-008-blood-moon-world-refresh) | R2 MAYBE / Stop | Blood Moon → 应用同一 Refresh Profile；Rest → 只恢复玩家 |
 
 当前默认 Mode：EXP-008 Blood Moon World Refresh。本文件保存各实验独立的实施与试玩记录，遵循 [Workflow](../../docs/workflow.md)。
 
 ## Status
 
-当前已实现 Mode：EXP-007 / EXP-008 — R2 TESTING / Result: Untested。EXP-007 的敌人-only R1 Player 结果仍为 MAYBE，完整保留在下方历史记录中。
-当前没有 BUILDING 中的 Experiment。两个 Mode 均可试玩，切换会完整重置测试场景。
+当前已实现 Mode：EXP-007 / EXP-008。两者 R2 Player Result 均为 **MAYBE**，当前 Decision 为 **Stop**：不继续通过增加宝箱、特殊资源、更多敌人或其它内容做 R3 来“挽救”当前 Prototype。
+
+R2 Player 反馈：
+
+> “体验下来没有明显的感觉。”
+
+这表示在当前短路线、固定敌人、Common Resources 与 World Refresh 的小型语境中，没有观察到明显正向或负向体验信号。它不等于否定 Campfire / Blood Moon 在更丰富路线、生态或持久世界中的价值；若未来重审，应作为新的明确实验条件，而不是继续扩展本轮 R2。
+
+EXP-007 的 enemies-only R1 Player Result 仍为 MAYBE，原始反馈完整保留在下方历史记录中。当前没有 BUILDING 中的 Experiment。两个 Mode 仍可试玩，切换会完整重置测试场景。
 
 ## Gameplay Hypothesis
 
@@ -59,7 +66,7 @@ Required Feedback:
 - 蓝色玩家、锈红敌人；面部与伸出的手臂表示朝向；敌人头顶两点表示剩余 HP。
 - 棋子整体摇摆、轻微浮动、停止回正、攻击前顶、受击后仰和短暂变亮；死亡倒地，1.5 秒后移除。
 - 休息时 HP 恢复、火焰放大、敌人回到出生点，文字明确显示 “Rested / Enemies returned”。
-- 无正式动画、美术资产或声音系统。所有模型由当前 Prototype 的简单几何体组成。
+- 基线场景主要使用当前 Prototype 的简单几何体；Blood Moon 与 R2 Common Resources 使用 Prototype-local Ready glTF，详见下方 Asset Handoff 记录。
 
 ## Controls
 
@@ -99,22 +106,29 @@ Level: V2 — Spatial，沿用基线场景。直接加载 Ready 资源 [`assets/
 
 ### Result — EXP-008
 
-Untested — 技术验收不作为 Player 玩法结论。
+MAYBE — R2 Player 对照试玩反馈：
 
-- 试玩者、日期、版本与条件：TBD。
-- Observed / Interesting Moment / Boring Moment / Decisions / Unexpected：TBD。
-- Next：等待 Player 正式试玩，之后独立记录 EXP-008 结果并与 EXP-007 比较。
+> “体验下来没有明显的感觉。”
+
+- Observed：在当前小型 World Refresh 测试语境下，没有报告明显正向或负向体验信号。
+- Interesting Moment：本次未报告明确有趣时刻。
+- Boring Moment：本次未报告明确负面或无聊时刻。
+- Decisions：没有记录到足够具体、可归因于 Blood Moon Trigger 的规划行为，不补充推测。
+- Unexpected：本次未记录。
+- Next：Stop。当前不继续通过增加内容做 R3；未来只有在更丰富路线、生态或持久世界上下文中，才考虑以新的明确实验条件重新审视 World Refresh。
 
 ### Technical Acceptance — EXP-008
+
+以下为进入正式 Player 试玩前的技术验收历史；当时状态为 TESTING / Untested，不代表当前状态。
 
 - 直接对实际 `simulation.ts` 执行规则断言：EXP-007 Rest 基线、Mode 完整重置、EXP-008 heal-only Rest、事件前死亡敌人保持死亡、事件同步重置死亡与存活敌人、玩家 HP / 位置不被事件重置、新 30 秒周期、Trial Failed 冻结、Restart 当前 Mode 全重置，全部通过。
 - Blood Moon 事件后的接触伤害保护固定为 0.7 秒，只用于避免传送重置造成同帧伤害。
 - Ready 资源 `assets/blood_moon.gltf` 保持原文件，已通过 glTF JSON / embedded buffer 结构检查并由 `GLTFLoader` 直接纳入页面；未增加替代几何体或资产系统。
 - `npm run build`：TypeScript 与 Vite MPA 生产构建通过；#001 与 #002 均保留构建入口。
 - GitHub Actions / Pages 部署成功（实现提交 `e25dd56`）。线上默认进入 EXP-008；Ready Blood Moon glTF 在场景中正常显示，30 秒倒计时可见，最后 10 秒具有 `urgent` 警告，事件后倒计时进入下一周期。
-- 线上实际操作确认：Blood Moon Mode 在篝火按 E 显示 heal-only 提示且倒计时没有重置；切到 Campfire 显示 EXP-007 / MAYBE、隐藏 Blood Moon 计时与模型并执行完整 Reset；切回 Blood Moon 显示 EXP-008 / TESTING 且从 30 秒开始。
+- 线上实际操作确认：Blood Moon Mode 在篝火按 E 显示 heal-only 提示且倒计时没有重置；切到 Campfire 显示当时的 EXP-007 状态、隐藏 Blood Moon 计时与模型并执行完整 Reset；切回 Blood Moon 显示当时的 EXP-008 TESTING 且从 30 秒开始。
 - 远程 Chrome 禁用 WebGL，以上实际画面验收使用原有 SVGRenderer 兼容分支；WebGL 分支与 GLTFLoader 通过 TypeScript / Vite 构建和代码路径检查，但 GPU 阴影画面仍需 Player 桌面浏览器确认。
-- 验收后停止功能开发。EXP-008 保持 TESTING / Result: Untested；EXP-007 历史玩法与 MAYBE Result 未改。
+- 技术验收完成后当时停止功能开发并等待 Player 试玩；当前 Player Result 已收口为 MAYBE / Stop，见上文。
 
 ### 固定参数与临时条件
 
@@ -153,6 +167,21 @@ Untested — 技术验收不作为 Player 玩法结论。
 
 ## Result — EXP-007 / Campfire Respawn
 
+### R2 Result
+
+MAYBE — Player 对照试玩反馈：
+
+> “体验下来没有明显的感觉。”
+
+- Observed：在当前小型 World Refresh 测试语境下，没有报告明显正向或负向体验信号。
+- Interesting Moment：本次未报告明确有趣时刻。
+- Boring Moment：本次未报告明确负面或无聊时刻。
+- Decisions：没有记录到足够具体、可归因于玩家主动 Refresh Trigger 的决策行为，不补充推测。
+- Unexpected：本次未记录。
+- Next：Stop。当前不继续通过增加内容做 R3；未来只有在更丰富路线、生态或持久世界上下文中，才考虑以新的明确实验条件重新审视 World Refresh。
+
+### R1 历史 Result
+
 MAYBE — 2026-09-11 Player 正式试玩。
 
 整体反馈：
@@ -165,7 +194,7 @@ MAYBE — 2026-09-11 Player 正式试玩。
 - Boring Moment：本次未报告明确的负面或无聊时刻。
 - Decisions：本次没有记录足够具体的决策行为，不补充推测。
 - Unexpected：本次未记录。
-- Next：停止继续调整 EXP-007，保留 MAYBE；后续与其他 Enemy Respawn 规则进行受控比较。
+- 当时 Next：停止继续调整 EXP-007，保留 MAYBE；后续与其他 Enemy Respawn 规则进行受控比较。该比较随后以 R2 / EXP-008 完成，当前最终 Decision 见 R2。
 
 试玩条件：2026-09-11 当前线上验收修正版（三段窄道、Trial Failed）；Player 未报告浏览器或渲染分支，不作推测。
 
@@ -192,9 +221,17 @@ Refresh Profile 默认采用 Designer 建议条件：`Enemies = ON`、`Common Re
 
 ### R2 Result
 
-Untested — 本次实现与技术验收不填写 Player 玩法结论。EXP-007 R1 的 MAYBE 与原始反馈“没有好坏的感受，就一般。”保留不变，不作为 R2 结论。
+MAYBE — EXP-007 / EXP-008 对照试玩均得到弱信号反馈：
+
+> “体验下来没有明显的感觉。”
+
+当前结论不是“World Refresh 不好”，而是：在本 Prototype 的短固定路线、固定敌人与普通可再生资源语境中，没有观察到足够强的独立玩法价值。
+
+Next：Stop #002 的当前 World Refresh 扩展，不做 R3 内容堆叠。未来若在更丰富路线、生态或持久世界语境中重新研究，应新建明确实验条件并保留本轮结果作为历史对照。
 
 ### R2 Technical Acceptance
+
+以下是 R2 正式 Player 试玩前的技术验收历史：
 
 - 实际 `simulation.ts` 断言通过：默认 ON / ON；选项改变完整 Reset；Mode 与 Restart 保留 Profile；Restart / Mode Reset 无条件恢复全部初始资源与敌人。
 - EXP-007 Rest 和 EXP-008 Blood Moon 调用同一 `applyWorldRefresh`；Enemies 与 Common Resources 分别验证 ON 时恢复、OFF 时保持。EXP-008 Rest 只恢复 HP，不改变敌人、资源或倒计时。
@@ -227,3 +264,11 @@ Untested — 本次实现与技术验收不填写 Player 玩法结论。EXP-007 
 当时 EXP-008 Blood Moon Respawn、EXP-009 Campfire + Blood Moon Respawn、EXP-010 Time Respawn、EXP-011 Permanent Enemy Death、EXP-012 Ecological Replacement 仅为候选对照 Experiment，均未在本容器实现；此后 EXP-008 已作为独立 Mode 实现，其他候选仍未实现。
 
 本次只更新真实试玩记录、显示名称和状态，不修改地图、玩法、参数或资产。Asset Handoff 适用于后续新资产，现有程序几何不返工。#001 继续保持原样，EXP-001 为 MAYBE。
+
+## 2026-09-13 R2 Player 收口
+
+- EXP-007 R2：MAYBE / Stop。
+- EXP-008 R2：MAYBE / Stop。
+- 共同反馈：“体验下来没有明显的感觉。”
+- R1 / R2 历史条件均保留，不互相覆盖。
+- 当前不继续 #002 R3；下一项 Experiment 必须由 Designer 明确选择，并通过新的正式 Work Item 启动。
