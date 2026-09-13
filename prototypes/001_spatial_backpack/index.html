@@ -9,11 +9,13 @@
 <body>
 <main>
   <header><a href="../../">← Game Prototype Lab</a><span id="experiment">EXP-048 · MAYBE</span><h1>Backpack Lab</h1><p id="subtitle">相同物品，比较仅背包与身体携带位置。</p></header>
-  <nav class="mode-controls" aria-label="Experiment Mode"><strong>Experiment Mode</strong><button type="button" data-mode="spatial">Spatial Placement</button><button type="button" data-mode="equipment">Equipment vs Loot</button><button type="button" data-mode="body" class="selected">Body Equipment Storage</button></nav>
+  <nav class="mode-controls" aria-label="Experiment Mode"><strong>Experiment Mode</strong><button type="button" data-mode="spatial">Spatial Placement</button><button type="button" data-mode="equipment">Equipment vs Loot</button><button type="button" data-mode="body" class="selected">Body Equipment Storage</button><button type="button" data-mode="mobility">Fixed vs Movable Equipment</button></nav>
   <nav id="loadout-controls" class="mode-controls loadouts" aria-label="Loadout" hidden><strong>Loadout</strong><button type="button" data-loadout="light" class="selected">Light</button><button type="button" data-loadout="heavy">Heavy</button><span id="loadout-label">Light Loadout · Equipment 3 / 48</span></nav>
   <nav id="condition-controls" class="mode-controls loadouts" aria-label="Test Condition"><strong>Test Condition</strong><button type="button" data-condition="backpack-only" class="selected">Backpack Only</button><button type="button" data-condition="body-slots">Body Slots Available</button><span id="condition-label">Backpack Only</span></nav>
+  <nav id="mobility-controls" class="mode-controls loadouts" aria-label="Equipment Mobility" hidden><strong>Test Condition</strong><button type="button" data-mobility="movable" class="selected">Movable Required Equipment</button><button type="button" data-mobility="locked">Locked Required Equipment</button><span id="mobility-label">Movable Required Equipment</span></nav>
   <p id="equipment-note" class="experiment-note" hidden>Locked Equipment 只占用空间，不能移动、旋转或丢弃；没有属性与使用效果。</p>
   <p id="body-note" class="experiment-note">身体位置只是有限携带空间，没有属性、快速取用或战斗效果。每件兼容物品只能放入标注的一个位置。</p>
+  <p id="mobility-note" class="experiment-note" hidden>两种条件都必须携带相同 Required Equipment；唯一差异是能否在背包内移动和旋转。</p>
   <div class="layout">
     <section class="incoming"><h2>待处理物品 <span id="progress"></span></h2><div id="tray"></div><p id="details"></p><button id="next">下一件物品 →</button><p class="hint">先放入或丢弃当前物品，再继续。</p></section>
     <div class="storage">
