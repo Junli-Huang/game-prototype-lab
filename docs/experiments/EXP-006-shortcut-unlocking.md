@@ -1,6 +1,6 @@
 # EXP-006 — Shortcut Unlocking
 
-Status: TESTING / Untested
+Status: MAYBE
 
 Category: Exploration
 
@@ -37,8 +37,8 @@ Rules:
 - it can only be unlocked from the far side after reaching a late-route area;
 - unlocking is permanent for the current experiment session;
 - after unlocking, it creates a clearly shorter route between the late area and Start / earlier map space;
-- opening interaction should be obvious and fast (for example `E` near the gate);
-- no key item, puzzle, currency, combat gate, skill check or random requirement.
+- opening interaction should be obvious and fast (`E` near the gate);
+- no key item, puzzle, currency, combat gate, skill check or random requirement in EXP-006 itself.
 
 The shortcut should reconnect known space rather than simply opening a new room.
 
@@ -46,14 +46,10 @@ The shortcut should reconnect known space rather than simply opening a new room.
 
 Use the same three-target fixed route as EXP-004.
 
-Suggested session flow:
-
 1. Run 1: player traverses the normal route and reaches the far side of the shortcut.
 2. Player unlocks the shortcut.
 3. Run 2 and Run 3: shortcut remains open.
 4. Observe whether the player deliberately incorporates it into later routes and whether opening it produced a meaningful spatial realization.
-
-The shortcut does not need to be mathematically optimal for every leg, but its utility must be legible.
 
 ## What to Observe
 
@@ -69,28 +65,49 @@ Negative signals:
 
 - shortcut is used only because a UI tells the player to;
 - opening it feels like generic convenience with no spatial realization;
-- the connection is too obvious before discovery and produces no surprise;
 - the player forgets it or never chooses it later;
 - it merely removes walking without increasing world understanding.
 
+## Known Experience Variable — Movement Speed
+
+Player feedback indicates that character movement speed materially affected the overall experience.
+
+This means movement speed is not a neutral presentation detail for future exploration tests. However, EXP-006 does not establish which speed is correct.
+
+For controlled comparisons:
+
+- keep movement speed identical between compared conditions;
+- do not reinterpret faster completion as shortcut value by itself;
+- test or tune movement speed separately if needed.
+
 ## Non-goals
 
-Do not add:
-
-- multiple shortcut types;
-- elevators + ladders + bridges simultaneously;
-- keys / puzzles;
-- combat gates;
-- resource costs;
-- fast travel;
-- teleporters;
-- procedural maps;
-- loot / inventory;
-- character upgrades;
-- generalized unlock / door / quest framework.
+Do not add multiple shortcut types, keys / puzzles, combat gates, resource costs, fast travel, teleporters, procedural maps, loot / inventory, character upgrades, or generalized unlock / door / quest frameworks inside EXP-006.
 
 ## Result
 
-Untested — implemented in Prototype #003 on 2026-09-14; technical acceptance does not assign a gameplay conclusion.
+MAYBE — 2026-09-14 Player completed the experience and reported:
 
-Player test: after completing EXP-004, play all three EXP-006 runs and report shortcut recognition and deliberate later use separately.
+> “角色的移动速度是影响我体验的重要感受。其他的话，门这个东西，我觉得的确是好点。”
+
+Interpretation:
+
+- The shortcut gate produced a positive directional signal compared with the no-shortcut experience.
+- Evidence is not strong enough for `INTERESTING`; preserve as `MAYBE`.
+- Movement speed materially affected the experience and is a known confound for future exploration experiments.
+- Do not infer that the specific current gate layout, interaction distance, or travel-time reduction is optimal.
+
+Observed:
+
+- Player explicitly felt the gate / shortcut made the experience better.
+- Player explicitly identified movement speed as an important contributor to feel.
+
+Interesting Moment: TBD — no specific moment separately reported.
+
+Boring Moment: TBD.
+
+Decisions: TBD — deliberate later shortcut use was not separately reported in detail.
+
+Unexpected: movement speed was more salient than expected as an experience variable.
+
+Next: preserve EXP-006 as `MAYBE`; test the Player-proposed early-key variant separately in EXP-050 rather than modifying EXP-006 history.
