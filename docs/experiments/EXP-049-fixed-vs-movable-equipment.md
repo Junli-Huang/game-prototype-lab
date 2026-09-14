@@ -1,6 +1,6 @@
 # EXP-049 — Fixed vs Movable Equipment
 
-Status: TESTING / Result: Untested
+Status: MAYBE / Prefer Movable
 
 Category: Inventory
 
@@ -135,22 +135,28 @@ Do not add:
 
 ## Result
 
-Untested — implemented and technically accepted on GitHub Pages on 2026-09-13; not yet compared by the Player.
+MAYBE — 2026-09-14 Player completed both conditions and reported: “整体上我更喜欢不带 lock 的。”
 
-- Observed: TBD
-- Interesting Moment: TBD
-- Boring Moment: TBD
-- Decisions: TBD
-- Unexpected: TBD
-- Next: TBD
+Interpretation:
+
+- Movable Required Equipment is preferred over Locked Required Equipment.
+- Locked Equipment currently reads more as friction than as valuable spatial planning.
+- This is a meaningful directional result, but it does not by itself prove that movable required equipment is broadly INTERESTING as a standalone mechanic.
+
+- Observed: Player directly compared both mobility conditions and preferred the non-lock version.
+- Interesting Moment: TBD — not separately reported.
+- Boring Moment: TBD — not separately reported.
+- Decisions: TBD — no specific rearrangement decision was separately reported.
+- Unexpected: TBD.
+- Next: preserve the conclusion that Required Equipment should default to movable unless a future experiment provides a separate reason for fixed geometry.
 
 ## Prototype
 
-Implement as a fourth Experiment Mode in:
+Implemented as a fourth Experiment Mode in:
 
 `prototypes/001_spatial_backpack/`
 
-Proposed mode list:
+Mode list:
 
 1. EXP-001 — Spatial Placement
 2. EXP-003 — Equipment vs Loot
