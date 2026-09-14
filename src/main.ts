@@ -15,6 +15,13 @@ interface PrototypeEntry {
 // Manually maintain launcher metadata here. Gameplay stays in each prototype.
 const prototypes: PrototypeEntry[] = [
   {
+    id: '003',
+    name: 'Fixed Map Exploration Lab · EXP-004 / EXP-006',
+    status: 'TESTING',
+    hypothesis: '重复固定路线是否形成地图熟悉感，以及一条远端捷径是否带来空间认识与后续路线选择价值？',
+    url: 'prototypes/003_fixed_map_exploration/',
+  },
+  {
     id: '002',
     name: 'Enemy Respawn Lab · EXP-007 / EXP-008 World Refresh R2',
     status: 'MAYBE',
@@ -24,8 +31,8 @@ const prototypes: PrototypeEntry[] = [
   {
     id: '001',
     name: 'Backpack Lab · EXP-049 Fixed vs Movable Equipment',
-    status: 'TESTING',
-    hypothesis: '相同 High Occupancy Required Equipment 与 Loot 下，装备能否移动 / 旋转是否会改变空间决策质量？',
+    status: 'MAYBE',
+    hypothesis: 'Player 更喜欢不带 lock 的 Required Equipment；保留轻度正向方向，不扩展当前实现。',
     url: 'prototypes/001_spatial_backpack/',
   },
 ];

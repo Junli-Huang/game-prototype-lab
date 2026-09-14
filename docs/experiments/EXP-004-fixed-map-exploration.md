@@ -1,6 +1,6 @@
 # EXP-004 — Fixed Map Exploration
 
-Status: READY / Selected
+Status: TESTING / Untested
 
 Category: Exploration
 
@@ -86,4 +86,6 @@ Do not add:
 
 ## Result
 
-TBD — not implemented / not played.
+Untested — implemented in Prototype #003 on 2026-09-14; technical acceptance does not assign a gameplay conclusion.
+
+Player test: complete all three EXP-004 runs before switching to EXP-006, then report whether later traversal felt more familiar or confident.

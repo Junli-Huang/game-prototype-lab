@@ -1,6 +1,6 @@
 # EXP-006 — Shortcut Unlocking
 
-Status: READY / Selected
+Status: TESTING / Untested
 
 Category: Exploration
 
@@ -91,4 +91,6 @@ Do not add:
 
 ## Result
 
-TBD — not implemented / not played.
+Untested — implemented in Prototype #003 on 2026-09-14; technical acceptance does not assign a gameplay conclusion.
+
+Player test: after completing EXP-004, play all three EXP-006 runs and report shortcut recognition and deliberate later use separately.

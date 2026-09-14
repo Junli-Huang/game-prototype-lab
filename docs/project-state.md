@@ -19,27 +19,9 @@ Before implementation, also read `docs/asset-handoff.md` and the selected Work I
 
 ## Current implementation task
 
-**ACTIVE: EXP-004 — Fixed Map Exploration + EXP-006 — Shortcut Unlocking**
+No active implementation task.
 
-Formal Work Item:
-
-`docs/work-items/EXP-004-006-fixed-map-shortcut.md`
-
-Prototype:
-
-`prototypes/003_fixed_map_exploration/`
-
-Implementation structure:
-
-- one compact hand-authored 2D top-down fixed map;
-- EXP-004 and EXP-006 are separate Experiment Modes on the exact same map;
-- EXP-004 tests repeated fixed-map learning only;
-- EXP-006 adds exactly one far-side unlockable shortcut and tests its incremental value;
-- three fixed targets A → B → C;
-- three runs per session;
-- no combat, loot, inventory, procedural generation, navigation aids or generalized frameworks.
-
-Work is authorized only through `docs/work-items/CURRENT.md`.
+EXP-004 / EXP-006 and Prototype #003 have completed implementation, build, browser, and GitHub Pages technical acceptance. Next action belongs to the Player; do not select another Backlog item automatically.
 
 ## Prototype #001 — Backpack Lab
 
@@ -87,13 +69,13 @@ Current learning: World Refresh appears more useful as supporting structure in a
 
 ## Prototype #003 — Fixed Map Exploration
 
-Planned implementation directory:
+Implementation directory:
 
 `prototypes/003_fixed_map_exploration/`
 
 ### EXP-004 — Fixed Map Exploration
 
-Status: `READY / BUILDING authorized`
+Status: `TESTING / Result: Untested`
 
 Question:
 
@@ -105,7 +87,7 @@ Definition:
 
 ### EXP-006 — Shortcut Unlocking
 
-Status: `READY / BUILDING authorized`
+Status: `TESTING / Result: Untested`
 
 Question:
 
@@ -119,11 +101,9 @@ EXP-006 must use the exact EXP-004 map. The first version adds exactly one short
 
 ## Current sequencing
 
-1. Build Prototype #003.
-2. Technically accept EXP-004 / EXP-006 without assigning gameplay conclusions.
-3. Player plays EXP-004 first for all three runs.
-4. Player then plays EXP-006 for all three runs.
-5. Record separately:
+1. Player plays EXP-004 first for all three runs.
+2. Player then plays EXP-006 for all three runs.
+3. Record separately:
    - fixed-map familiarity / mastery signal;
    - shortcut recognition / later-use signal.
 

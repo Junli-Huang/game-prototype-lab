@@ -60,9 +60,9 @@ Experiment 是要验证的问题；Prototype 是回答该问题的可玩实现�
 | EXP-001 | [Spatial Backpack Placement](#exp-001-spatial-backpack-placement) | Inventory | MAYBE |
 | EXP-002 | [Backpack Limits Exploration](#exp-002-backpack-limits-exploration) | Inventory | IDEA |
 | EXP-003 | [Equipment vs Loot Space](#exp-003-equipment-vs-loot-space) | Inventory | TESTING |
-| EXP-004 | [Fixed Map Exploration](#exp-004-fixed-map-exploration) | Exploration | IDEA |
+| EXP-004 | [Fixed Map Exploration](#exp-004-fixed-map-exploration) | Exploration | TESTING |
 | EXP-005 | [Box-Level Exploration](#exp-005-box-level-exploration) | Exploration | IDEA |
-| EXP-006 | [Shortcut Unlocking](#exp-006-shortcut-unlocking) | Exploration | IDEA |
+| EXP-006 | [Shortcut Unlocking](#exp-006-shortcut-unlocking) | Exploration | TESTING |
 | EXP-007 | [Campfire World Refresh](#exp-007-campfire-world-refresh) | World Refresh | MAYBE |
 | EXP-008 | [Blood Moon World Refresh](#exp-008-blood-moon-world-refresh) | World Refresh | MAYBE |
 | EXP-009 | [Campfire + Blood Moon Respawn](#exp-009-campfire--blood-moon-respawn) | World Refresh | IDEA |
@@ -105,7 +105,7 @@ Experiment 是要验证的问题；Prototype 是回答该问题的可玩实现�
 | EXP-046 | [Enemy Ecology Knowledge](#exp-046-enemy-ecology-knowledge) | World Knowledge | IDEA |
 | EXP-047 | [World Knowledge Over Character Level](#exp-047-world-knowledge-over-character-level) | World Knowledge | IDEA |
 | EXP-048 | [Body Equipment Storage](#exp-048-body-equipment-storage) | Inventory | MAYBE |
-| EXP-049 | [Fixed vs Movable Equipment](#exp-049-fixed-vs-movable-equipment) | Inventory | TESTING |
+| EXP-049 | [Fixed vs Movable Equipment](#exp-049-fixed-vs-movable-equipment) | Inventory | MAYBE |
 
 # Inventory
 
@@ -166,7 +166,7 @@ Name: Backpack Limits Exploration
 
 Category: Inventory
 
-Status: IDEA
+Status: MAYBE
 
 ### Hypothesis
 
@@ -319,7 +319,7 @@ Name: Fixed vs Movable Equipment
 
 Category: Inventory
 
-Status: TESTING
+Status: MAYBE
 
 ### Hypothesis
 
@@ -345,20 +345,20 @@ Required Equipment 是否允许在背包内移动 / 旋转。
 
 ### Result
 
-Untested — 2026-09-13 完成实现、真实浏览器与 GitHub Pages 技术验收，等待 Player 对比试玩。
+MAYBE — 2026-09-14 Player 完成两种条件并反馈：“整体上我更喜欢不带 lock 的。”
 
-- Observed：TBD
+- Observed：Player 明确偏好 Movable Required Equipment。
 - 有趣开始的时机：TBD
 - 无聊开始的时机：TBD
 - 玩家产生的决策：TBD
 - Unexpected：TBD
-- Next：Player 对比 Movable Required Equipment 与 Locked Required Equipment。
+- Next：保留 Movable 偏好作为后续方向；停止扩展当前实验。
 
 ### Notes
 
 - Prototype：[Backpack Lab / Fixed vs Movable Equipment](../prototypes/001_spatial_backpack/README.md)。
 - 两种条件的装备集合、起始位置、尺寸、总面积和 Loot 序列一致；只有 mobility 改变。
-- 技术验收不构成玩法结论。
+- Player 结果与完整解释见独立 Experiment 定义；不从该结果推断 EXP-003 的结论。
 
 # Exploration
 
@@ -370,13 +370,11 @@ Name: Fixed Map Exploration
 
 Category: Exploration
 
-Status: IDEA
+Status: TESTING
 
 ### Hypothesis
 
-候选假设（尚未验证）：固定地图重复探索。
-
-待验证的体验预期：地图不随机的情况下，路线记忆和地点熟悉可能本身具有成长感。
+如果固定地图、目标顺序与移动条件保持不变，重复三次同一路线可能使路线记忆和地点熟悉本身形成成长感。
 
 ### Core Variable
 
@@ -388,8 +386,8 @@ Status: IDEA
 
 ### Minimum Scope
 
-- 一张固定小地图、三个目标点；重复探索三次，记录路线选择。
-- 只提供验证此问题所需的操作与可读反馈；固定其他条件。
+- 一张固定小地图、三个目标点 A → B → C，再返回 Home；连续探索三次并记录每轮用时。
+- EXP-004 全程封闭捷径；无路线箭头、路径线、面包屑或小地图。
 
 ### Non-goals
 
@@ -398,7 +396,7 @@ Status: IDEA
 
 ### Result
 
-TBD — 尚未试玩。
+Untested — 2026-09-14 完成实现与技术验收，等待 Player 完成三轮试玩。
 
 - Observed（实际观察）：TBD
 - 有趣开始的时机：TBD
@@ -409,9 +407,9 @@ TBD — 尚未试玩。
 
 ### Notes
 
-- Prototype：尚无实现。
-- 试玩日期、条件、参数与对照版本：TBD
-- 其他观察：TBD
+- Prototype：[Fixed Map Exploration Lab](../prototypes/003_fixed_map_exploration/README.md)。
+- 与 EXP-006 共用同一地图、移动、碰撞、地标、目标顺序和三轮结构；本 Mode 的捷径始终不可用。
+- 技术验收不构成玩法结论。
 
 ## EXP-005 Box-Level Exploration
 
@@ -472,23 +470,11 @@ Name: Shortcut Unlocking
 
 Category: Exploration
 
-Status: IDEA
+Status: TESTING
 
 ### Hypothesis
 
-候选假设（尚未验证）：捷径解锁。
-
-例如：
-
-```text
-门
-梯子
-桥
-电梯
-地下通道
-```
-
-待验证的体验预期：“这里居然通回来了”可能能形成强探索反馈。
+在同一张已经可以学习的固定地图上，从远端打开一条通回早期区域的捷径，可能产生“这里居然通回来了”的空间认识，并改变后续路线选择。
 
 ### Core Variable
 
@@ -500,8 +486,8 @@ Status: IDEA
 
 ### Minimum Scope
 
-- 一条环形路线和一扇单向解锁门；比较解锁前后往返体验。
-- 只提供验证此问题所需的操作与可读反馈；固定其他条件。
+- 与 EXP-004 完全相同的固定地图与三轮 A → B → C → Home 路线。
+- 恰好一扇只能从远端用 `E` 开启的门；开启后在当前会话后续轮次保持双向通行。
 
 ### Non-goals
 
@@ -510,7 +496,7 @@ Status: IDEA
 
 ### Result
 
-TBD — 尚未试玩。
+Untested — 2026-09-14 完成实现与技术验收，等待 Player 在 EXP-004 后完成三轮试玩。
 
 - Observed（实际观察）：TBD
 - 有趣开始的时机：TBD
@@ -521,9 +507,9 @@ TBD — 尚未试玩。
 
 ### Notes
 
-- Prototype：尚无实现。
-- 试玩日期、条件、参数与对照版本：TBD
-- 其他观察：TBD
+- Prototype：[Fixed Map Exploration Lab](../prototypes/003_fixed_map_exploration/README.md)。
+- 与 EXP-004 只改变一项变量：唯一捷径是否可从远端开启。
+- 技术验收不构成玩法结论。
 
 # World Refresh
 

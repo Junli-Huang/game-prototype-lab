@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fixed Map Exploration Lab · EXP-004 / EXP-006</title>
+</head>
+<body>
+  <header>
+    <a href="../../">← Lab</a>
+    <div>
+      <h1>Fixed Map Exploration Lab</h1>
+      <p>#003 · <span id="experiment">EXP-004 Fixed Map Exploration</span> · <span>TESTING</span></p>
+    </div>
+    <button id="restart" type="button">Restart <kbd>R</kbd></button>
+  </header>
+  <main>
+    <nav class="modes" aria-label="Experiment Mode">
+      <span>Experiment Mode</span>
+      <button type="button" data-mode="fixed" class="selected">EXP-004 · Fixed Map</button>
+      <button type="button" data-mode="shortcut">EXP-006 · Shortcut</button>
+    </nav>
+    <section class="topline" aria-label="Session status">
+      <div><span class="label">Run</span><strong id="run">1 / 3</strong></div>
+      <div><span class="label">Current target</span><strong id="target">A · Amber Garden</strong></div>
+      <div><span class="label">Run time</span><strong id="timer">0:00.0</strong></div>
+      <p id="rule">同一固定地图 · A → B → C → Home · 无捷径</p>
+    </section>
+    <section id="scene">
+      <canvas id="world" tabindex="0" aria-label="固定地图探索场景。WASD 或方向键移动。"></canvas>
+      <div id="message" role="status"></div>
+      <div id="prompt" hidden><kbd>E</kbd> — Open Shortcut</div>
+      <div id="summary" hidden>
+        <p class="eyebrow">Session Summary</p>
+        <h2 id="summary-title">EXP-004 · Fixed Map Exploration</h2>
+        <ol id="times"></ol>
+        <p id="shortcut-result" hidden></p>
+        <p id="reflection"></p>
+        <button id="summary-restart" type="button">Restart Current Mode</button>
+      </div>
+    </section>
+    <footer>
+      <p><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> / Arrow Keys 移动 · <kbd>E</kbd> 开门（仅 EXP-006）· <kbd>R</kbd> 重开</p>
+      <p>依次抵达 A、B、C，再回到 Home；不提供路线箭头</p>
+    </footer>
+  </main>
+  <script type="module" src="./main.ts"></script>
+</body>
+</html>

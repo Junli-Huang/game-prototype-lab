@@ -7,7 +7,7 @@
 | Spatial Placement | [EXP-001](../../docs/experiment-backlog.md#exp-001-spatial-backpack-placement) | MAYBE | 有限二维空间中的摆放、旋转与取舍 |
 | Equipment vs Loot | [EXP-003](../../docs/experiment-backlog.md#exp-003-equipment-vs-loot-space) | TESTING | 同一 Loot 序列下，开局 Locked Equipment 占 3 格或 11 格 |
 | Body Equipment Storage | [EXP-048](../../docs/experiment-backlog.md#exp-048-body-equipment-storage) | MAYBE | 相同九件物品下，是否提供 Back / Chest / Waist 身体携带位置 |
-| Fixed vs Movable Equipment | [EXP-049](../../docs/experiment-backlog.md#exp-049-fixed-vs-movable-equipment) | TESTING | 相同 Heavy Required Equipment 下，只改变装备能否移动 / 旋转 |
+| Fixed vs Movable Equipment | [EXP-049](../../docs/experiment-backlog.md#exp-049-fixed-vs-movable-equipment) | MAYBE | Player 偏好 Movable Required Equipment；相同 Heavy 条件下只改变 mobility |
 
 当前默认 Mode：EXP-048 Body Equipment Storage；默认 Test Condition：Backpack Only。Experiment Mode、Loadout 或 Test Condition 切换均开始完整的新 Session。
 
@@ -220,7 +220,7 @@ MAYBE — Player 初次试玩反馈：“感觉有使用的价值。”这是正
 
 ### Status / Result
 
-TESTING / Result: Untested。技术与 Pages 验收完成，等待 Player 实际对比。
+MAYBE / Prefer Movable。2026-09-14 Player 完成两种条件并反馈：“整体上我更喜欢不带 lock 的。”
 
 ### Question / Controlled Conditions
 
@@ -242,7 +242,7 @@ TESTING / Result: Untested。技术与 Pages 验收完成，等待 Player 实际
 
 ### Non-goals / Next
 
-未加入 Body Slots、装备效果、快速取用、耐久、重量、随机 Loot、自动整理、额外占用档位或通用 Inventory Framework。下一步由 Player 对比 Movable → Locked，并提供真实体验反馈。
+未加入 Body Slots、装备效果、快速取用、耐久、重量、随机 Loot、自动整理、额外占用档位或通用 Inventory Framework。保留 Movable 偏好为后续方向，不继续扩展当前实验。
 
 ## Historical Notes / Handoff
 
