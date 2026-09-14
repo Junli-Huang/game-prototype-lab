@@ -147,7 +147,26 @@ function checkTarget(now: number): void {
 
 function canOpenShortcut(): boolean {
   return mode === 'shortcut' && !shortcutOpen && player.x > gate.x + gate.w &&
-    player.x < gate.x + gate.w + 70 && player.y > gate.y - 25 && player.y < gate.y + gate.h + 25;
+    player.x < gate.x + gate.w + 120 && player.y > gate.y - 45 && player.y < gate.y + gate.h + 45;
+}
+
+function isNearLockedSide(): boolean {
+  return mode === 'shortcut' && !shortcutOpen && player.x < gate.x &&
+    player.x > gate.x - 120 && player.y > gate.y - 45 && player.y < gate.y + gate.h + 45;
+}
+
+function updateShortcutPrompt(): void {
+  if (canOpenShortcut()) {
+    promptElement.textContent = '[E] Unlock Shortcut';
+    promptElement.hidden = false;
+    return;
+  }
+  if (isNearLockedSide()) {
+    promptElement.textContent = 'Locked from this side';
+    promptElement.hidden = false;
+    return;
+  }
+  promptElement.hidden = true;
 }
 
 function openShortcut(): void {
@@ -197,7 +216,7 @@ function update(dt: number, now: number): void {
     shortcutUsedLater = true;
   }
   previousPlayerX = player.x;
-  promptElement.hidden = !canOpenShortcut();
+  updateShortcutPrompt();
   checkTarget(now);
   timerElement.textContent = formatTime((now - runStartedAt) / 1000);
   if (messageElement.textContent && now > messageUntil) messageElement.textContent = '';

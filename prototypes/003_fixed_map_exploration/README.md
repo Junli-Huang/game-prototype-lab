@@ -16,14 +16,14 @@ Small 2D top-down controlled comparison for EXP-004 and EXP-006. Both Experiment
 - Status: `TESTING`
 - Result: `Untested`
 - Question: does opening one far-side connection back toward Home create a valuable spatial-recognition moment and affect later route choice?
-- Shortcut: starts closed, opens only from the far / east side with `E`, remains open for Runs 2 and 3, and is traversable both ways.
+- Shortcut: starts closed, opens only from the far / east side with `E`, remains open for Runs 2 and 3, and is traversable both ways. The near side explicitly reports `Locked from this side`; the larger far-side interaction area reports `[E] Unlock Shortcut`.
 
 Technical completion does not assign a gameplay result. Player should complete all three EXP-004 runs first, then all three EXP-006 runs, and report familiarity and shortcut value separately.
 
 ## Controls
 
 - `WASD` / Arrow Keys — move
-- `E` — open the shortcut when prompted in EXP-006
+- `E` — unlock the shortcut only from its far side when `[E] Unlock Shortcut` is shown
 - `R` / Restart — reset the complete current session
 - Experiment Mode buttons — switch mode and reset the complete session
 

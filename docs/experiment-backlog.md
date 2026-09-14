@@ -166,7 +166,7 @@ Name: Backpack Limits Exploration
 
 Category: Inventory
 
-Status: MAYBE
+Status: IDEA
 
 ### Hypothesis
 
