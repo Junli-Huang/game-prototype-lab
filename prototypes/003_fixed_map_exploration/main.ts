@@ -1,6 +1,8 @@
 import './style.css';
 
-type Mode = 'fixed' | 'shortcut';
+type Mode = 'fixed' | 'shortcut' | 'keyed';
+type KeyCondition = 'no-key' | 'with-key';
+type GateOpenedBy = 'Near-side Key' | 'Far-side Unlock' | 'Never';
 type Point = { x: number; y: number };
 type Rect = { x: number; y: number; w: number; h: number };
 
@@ -18,11 +20,15 @@ const summaryTitle = document.querySelector<HTMLElement>('#summary-title')!;
 const timesElement = document.querySelector<HTMLOListElement>('#times')!;
 const shortcutResult = document.querySelector<HTMLElement>('#shortcut-result')!;
 const reflectionElement = document.querySelector<HTMLElement>('#reflection')!;
+const conditionsElement = document.querySelector<HTMLElement>('#conditions')!;
+const keyStateElement = document.querySelector<HTMLElement>('#key-state')!;
+const keyCountElement = document.querySelector<HTMLElement>('#key-count')!;
 
 const WORLD = { w: 1600, h: 1000 };
 const PLAYER_RADIUS = 15;
 const SPEED = 90;
 const start: Point = { x: 180, y: 820 };
+const qaGateSide = new URLSearchParams(location.search).get('qa');
 const targets = [
   { name: 'A · Amber Garden', short: 'A', x: 260, y: 205, color: '#e5b34f' },
   { name: 'B · Blue Reservoir', short: 'B', x: 1300, y: 205, color: '#65bada' },
@@ -50,6 +56,7 @@ const gate: Rect = { x: 760, y: 655, w: 48, h: 100 };
 const landmark = { x: 875, y: 505, radius: 74 };
 
 let mode: Mode = 'fixed';
+let keyCondition: KeyCondition = 'no-key';
 let player: Point = { ...start };
 let run = 1;
 let targetIndex = 0;
@@ -57,6 +64,9 @@ let runStartedAt = performance.now();
 let runTimes: number[] = [];
 let shortcutOpen = false;
 let shortcutUsedLater = false;
+let shortcutKey = 0;
+let keyUsed = false;
+let gateOpenedBy: GateOpenedBy = 'Never';
 let finished = false;
 let lastTime = performance.now();
 let messageUntil = 0;
@@ -82,13 +92,20 @@ function formatTime(seconds: number): string {
 }
 
 function resetSession(): void {
-  player = { ...start };
+  player = qaGateSide === 'gate-near'
+    ? { x: gate.x - 70, y: gate.y + gate.h / 2 }
+    : qaGateSide === 'gate-far'
+      ? { x: gate.x + gate.w + 70, y: gate.y + gate.h / 2 }
+      : { ...start };
   previousPlayerX = player.x;
   run = 1;
   targetIndex = 0;
   runTimes = [];
   shortcutOpen = false;
   shortcutUsedLater = false;
+  shortcutKey = mode === 'keyed' && keyCondition === 'with-key' ? 1 : 0;
+  keyUsed = false;
+  gateOpenedBy = 'Never';
   finished = false;
   runStartedAt = performance.now();
   summaryElement.hidden = true;
@@ -105,16 +122,31 @@ function setMode(nextMode: Mode): void {
   });
   experimentElement.textContent = mode === 'fixed'
     ? 'EXP-004 Fixed Map Exploration'
-    : 'EXP-006 Shortcut Unlocking';
+    : mode === 'shortcut'
+      ? 'EXP-006 Shortcut Unlocking'
+      : 'EXP-050 Keyed Shortcut Access';
   ruleElement.textContent = mode === 'fixed'
     ? '同一固定地图 · A → B → C → Home · 无捷径'
-    : '同一固定地图 · 远端可开启一条捷径';
+    : mode === 'shortcut'
+      ? '同一固定地图 · 远端可开启一条捷径'
+      : '同一固定地图 · 比较是否持有一把起始钥匙';
+  conditionsElement.hidden = mode !== 'keyed';
+  keyStateElement.hidden = mode !== 'keyed';
+  resetSession();
+}
+
+function setKeyCondition(nextCondition: KeyCondition): void {
+  keyCondition = nextCondition;
+  document.querySelectorAll<HTMLButtonElement>('[data-condition]').forEach((button) => {
+    button.classList.toggle('selected', button.dataset.condition === keyCondition);
+  });
   resetSession();
 }
 
 function updateHud(): void {
   runElement.textContent = `${run} / 3`;
   targetElement.textContent = targets[targetIndex].name;
+  keyCountElement.textContent = String(shortcutKey);
 }
 
 function completeRun(now: number): void {
@@ -146,12 +178,12 @@ function checkTarget(now: number): void {
 }
 
 function canOpenShortcut(): boolean {
-  return mode === 'shortcut' && !shortcutOpen && player.x > gate.x + gate.w &&
+  return mode !== 'fixed' && !shortcutOpen && player.x > gate.x + gate.w &&
     player.x < gate.x + gate.w + 120 && player.y > gate.y - 45 && player.y < gate.y + gate.h + 45;
 }
 
-function isNearLockedSide(): boolean {
-  return mode === 'shortcut' && !shortcutOpen && player.x < gate.x &&
+function isNearShortcutSide(): boolean {
+  return mode !== 'fixed' && !shortcutOpen && player.x < gate.x &&
     player.x > gate.x - 120 && player.y > gate.y - 45 && player.y < gate.y + gate.h + 45;
 }
 
@@ -161,8 +193,10 @@ function updateShortcutPrompt(): void {
     promptElement.hidden = false;
     return;
   }
-  if (isNearLockedSide()) {
-    promptElement.textContent = 'Locked from this side';
+  if (isNearShortcutSide()) {
+    promptElement.textContent = mode === 'keyed' && shortcutKey > 0
+      ? '[E] Use Key — Unlock Shortcut'
+      : 'Locked from this side';
     promptElement.hidden = false;
     return;
   }
@@ -170,7 +204,16 @@ function updateShortcutPrompt(): void {
 }
 
 function openShortcut(): void {
-  if (!canOpenShortcut()) return;
+  if (canOpenShortcut()) {
+    gateOpenedBy = 'Far-side Unlock';
+  } else if (mode === 'keyed' && shortcutKey > 0 && isNearShortcutSide()) {
+    shortcutKey = 0;
+    keyUsed = true;
+    gateOpenedBy = 'Near-side Key';
+    updateHud();
+  } else {
+    return;
+  }
   shortcutOpen = true;
   promptElement.hidden = true;
   setMessage('Shortcut opened · This connection stays open for Runs 2 and 3', 3000);
@@ -179,17 +222,23 @@ function openShortcut(): void {
 function showSummary(): void {
   summaryTitle.textContent = mode === 'fixed'
     ? 'EXP-004 · Fixed Map Exploration'
-    : 'EXP-006 · Shortcut Unlocking';
+    : mode === 'shortcut'
+      ? 'EXP-006 · Shortcut Unlocking'
+      : 'EXP-050 · Keyed Shortcut Access';
   timesElement.replaceChildren(...runTimes.map((seconds, index) => {
     const item = document.createElement('li');
     item.textContent = `Run ${index + 1}: ${formatTime(seconds)}`;
     return item;
   }));
-  shortcutResult.hidden = mode !== 'shortcut';
-  shortcutResult.textContent = `Shortcut opened: ${shortcutOpen ? 'Yes' : 'No'} · Used in Run 2/3: ${shortcutUsedLater ? 'Yes' : 'No'}`;
+  shortcutResult.hidden = mode === 'fixed';
+  shortcutResult.textContent = mode === 'keyed'
+    ? `Test Condition: ${keyCondition === 'with-key' ? 'Start With Key' : 'No Key'} · Key used: ${keyUsed ? 'Yes' : 'No'} · First opened: ${gateOpenedBy} · Used in Run 2/3: ${shortcutUsedLater ? 'Yes' : 'No'}`
+    : `Shortcut opened: ${shortcutOpen ? 'Yes' : 'No'} · Used in Run 2/3: ${shortcutUsedLater ? 'Yes' : 'No'}`;
   reflectionElement.textContent = mode === 'fixed'
     ? '回想一下：后两次路线是否更熟悉、更有把握？哪里开始不再犹豫？'
-    : '回想一下：开门时是否产生“这里居然通回来了”的空间认识？后两次是否主动使用了它？';
+    : mode === 'shortcut'
+      ? '回想一下：开门时是否产生“这里居然通回来了”的空间认识？后两次是否主动使用了它？'
+      : '回想一下：持有钥匙是否让你主动提前开门，并改变路线规划？';
   summaryElement.hidden = false;
 }
 
@@ -210,7 +259,7 @@ function update(dt: number, now: number): void {
     if (!collides(nextX, player.y)) player.x = nextX;
     if (!collides(player.x, nextY)) player.y = nextY;
   }
-  if (mode === 'shortcut' && shortcutOpen && run > 1 &&
+  if (mode !== 'fixed' && shortcutOpen && run > 1 &&
       player.y > gate.y - 20 && player.y < gate.y + gate.h + 20 &&
       player.x > gate.x - 20 && player.x < gate.x + gate.w + 20) {
     shortcutUsedLater = true;
@@ -316,6 +365,9 @@ window.addEventListener('keyup', (event) => keys.delete(event.code));
 window.addEventListener('blur', () => keys.clear());
 document.querySelectorAll<HTMLButtonElement>('[data-mode]').forEach((button) => {
   button.addEventListener('click', () => setMode(button.dataset.mode as Mode));
+});
+document.querySelectorAll<HTMLButtonElement>('[data-condition]').forEach((button) => {
+  button.addEventListener('click', () => setKeyCondition(button.dataset.condition as KeyCondition));
 });
 document.querySelector<HTMLButtonElement>('#restart')!.addEventListener('click', resetSession);
 document.querySelector<HTMLButtonElement>('#summary-restart')!.addEventListener('click', resetSession);
