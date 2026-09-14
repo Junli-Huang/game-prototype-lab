@@ -1,6 +1,6 @@
 # Project State — Cold Start Snapshot
 
-Updated: 2026-09-13
+Updated: 2026-09-14
 
 This file is the compact current-state handoff for a new Chat / Designer / Reviewer session. It does not replace the detailed Experiment Backlog, Prototype READMEs, Workflow, or historical Work Items.
 
@@ -21,20 +21,7 @@ Before implementation, also read `docs/asset-handoff.md` and the selected Work I
 
 **No active implementation task.**
 
-EXP-048 Review Fix 01 and EXP-049 have completed implementation, real-browser interaction verification, and GitHub Pages acceptance. EXP-048 remains `MAYBE`; EXP-049 is `TESTING / Result: Untested`. `docs/work-items/CURRENT.md` is closed until another task is explicitly selected.
-
-Core frozen parameters:
-
-- Prototype: `prototypes/001_spatial_backpack/`
-- Backpack: 6×8
-- Test Conditions: Backpack Only / Body Slots Available
-- Body locations: Back ×1, Chest ×1, Waist ×1
-- Fixed item count: 9
-- Fixed total item area: 70 cells
-- Maximum area transferable to Body slots: 20 cells
-- Minimum remaining backpack demand under maximum body-space use: 50 cells against 48-cell capacity
-
-The experiment remains a storage-location test only. Do not add access speed, combat effects, durability, exposure risk, weight, or speculative inventory architecture.
+EXP-048 Review Fix 01 and EXP-049 have completed implementation, real-browser interaction verification, and GitHub Pages acceptance. EXP-048 remains `MAYBE`. EXP-049 has now been Player-compared and is `MAYBE / Prefer Movable`. `docs/work-items/CURRENT.md` is closed until another task is explicitly selected.
 
 ## Prototype #001 — Backpack Lab
 
@@ -50,63 +37,44 @@ Player feedback:
 
 > “还可以，有点意思。”
 
-Interpretation: light positive signal, not strong enough for INTERESTING. Preserve the historical result; do not add features merely to improve its rating.
+Interpretation: light positive signal, not strong enough for INTERESTING.
 
 ### EXP-003 — Equipment vs Loot Space
 
-Status: `MAYBE`
+Status: `TESTING / Result: Untested`
 
-Implemented and technically accepted. Waiting for Player gameplay evaluation.
+Important correction: EXP-003 must remain untested. A prior documentation sync accidentally changed it to MAYBE, but the Player has not provided an EXP-003 gameplay result.
 
-Experiment-level change relative to EXP-001:
-
-> A session starts with some backpack cells already occupied by **Locked Equipment** that cannot be moved, rotated, or discarded.
-
-Important terminology:
-
-- `Low / High Starting Equipment Occupancy` are **Test Conditions inside EXP-003**.
-- Existing UI may still say `Light / Heavy`; these labels are not separate Experiment Modes, classes, builds, or gameplay systems.
-- Both conditions receive the same fixed Loot sequence. Only starting locked-equipment occupancy differs.
-
-Do not infer equipment power, combat, body slots, durability, or access-speed conclusions from EXP-003.
+EXP-003 tests whether mandatory starting equipment consuming backpack area creates meaningful loot-space pressure. Its historical implementation uses Locked Equipment. Do not infer the EXP-049 mobility result as an EXP-003 result.
 
 ### EXP-048 — Body Equipment Storage
 
-Status: `TESTING / Result: Untested`
+Status: `MAYBE`
 
-Work Item: `docs/work-items/EXP-048-body-equipment-storage.md`
+Player feedback:
 
-Core change relative to EXP-003:
+> “感觉有使用的价值。”
 
-> Compatible items may be stored on a small number of explicit body carry locations outside the backpack interior instead of consuming backpack grid cells.
+Interpretation: positive but limited signal. Body Equipment Storage appears useful, but current evidence is not strong enough for INTERESTING.
 
-Test Conditions inside EXP-048:
-
-- Backpack Only
-- Body Slots Available
-
-Body locations:
-
-- Back — 1 item
-- Chest — 1 item
-- Waist — 1 item
-
-Each compatible item has exactly one legal body location. Each location has two competing compatible items in the fixed sequence.
-
-The exact nine-item sequence, dimensions, values, body mappings, interaction rules, Non-goals, and Acceptance are implemented from the frozen Work Item.
-
-Player feedback is preserved exactly as “感觉有使用的价值。” This is a positive but limited signal. Review Fix 01 changed the default to Backpack Only and completed the real-browser / Pages acceptance matrix without changing frozen parameters.
+Review Fix 01 changed the default condition to Backpack Only and completed real-browser / Pages acceptance without changing the frozen nine-item parameters.
 
 ### EXP-049 — Fixed vs Movable Equipment
 
-Status: `TESTING / Result: Untested`
+Status: `MAYBE / Prefer Movable`
 
-Both Test Conditions use EXP-003 Heavy Required Equipment (11 / 48), identical starting positions, and the same seven-item Loot sequence.
+Player feedback after comparing both conditions:
 
-- Movable Required Equipment may move / rotate but cannot be discarded.
-- Locked Required Equipment cannot move / rotate / discard.
+> “整体上我更喜欢不带 lock 的。”
 
-Real-browser Pages acceptance confirmed mobility, rotation, overlap / bounds / discard rejection, locked behavior, full resets, Summary, direct refresh, and historical Mode regression. Gameplay comparison remains untested.
+Interpretation:
+
+- Movable Required Equipment is preferred over Locked Required Equipment.
+- Locked Required Equipment currently adds more friction than useful spatial planning.
+- Default future direction should therefore be movable mandatory equipment unless a later experiment supplies a separate reason for fixed geometry.
+- This result does not automatically upgrade movable equipment to INTERESTING; it is a directional comparison result.
+
+Both conditions used the same Heavy 11 / 48 Required Equipment geometry and the same seven-item Loot sequence; only mobility changed.
 
 ## Prototype #002 — Enemy Respawn Lab
 
@@ -116,80 +84,59 @@ Implementation directory:
 
 ### EXP-007 — Campfire World Refresh
 
-R1 enemy-only result: `MAYBE`.
+Status: `MAYBE / Stop`
 
 Player feedback:
 
 > “没有好坏的感受，就一般。”
 
-R2 used the shared recommended Refresh Profile:
-
-- Enemies: ON
-- Common Resources: ON
-
-R2 Player feedback:
+R2 feedback:
 
 > “体验下来没有明显的感觉。”
-
-Current conclusion: `MAYBE / Stop`.
 
 ### EXP-008 — Blood Moon World Refresh
 
-R2 used the same Refresh Profile as EXP-007; only the World Refresh trigger differed.
+Status: `MAYBE / Stop`
 
-R2 Player feedback:
+R2 feedback:
 
 > “体验下来没有明显的感觉。”
 
-Current conclusion: `MAYBE / Stop`.
-
-### #002 decision
-
-Do **not** continue with R3 by adding treasure, more enemies, ecology, or extra reset categories merely to make the experiment feel stronger.
-
 Current learning:
 
-> World Refresh appears more likely to be a supporting structure whose value depends on a broader gameplay context than a mechanism that creates a strong standalone experience in this short prototype.
-
-EXP-007 / EXP-008 may be reconsidered later inside a richer route / ecology / persistent-world context, but #002 is currently stopped.
-
-Detailed R2 outcome is preserved in:
-
-`docs/work-items/EXP-007-008-world-refresh-profile-r2-result.md`
+> World Refresh appears more likely to be a supporting structure whose value depends on broader gameplay context than a mechanism that creates a strong standalone experience in this short prototype.
 
 ## Inventory / Equipment design direction
 
-The Inventory line is currently waiting for Player evaluation of **EXP-049 — Fixed vs Movable Equipment**.
+Current tested sequence:
 
-Design history and later candidates remain recorded in:
+1. EXP-001 — Spatial Backpack Placement — `MAYBE`.
+2. EXP-003 — Equipment vs Loot Space — `TESTING / Untested`.
+3. EXP-048 — Body Equipment Storage — `MAYBE`.
+4. EXP-049 — Fixed vs Movable Equipment — `MAYBE / Prefer Movable`.
+
+Current directional learning:
+
+- Spatial backpack placement has a light positive signal.
+- Body storage has practical value.
+- When mandatory equipment occupies backpack space, making it movable is preferred to locking it in place.
+- Locked geometry should not be the default unless future experiments demonstrate distinct value.
+
+Later candidates remain recorded in:
 
 `docs/inventory-equipment-experiment-notes.md`
-
-Current sequencing:
-
-1. EXP-048 — Body Equipment Storage — **MAYBE**.
-2. EXP-049 — Fixed vs Movable Equipment — **TESTING / Untested**.
-3. Spatial / Anatomical Mount Points — later candidate.
-4. External Backpack Mounts — later candidate.
-5. Access Speed by Location — later candidate.
-6. Hand-Carried Items — later candidate.
-7. External Item Exposure — later candidate.
-8. Quantity / Condition Loss — later candidate.
 
 Recommended sequencing principle remains:
 
 `space → access → exposure / risk`
 
-Do not combine body slots + quick access + durability + combat damage in EXP-048.
+Do not combine body slots + quick access + durability + combat damage without a separate experiment.
 
 ## Next step
 
-Player tests EXP-049 in this order:
+No next implementation task is selected.
 
-1. Movable Required Equipment.
-2. Locked Required Equipment.
-3. Record whether fixed equipment adds interesting planning or only friction.
-4. Only actual Player feedback determines MAYBE / INTERESTING / DEAD / next iteration.
+Designer / Player discussion should choose the next question before a new Work Item is created. Candidate directions include continuing the Inventory chain (for example access speed / external mounts) or moving to another READY experiment such as time/ecology or persistent-corpse questions.
 
 ## Repository handoff rules that must remain true
 
@@ -198,10 +145,11 @@ Player tests EXP-049 in this order:
 - Internal test conditions are not automatically separate Experiment Modes.
 - Preserve historical Player results; revisions add new conditions/results rather than rewriting old observations.
 - Technical acceptance is not a gameplay conclusion.
+- Do not infer EXP-003 gameplay status from EXP-049.
 - Ready visual assets are Prototype-local under `assets/`; Work should use them directly instead of recreating them unless unusable.
 - Do not build shared Inventory / Rule / Mode / Asset frameworks for speculative reuse.
 - Work begins only when CURRENT points to a formal Work Item.
 
 ## Known documentation caveat
 
-Some older detailed files may still use historical labels such as `TESTING`, `Respawn`, or `Light / Heavy` in implementation-history sections. Treat this snapshot plus the latest explicit Result records as the current decision state; historical text should remain available when it documents what was actually tested at that time.
+Some older detailed files may still use historical labels such as `TESTING`, `Respawn`, `Light / Heavy`, or may contain the accidental EXP-003 MAYBE sync from the EXP-049 handoff commit. Treat this snapshot plus the latest explicit experiment Result records as the current decision state until those historical documentation inconsistencies are fully normalized.
