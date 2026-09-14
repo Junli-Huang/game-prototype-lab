@@ -2,7 +2,7 @@
 
 快速游戏玩法实验室。Small experiments for finding fun.
 
-V0.2.7 — Fixed Map Exploration Lab。[Prototype #003](prototypes/003_fixed_map_exploration/README.md) 已实现 EXP-004 Fixed Map Exploration 与 EXP-006 Shortcut Unlocking，均为 TESTING / Untested；两者使用同一张固定地图进行三轮受控对照。
+V0.2.8 — Keyed Shortcut Access。[Prototype #003](prototypes/003_fixed_map_exploration/README.md) 已加入 EXP-050，以 No Key / Start With Key 对比一把起始钥匙是否改变早期捷径访问与路线规划。
 
 - **game-dev-lab / Game Tech Prototype**：验证技术、机制、实现方案是否可行。
 - **game-prototype-lab / Game Prototype**：验证某个玩法假设是否有趣。
@@ -13,11 +13,11 @@ V0.2.7 — Fixed Map Exploration Lab。[Prototype #003](prototypes/003_fixed_map
 
 新 Chat / Designer / Reviewer 优先阅读 [Project State — Cold Start Snapshot](docs/project-state.md)。它只负责回答“现在做到哪、哪些结果已经确定、当前有没有实施任务、下一步正在讨论什么”，详细定义仍以 Backlog、Prototype README、Workflow 和历史 Work Item 为准。
 
-当前没有 Active implementation task。Prototype #003 已完成技术与 Pages 验收；下一步由 Player 先完成 EXP-004 三轮，再完成 EXP-006 三轮，并分别反馈地图熟悉感与捷径价值。不要从 Backlog 自行猜测下一任务。
+当前没有 Active implementation task。EXP-050 已完成技术与 Pages 验收；下一步由 Player 先完成 No Key，再完成 Start With Key。不要从 Backlog 自行猜测下一任务。
 
 ## Experiment Backlog
 
-[查看全部 49 个实验课题](docs/experiment-backlog.md)。当前关键状态：EXP-001、EXP-048、EXP-049 为 MAYBE；EXP-003、EXP-004、EXP-006 为 TESTING / Untested；EXP-007 / EXP-008 为 MAYBE / Stop。
+[查看全部 50 个实验课题](docs/experiment-backlog.md)。当前关键状态：EXP-001、EXP-006、EXP-048、EXP-049 为 MAYBE；EXP-003、EXP-004、EXP-050 为 TESTING / Untested；EXP-007 / EXP-008 为 MAYBE / Stop。
 
 Experiment 是待回答的问题；Prototype 是可玩的测试容器。默认一个 Prototype 可以只承载一个 Experiment；高度相关、需要公平对照的竞争 Experiment 也可以共享同一 Prototype，以独立 Experiment Mode 切换测试。**同一 Experiment 内的 Low / High、参数档位等 Test Conditions 不自动等于独立 Experiment Mode。**
 

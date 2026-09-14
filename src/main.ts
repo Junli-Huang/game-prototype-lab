@@ -16,9 +16,9 @@ interface PrototypeEntry {
 const prototypes: PrototypeEntry[] = [
   {
     id: '003',
-    name: 'Fixed Map Exploration Lab · EXP-004 / EXP-006',
+    name: 'Fixed Map Exploration Lab · EXP-004 / EXP-006 / EXP-050',
     status: 'TESTING',
-    hypothesis: '重复固定路线是否形成地图熟悉感，以及一条远端捷径是否带来空间认识与后续路线选择价值？',
+    hypothesis: '起始持有一把钥匙，是否会让玩家主动从近端提前打开已知捷径并改变路线规划？',
     url: 'prototypes/003_fixed_map_exploration/',
   },
   {

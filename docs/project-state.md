@@ -21,7 +21,7 @@ Before implementation, also read `docs/asset-handoff.md` and the selected Work I
 
 No active implementation task.
 
-EXP-004 / EXP-006 and Prototype #003 have completed implementation, build, browser, and GitHub Pages technical acceptance. Next action belongs to the Player; do not select another Backlog item automatically.
+EXP-050 and Prototype #003 have completed implementation, build, browser, and GitHub Pages technical acceptance. Next action belongs to the Player; do not select another Backlog item automatically.
 
 ## Prototype #001 — Backpack Lab
 
@@ -87,7 +87,7 @@ Definition:
 
 ### EXP-006 — Shortcut Unlocking
 
-Status: `TESTING / Result: Untested`
+Status: `MAYBE`
 
 Question:
 
@@ -97,15 +97,29 @@ Definition:
 
 `docs/experiments/EXP-006-shortcut-unlocking.md`
 
-EXP-006 must use the exact EXP-004 map. The first version adds exactly one shortcut and no key / puzzle / combat gate / resource cost.
+Player feedback: “角色的移动速度是影响我体验的重要感受。其他的话，门这个东西，我觉得的确是好点。”
+
+EXP-006 remains a positive but limited shortcut signal. Movement speed is a known experiential confound.
+
+### EXP-050 — Keyed Shortcut Access
+
+Status: `TESTING / Result: Untested`
+
+Question:
+
+> 如果玩家开局持有一把能从近端打开已知捷径的钥匙，是否会主动提前开门，并改变路线规划？
+
+Conditions: `No Key` and `Start With Key`. Both retain the same map, gate, route, speed and three-run structure.
+
+Definition:
+
+`docs/experiments/EXP-050-keyed-shortcut-access.md`
 
 ## Current sequencing
 
-1. Player plays EXP-004 first for all three runs.
-2. Player then plays EXP-006 for all three runs.
-3. Record separately:
-   - fixed-map familiarity / mastery signal;
-   - shortcut recognition / later-use signal.
+1. Player plays EXP-050 `No Key` for all three runs.
+2. Player then plays EXP-050 `Start With Key` for all three runs.
+3. Record early key use, first-open side, later shortcut use, and route-planning effect.
 
 ## Repository handoff rules that must remain true
 

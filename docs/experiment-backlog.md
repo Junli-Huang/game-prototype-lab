@@ -1,4 +1,4 @@
-# Experiment Backlog — V0.2.4
+# Experiment Backlog — V0.2.5
 
 Experiment 是要验证的问题；Prototype 是回答该问题的可玩实现。这里仅用 Markdown 手工记录候选课题、状态与结论，已有实现与真实试玩结果链接到对应 Prototype README；不把候选机制视为最终设计。
 
@@ -106,6 +106,7 @@ Experiment 是要验证的问题；Prototype 是回答该问题的可玩实现�
 | EXP-047 | [World Knowledge Over Character Level](#exp-047-world-knowledge-over-character-level) | World Knowledge | IDEA |
 | EXP-048 | [Body Equipment Storage](#exp-048-body-equipment-storage) | Inventory | MAYBE |
 | EXP-049 | [Fixed vs Movable Equipment](#exp-049-fixed-vs-movable-equipment) | Inventory | MAYBE |
+| EXP-050 | [Keyed Shortcut Access](#exp-050-keyed-shortcut-access) | Exploration | TESTING |
 
 # Inventory
 
@@ -217,7 +218,7 @@ Name: Equipment vs Loot Space
 
 Category: Inventory
 
-Status: MAYBE
+Status: TESTING
 
 ### Hypothesis
 
@@ -470,7 +471,7 @@ Name: Shortcut Unlocking
 
 Category: Exploration
 
-Status: TESTING
+Status: MAYBE
 
 ### Hypothesis
 
@@ -496,19 +497,68 @@ Status: TESTING
 
 ### Result
 
-Untested — 2026-09-14 完成实现与技术验收，等待 Player 在 EXP-004 后完成三轮试玩。
+MAYBE — 2026-09-14 Player 反馈：“角色的移动速度是影响我体验的重要感受。其他的话，门这个东西，我觉得的确是好点。”门 / 捷径具有有限正向信号，但证据不足以升级为 INTERESTING。
 
-- Observed（实际观察）：TBD
+- Observed（实际观察）：门带来更好的体验；移动速度显著影响整体感受。
 - 有趣开始的时机：TBD
 - 无聊开始的时机：TBD
 - 玩家产生的决策：TBD
-- Unexpected（预期外玩法）：TBD
-- Next（是否继续，Kill / Iterate / Promote）：TBD
+- Unexpected（预期外玩法）：移动速度比预期更显著，后续对照必须固定。
+- Next（是否继续，Kill / Iterate / Promote）：保留 MAYBE；用独立 EXP-050 测试起始钥匙带来的早期开门选择。
 
 ### Notes
 
 - Prototype：[Fixed Map Exploration Lab](../prototypes/003_fixed_map_exploration/README.md)。
 - 与 EXP-004 只改变一项变量：唯一捷径是否可从远端开启。
+- 技术验收不构成玩法结论。
+
+## EXP-050 Keyed Shortcut Access
+
+ID: EXP-050
+
+Name: Keyed Shortcut Access
+
+Category: Exploration
+
+Status: TESTING
+
+### Hypothesis
+
+如果玩家开局持有一把能从近端打开已知捷径的钥匙，可能会主动提前打通近路，并改变路线规划与世界掌握感。
+
+### Core Variable
+
+是否拥有一把可用于近端提前开门的起始钥匙。
+
+### Question
+
+持有起始钥匙是否会让玩家主动提前打开捷径，并改变路线规划？
+
+### Minimum Scope
+
+- `No Key` 与 `Start With Key` 两个 Test Conditions。
+- 完全共用 EXP-006 的地图、门、目标顺序、移动速度和三轮结构。
+- Start With Key 只有一把钥匙；近端按 `E` 消耗，远端仍可正常解锁且不消耗钥匙。
+
+### Non-goals
+
+不加入背包 UI、多钥匙、多门、钥匙掉落、随机位置、谜题、战斗、Loot、货币、存档或通用 Door / Key Framework。
+
+### Result
+
+Untested — 2026-09-14 完成实现、真实浏览器与 GitHub Pages 技术验收，等待 Player 对比试玩。
+
+- Observed：TBD
+- 有趣开始的时机：TBD
+- 无聊开始的时机：TBD
+- 玩家产生的决策：TBD
+- Unexpected：TBD
+- Next：Player 先试玩 No Key，再试玩 Start With Key。
+
+### Notes
+
+- Prototype：[Fixed Map Exploration Lab](../prototypes/003_fixed_map_exploration/README.md)。
+- 固定移动速度为 90 world units / second；移动速度是已知体验干扰变量，但不是本实验变量。
 - 技术验收不构成玩法结论。
 
 # World Refresh

@@ -1,6 +1,6 @@
 # EXP-050 — Keyed Shortcut Access
 
-Status: READY / Selected
+Status: TESTING / Untested
 
 Category: Exploration
 
@@ -98,4 +98,6 @@ Do not add:
 
 ## Result
 
-TBD — not implemented / not played.
+Untested — implemented and technically accepted on 2026-09-14. No gameplay conclusion is assigned before Player comparison.
+
+Player test order: `No Key`, then `Start With Key`. Record whether the key was used, when the gate first opened, and whether the shortcut changed later route planning.
