@@ -23,7 +23,6 @@ const WORLD = { w: 1600, h: 1000 };
 const PLAYER_RADIUS = 15;
 const SPEED = 90;
 const start: Point = { x: 180, y: 820 };
-const qaGateSide = new URLSearchParams(location.search).get('qa');
 const targets = [
   { name: 'A · Amber Garden', short: 'A', x: 260, y: 205, color: '#e5b34f' },
   { name: 'B · Blue Reservoir', short: 'B', x: 1300, y: 205, color: '#65bada' },
@@ -83,11 +82,7 @@ function formatTime(seconds: number): string {
 }
 
 function resetSession(): void {
-  player = qaGateSide === 'gate-near'
-    ? { x: gate.x - 70, y: gate.y + gate.h / 2 }
-    : qaGateSide === 'gate-far'
-      ? { x: gate.x + gate.w + 70, y: gate.y + gate.h / 2 }
-      : { ...start };
+  player = { ...start };
   previousPlayerX = player.x;
   run = 1;
   targetIndex = 0;
