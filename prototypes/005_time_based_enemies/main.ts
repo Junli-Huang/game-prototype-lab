@@ -26,7 +26,8 @@ const zoneData=document.querySelector<HTMLElement>('#zone-data')!;
 
 const WORLD={w:1120,h:680}; const SPEED=190; const PLAYER_RADIUS=18; const ATTACK_RADIUS=82;
 const home:Point={x:120,y:560};
-const qaStart:Point=new URLSearchParams(location.search).get('qa')==='zone-a'?{x:345,y:250}:home;
+const qaMode=new URLSearchParams(location.search).get('qa');
+const qaStart:Point=qaMode==='zone-a'?{x:345,y:250}:qaMode==='zone-b-night'?{x:850,y:545}:home;
 const zones=[{name:'Zone A · Sunken Court',x:345,y:175,color:'#655333'},{name:'Zone B · Moon Garden',x:850,y:470,color:'#3e5068'}] as const;
 const objectives=[
   {name:'Inspect Zone A',x:zones[0].x,y:zones[0].y,phase:'day'},
@@ -52,7 +53,7 @@ let attackUntil=0; let transitionUntil=0; let messageUntil=0; let lastTime=perfo
 
 function spawnEnemies(){const source=timeState==='day'?daySpawns:nightSpawns;enemies=source.map(item=>({...item,alive:true}));}
 function atHome(){return Math.hypot(player.x-home.x,player.y-home.y)<85;}
-function resetSession(){timeState='day';player={...qaStart};objectiveIndex=0;switches=0;defeated={day:0,night:0};entered={aDay:false,aNight:false,bDay:false,bNight:false};finished=false;attackUntil=0;transitionUntil=0;messageElement.textContent='';summary.hidden=true;spawnEnemies();updateHud();canvas.focus();}
+function resetSession(){timeState=qaMode==='zone-b-night'?'night':'day';player={...qaStart};objectiveIndex=0;switches=0;defeated={day:0,night:0};entered={aDay:false,aNight:false,bDay:false,bNight:false};finished=false;attackUntil=0;transitionUntil=0;messageElement.textContent='';summary.hidden=true;spawnEnemies();updateHud();canvas.focus();}
 function updateHud(){const day=timeState==='day';timeElement.textContent=day?'DAY':'NIGHT';timeIcon.src=day?dayIconUrl:nightIconUrl;document.body.classList.toggle('night',!day);objectiveElement.textContent=objectives[objectiveIndex]?.name??'Complete';switchesElement.textContent=String(switches);defeatedElement.textContent=`Day ${defeated.day} · Night ${defeated.night}`;waitButton.textContent=day?'Wait Until Night ':'Wait Until Day ';const key=document.createElement('kbd');key.textContent='Q';waitButton.append(key);waitButton.disabled=!atHome()||finished;}
 function setMessage(text:string,duration=1300){messageElement.textContent=text;messageUntil=performance.now()+duration;}
 function switchTime(){if(finished)return;if(!atHome()){setMessage('Return to Home to wait');return;}timeState=timeState==='day'?'night':'day';switches+=1;spawnEnemies();transitionUntil=performance.now()+650;setMessage(timeState==='day'?'Day arrives':'Night falls');if(objectives[objectiveIndex]?.phase==='wait'&&timeState==='night')objectiveIndex+=1;updateHud();}
