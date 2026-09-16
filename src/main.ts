@@ -15,6 +15,13 @@ interface PrototypeEntry {
 // Manually maintain launcher metadata here. Gameplay stays in each prototype.
 const prototypes: PrototypeEntry[] = [
   {
+    id: '005',
+    name: 'Time-Based Enemies Lab · EXP-013',
+    status: 'TESTING',
+    hypothesis: '固定地图的敌人随 Day / Night 可预测地换区，是否让玩家开始选择什么时候去哪里？',
+    url: 'prototypes/005_time_based_enemies/',
+  },
+  {
     id: '004',
     name: 'Persistent Enemy Corpses Lab · EXP-018',
     status: 'TESTING',

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Time-Based Enemies Lab · EXP-013</title>
+  <style>[hidden]{display:none!important}</style>
+</head>
+<body>
+  <header>
+    <a href="../../">← Lab</a>
+    <div><h1>Time-Based Enemies Lab</h1><p>#005 · EXP-013 · TESTING</p></div>
+    <button id="restart" type="button">Restart <kbd>R</kbd></button>
+  </header>
+  <main>
+    <section class="status" aria-label="Session status">
+      <div class="time-card"><img id="time-icon" alt="" /><span>Current Time</span><strong id="time">DAY</strong></div>
+      <div><span>Objective</span><strong id="objective">Inspect Zone A</strong></div>
+      <div><span>Time Switches</span><strong id="switches">0</strong></div>
+      <div><span>Defeated</span><strong id="defeated">Day 0 · Night 0</strong></div>
+      <button id="wait" type="button">Wait Until Night <kbd>Q</kbd></button>
+    </section>
+    <section id="scene">
+      <canvas id="world" width="1120" height="680" tabindex="0" aria-label="固定地图场景。WASD 或方向键移动，空格或 E 攻击，在 Home 使用 Wait 切换昼夜。"></canvas>
+      <p id="message" role="status"></p>
+      <div id="summary" hidden>
+        <p class="eyebrow">Session Summary</p>
+        <h2>EXP-013 · Time-Based Enemies</h2>
+        <p id="summary-data"></p>
+        <p id="zone-data"></p>
+        <p>你是否开始根据时段选择什么时候进入不同区域？</p>
+        <button id="summary-restart" type="button">Restart Session</button>
+      </div>
+    </section>
+    <footer>
+      <p><kbd>WASD</kbd> / Arrow Keys 移动 · <kbd>Space</kbd> / <kbd>E</kbd> 攻击 · Home 按 <kbd>Q</kbd> 等待 · <kbd>R</kbd> 重开</p>
+      <p>先观察 Day 的两个区域，再回 Home 切换 Night</p>
+    </footer>
+  </main>
+  <script type="module" src="./main.ts"></script>
+</body>
+</html>

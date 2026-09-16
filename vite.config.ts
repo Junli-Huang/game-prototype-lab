@@ -13,6 +13,7 @@ export default defineConfig({
         'prototypes/002_campfire_respawn/index.html',
         'prototypes/003_fixed_map_exploration/index.html',
         'prototypes/004_persistent_enemy_corpses/index.html',
+        'prototypes/005_time_based_enemies/index.html',
       ],
     },
   },
