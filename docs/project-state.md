@@ -21,7 +21,9 @@ Before implementation, also read `docs/asset-handoff.md`, any experiment-specifi
 
 No active implementation task.
 
-EXP-018 and Prototype #004 completed implementation, build, real-browser interaction, and GitHub Pages/direct-refresh technical acceptance on 2026-09-16. Next action belongs to the Player; do not select another Backlog item automatically.
+EXP-018 has completed implementation and Player comparison. The result is `MAYBE / Context-dependent`: retained corpses felt acceptable and mildly positive, but Clean Removal was also acceptable. The important learning is that corpse lifetime likely depends on the surrounding world-refresh rules rather than being a universally permanent mechanic.
+
+Do not automatically continue the corpse line or select another Backlog item. The project is ready to choose a different experiment.
 
 ## Prototype #001 — Backpack Lab
 
@@ -55,6 +57,8 @@ Status: `MAYBE / Stop`
 
 Current learning: World Refresh appears more useful as supporting structure in a richer persistent-world context than as a strong standalone mechanic in the short prototype.
 
+EXP-018 adds a related observation: corpse lifetime may be one of the world states governed by future refresh semantics. This is not yet a rule; Campfire / Blood Moon / other refresh behavior should be tested in concrete gameplay contexts.
+
 ## Prototype #003 — Fixed Map Exploration
 
 Implementation directory: `prototypes/003_fixed_map_exploration/`
@@ -70,7 +74,7 @@ Player feedback: “角色的移动速度是影响我体验的重要感受。其
 Status: `MAYBE / Prefer Early Key Access`
 Player feedback: early key access felt better, but the preferred game direction is for the key to be obtained somewhere / somehow outside the default flow so earlier exploration or preparation can accelerate later traversal.
 
-Follow-up EXP-051 Optional Key Acquisition exists as IDEA only and is paused while the project switches to corpse persistence.
+Follow-up EXP-051 Optional Key Acquisition exists as IDEA only and is paused.
 
 ## Prototype #004 — Persistent Enemy Corpses Lab
 
@@ -79,18 +83,24 @@ Implementation directory:
 
 ### EXP-018 — Persistent Enemy Corpses
 
-Status: `TESTING / Result: Untested`
+Status: `MAYBE / Context-dependent`
 
 Question:
 > 当敌人死亡后，尸体持续留在固定地图中，玩家再次经过这些区域时，是否会更强地感受到“这里发生过事”，并因此增强区域记忆、历史痕迹感和世界持续性？
 
-Conditions:
-- `Clean Removal`
-- `Persistent Corpses`
+Player feedback:
+> “留下来感觉还行。不留的话也可以。主要要看后续的玩法跟进。包括其他设置比如篝火刷新，红月刷新，如果有这些设置，那么进行这些操作的时候，实体是否要进行刷新。感觉上应该要刷新。但这些都是玩法上的探索。”
 
-Only corpse persistence changes. The first implementation uses supplied 2D assets and keeps corpses non-blocking.
+Current learning:
+- Persistent corpses provide some world-history flavor, but not strong standalone value.
+- Clean Removal is also acceptable.
+- Corpse lifetime should be considered context-dependent.
+- Future World Refresh experiments may test whether corpses are cleared/rebuilt alongside refreshed entities.
+- Do not infer a universal “corpses should refresh” rule yet.
+- Do not build a generalized World State Lifetime framework before concrete experiments justify it.
 
-Player test order: complete `Clean Removal`, then `Persistent Corpses`, using the same A → B → C → A → B → Home route.
+Definition:
+`docs/experiments/EXP-018-persistent-enemy-corpses.md`
 
 ## Repository handoff rules that must remain true
 
