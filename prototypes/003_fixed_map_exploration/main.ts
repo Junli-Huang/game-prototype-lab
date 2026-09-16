@@ -56,13 +56,7 @@ const landmark = { x: 875, y: 505, radius: 74 };
 
 let mode: Mode = 'fixed';
 let keyCondition: KeyCondition = 'no-key';
-const qaGateSide = new URLSearchParams(location.search).get('qa');
-const qaStart: Point = qaGateSide === 'gate-near'
-  ? { x: gate.x - 70, y: gate.y + gate.h / 2 }
-  : qaGateSide === 'gate-far'
-    ? { x: gate.x + gate.w + 70, y: gate.y + gate.h / 2 }
-    : start;
-let player: Point = { ...qaStart };
+let player: Point = { ...start };
 let run = 1;
 let targetIndex = 0;
 let runStartedAt = performance.now();
@@ -97,7 +91,7 @@ function formatTime(seconds: number): string {
 }
 
 function resetSession(): void {
-  player = { ...qaStart };
+  player = { ...start };
   previousPlayerX = player.x;
   run = 1;
   targetIndex = 0;

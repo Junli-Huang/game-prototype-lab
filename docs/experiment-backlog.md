@@ -546,7 +546,7 @@ Status: TESTING
 
 ### Result
 
-Untested — 2026-09-14 完成实现、真实浏览器与 GitHub Pages 技术验收，等待 Player 对比试玩。
+Untested — 2026-09-16 完成 UI 收口、真实浏览器与 GitHub Pages 技术验收；EXP-050 作为独立实验记录，其条件呈现在 EXP-006 Shortcut 模式内，等待 Player 对比试玩。
 
 - Observed：TBD
 - 有趣开始的时机：TBD

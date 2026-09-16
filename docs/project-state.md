@@ -1,6 +1,6 @@
 # Project State — Cold Start Snapshot
 
-Updated: 2026-09-14
+Updated: 2026-09-16
 
 This file is the compact current-state handoff for a new Chat / Designer / Reviewer session. It does not replace the detailed Experiment Backlog, Prototype READMEs, Workflow, or historical Work Items.
 
@@ -21,7 +21,7 @@ Before implementation, also read `docs/asset-handoff.md` and the selected Work I
 
 No active implementation task.
 
-EXP-050 and Prototype #003 have completed implementation, build, browser, and GitHub Pages technical acceptance. Next action belongs to the Player; do not select another Backlog item automatically.
+The EXP-050 UI consolidation and Prototype #003 have completed implementation, build, browser, and GitHub Pages technical acceptance. Prototype #003 now has two top-level modes; EXP-050 conditions live inside Shortcut. Next action belongs to the Player; do not select another Backlog item automatically.
 
 ## Prototype #001 — Backpack Lab
 
@@ -109,7 +109,7 @@ Question:
 
 > 如果玩家开局持有一把能从近端打开已知捷径的钥匙，是否会主动提前开门，并改变路线规划？
 
-Conditions: `No Key` and `Start With Key`. Both retain the same map, gate, route, speed and three-run structure.
+Conditions: `No Key` and `Start With Key`. Both are exposed inside the top-level `EXP-006 · Shortcut` mode and retain the same map, gate, route, speed and three-run structure. EXP-050 remains a distinct Experiment record, not a third peer UI mode.
 
 Definition:
 

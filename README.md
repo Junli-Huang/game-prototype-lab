@@ -2,7 +2,7 @@
 
 快速游戏玩法实验室。Small experiments for finding fun.
 
-V0.2.8 — Keyed Shortcut Access。[Prototype #003](prototypes/003_fixed_map_exploration/README.md) 已加入 EXP-050，以 No Key / Start With Key 对比一把起始钥匙是否改变早期捷径访问与路线规划。
+V0.2.9 — Shortcut Test Consolidation。[Prototype #003](prototypes/003_fixed_map_exploration/README.md) 只保留 EXP-004 Fixed Map 与 EXP-006 Shortcut 两个顶层模式；EXP-050 仍是独立实验记录，其 No Key / Start With Key 对比作为 Shortcut 内的 Test Conditions 呈现。
 
 - **game-dev-lab / Game Tech Prototype**：验证技术、机制、实现方案是否可行。
 - **game-prototype-lab / Game Prototype**：验证某个玩法假设是否有趣。
