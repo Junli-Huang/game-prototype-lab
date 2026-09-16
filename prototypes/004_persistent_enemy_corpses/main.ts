@@ -29,7 +29,6 @@ const PLAYER_RADIUS = 18;
 const SPEED = 190;
 const ATTACK_RADIUS = 86;
 const start: Point = { x: 105, y: 575 };
-const qaStart: Point = new URLSearchParams(location.search).get('qa') === 'combat-a' ? { x: 270, y: 255 } : start;
 const zones = [
   { name: 'Amber Court', short: 'A', x: 270, y: 190, color: '#655531' },
   { name: 'Moss Hall', short: 'B', x: 805, y: 180, color: '#385c4b' },
@@ -64,7 +63,7 @@ const images = {
 };
 
 let condition: Condition = 'clean';
-let player: Point = { ...qaStart };
+let player: Point = { ...start };
 let enemies: Enemy[] = [];
 let routeIndex = 0;
 let defeated = 0;
@@ -76,7 +75,7 @@ let messageUntil = 0;
 const keys = new Set<string>();
 
 function resetSession(): void {
-  player = { ...qaStart };
+  player = { ...start };
   enemies = spawns.map((spawn, id) => ({ ...spawn, id, hp: spawn.type === 'brute' ? 2 : 1, alive: true, deathAt: 0 }));
   routeIndex = 0; defeated = 0; revisited = 0; finished = false; attackUntil = 0;
   messageElement.textContent = '';

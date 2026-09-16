@@ -2,7 +2,7 @@
 
 快速游戏玩法实验室。Small experiments for finding fun.
 
-V0.2.9 — Shortcut Test Consolidation。[Prototype #003](prototypes/003_fixed_map_exploration/README.md) 只保留 EXP-004 Fixed Map 与 EXP-006 Shortcut 两个顶层模式；EXP-050 仍是独立实验记录，其 No Key / Start With Key 对比作为 Shortcut 内的 Test Conditions 呈现。
+V0.3.0 — Persistent Enemy Corpses。[Prototype #004](prototypes/004_persistent_enemy_corpses/README.md) 以 Clean Removal / Persistent Corpses 对照测试尸体是否让重访区域更有历史痕迹与空间记忆。
 
 - **game-dev-lab / Game Tech Prototype**：验证技术、机制、实现方案是否可行。
 - **game-prototype-lab / Game Prototype**：验证某个玩法假设是否有趣。
@@ -13,11 +13,11 @@ V0.2.9 — Shortcut Test Consolidation。[Prototype #003](prototypes/003_fixed_m
 
 新 Chat / Designer / Reviewer 优先阅读 [Project State — Cold Start Snapshot](docs/project-state.md)。它只负责回答“现在做到哪、哪些结果已经确定、当前有没有实施任务、下一步正在讨论什么”，详细定义仍以 Backlog、Prototype README、Workflow 和历史 Work Item 为准。
 
-当前没有 Active implementation task。EXP-050 已完成技术与 Pages 验收；下一步由 Player 先完成 No Key，再完成 Start With Key。不要从 Backlog 自行猜测下一任务。
+当前没有 Active implementation task。EXP-018 已完成实现与 Pages 技术验收；下一步由 Player 先完成 Clean Removal，再完成 Persistent Corpses。不要从 Backlog 自行猜测下一任务。
 
 ## Experiment Backlog
 
-[查看全部 50 个实验课题](docs/experiment-backlog.md)。当前关键状态：EXP-001、EXP-006、EXP-048、EXP-049 为 MAYBE；EXP-003、EXP-004、EXP-050 为 TESTING / Untested；EXP-007 / EXP-008 为 MAYBE / Stop。
+[查看实验课题 Backlog](docs/experiment-backlog.md)。当前关键状态：EXP-001、EXP-006、EXP-048、EXP-049、EXP-050 为 MAYBE；EXP-003、EXP-004、EXP-018 为 TESTING / Untested；EXP-007 / EXP-008 为 MAYBE / Stop。
 
 Experiment 是待回答的问题；Prototype 是可玩的测试容器。默认一个 Prototype 可以只承载一个 Experiment；高度相关、需要公平对照的竞争 Experiment 也可以共享同一 Prototype，以独立 Experiment Mode 切换测试。**同一 Experiment 内的 Low / High、参数档位等 Test Conditions 不自动等于独立 Experiment Mode。**
 

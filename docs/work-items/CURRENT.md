@@ -1,37 +1,14 @@
 # Current Work Item
 
-**ACTIVE: EXP-018 — Persistent Enemy Corpses**
+No active implementation task.
 
-Formal Work Item:
+Completed on 2026-09-16:
 
-`docs/work-items/EXP-018-persistent-enemy-corpses.md`
+- Prototype #004 implements `Clean Removal` and `Persistent Corpses` on one identical fixed map and enemy setup.
+- The fixed A → B → C → A → B → Home route revisits two earlier combat spaces.
+- Clean Removal clears remains after brief feedback; Persistent Corpses uses supplied dead assets and retains non-blocking corpses for the session.
+- Condition switch and Restart reset enemies, corpses, route, counters, revisit state, and summary.
+- Production build, real-browser interaction, GitHub Pages, launcher entry, and direct refresh were technically accepted.
+- EXP-018 remains `TESTING / Untested`; no gameplay result was inferred.
 
-Experiment definition:
-
-`docs/experiments/EXP-018-persistent-enemy-corpses.md`
-
-Prototype:
-
-`prototypes/004_persistent_enemy_corpses/`
-
-Asset handoff:
-
-`docs/asset-handoff-persistent-enemy-corpses.md`
-
-Ready Prototype-local assets:
-
-- `prototypes/004_persistent_enemy_corpses/assets/player_idle.svg`
-- `prototypes/004_persistent_enemy_corpses/assets/player_attack_slash.svg`
-- `prototypes/004_persistent_enemy_corpses/assets/enemy_scout_alive.svg`
-- `prototypes/004_persistent_enemy_corpses/assets/enemy_scout_dead.svg`
-- `prototypes/004_persistent_enemy_corpses/assets/enemy_brute_alive.svg`
-- `prototypes/004_persistent_enemy_corpses/assets/enemy_brute_dead.svg`
-
-Implementation must compare exactly two conditions:
-
-1. `Clean Removal`
-2. `Persistent Corpses`
-
-Only corpse persistence should differ. Use the supplied 2D actor/corpse assets; do not substitute pure geometric placeholders. Keep corpses non-blocking and do not add loot, decay, pollution, scavengers, ecology, respawn, inventory, or generalized frameworks.
-
-Work is authorized only through the formal Work Item above. On completion, run build + real-browser + GitHub Pages/direct-refresh acceptance, update relevant documentation, then close CURRENT back to no active implementation task. Do not assign a gameplay result before Player testing.
+Next action belongs to the Player: complete Clean Removal, then Persistent Corpses, and report whether retained bodies changed memory, history, or clutter perception.

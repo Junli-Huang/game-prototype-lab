@@ -19,23 +19,9 @@ Before implementation, also read `docs/asset-handoff.md`, any experiment-specifi
 
 ## Current implementation task
 
-**ACTIVE: EXP-018 — Persistent Enemy Corpses**
+No active implementation task.
 
-Formal Work Item:
-`docs/work-items/EXP-018-persistent-enemy-corpses.md`
-
-Prototype:
-`prototypes/004_persistent_enemy_corpses/`
-
-Experiment definition:
-`docs/experiments/EXP-018-persistent-enemy-corpses.md`
-
-Asset handoff:
-`docs/asset-handoff-persistent-enemy-corpses.md`
-
-Goal: compare `Clean Removal` against `Persistent Corpses` on the same fixed 2D map and enemy setup, testing whether visible dead remains make revisited spaces feel more historical, memorable, and changed by prior Player actions.
-
-Ready 2D SVG assets exist under Prototype #004 `assets/` and should be used directly. Corpse collision, loot, decay, pollution, scavengers, ecology, respawn and generalized frameworks are out of scope.
+EXP-018 and Prototype #004 completed implementation, build, real-browser interaction, and GitHub Pages/direct-refresh technical acceptance on 2026-09-16. Next action belongs to the Player; do not select another Backlog item automatically.
 
 ## Prototype #001 — Backpack Lab
 
@@ -93,7 +79,7 @@ Implementation directory:
 
 ### EXP-018 — Persistent Enemy Corpses
 
-Status: `READY / Selected`
+Status: `TESTING / Result: Untested`
 
 Question:
 > 当敌人死亡后，尸体持续留在固定地图中，玩家再次经过这些区域时，是否会更强地感受到“这里发生过事”，并因此增强区域记忆、历史痕迹感和世界持续性？
@@ -103,6 +89,8 @@ Conditions:
 - `Persistent Corpses`
 
 Only corpse persistence changes. The first implementation uses supplied 2D assets and keeps corpses non-blocking.
+
+Player test order: complete `Clean Removal`, then `Persistent Corpses`, using the same A → B → C → A → B → Home route.
 
 ## Repository handoff rules that must remain true
 

@@ -74,7 +74,7 @@ Experiment 是要验证的问题；Prototype 是回答该问题的可玩实现�
 | EXP-015 | [Time-Based Map Changes](#exp-015-time-based-map-changes) | Time / Ecology | IDEA |
 | EXP-016 | [Blood Moon Ecology](#exp-016-blood-moon-ecology) | Time / Ecology | IDEA |
 | EXP-017 | [Persistent Player Corpses](#exp-017-persistent-player-corpses) | Corpse | READY |
-| EXP-018 | [Persistent Enemy Corpses](#exp-018-persistent-enemy-corpses) | Corpse | READY |
+| EXP-018 | [Persistent Enemy Corpses](#exp-018-persistent-enemy-corpses) | Corpse | TESTING |
 | EXP-019 | [Corpse Loot Container](#exp-019-corpse-loot-container) | Corpse | IDEA |
 | EXP-020 | [Corpse Value Accumulation](#exp-020-corpse-value-accumulation) | Corpse | READY |
 | EXP-021 | [Corpse Type Count](#exp-021-corpse-type-count) | Corpse | READY |
@@ -1203,7 +1203,7 @@ Name: Persistent Enemy Corpses
 
 Category: Corpse
 
-Status: READY
+Status: TESTING
 
 ### Hypothesis
 
@@ -1231,7 +1231,7 @@ Status: READY
 
 ### Result
 
-TBD — 尚未试玩。
+Untested — 2026-09-16 完成 Prototype #004 实现、真实浏览器与 GitHub Pages 技术验收，等待 Player 依次完成 Clean Removal 与 Persistent Corpses 对照试玩。
 
 - Observed（实际观察）：TBD
 - 有趣开始的时机：TBD
@@ -1242,7 +1242,7 @@ TBD — 尚未试玩。
 
 ### Notes
 
-- Prototype：尚无实现。
+- Prototype：[Persistent Enemy Corpses Lab](../prototypes/004_persistent_enemy_corpses/README.md)。
 - 试玩日期、条件、参数与对照版本：TBD
 - 其他观察：TBD
 

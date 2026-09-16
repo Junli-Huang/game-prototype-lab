@@ -1,6 +1,6 @@
 # EXP-018 — Persistent Enemy Corpses
 
-Status: READY / Selected
+Status: TESTING / Untested
 
 Category: Corpse Persistence
 
@@ -108,4 +108,6 @@ Do not add:
 
 ## Result
 
-TBD — not implemented / not played.
+Untested — implemented and technically accepted on 2026-09-16. No gameplay conclusion is assigned before Player comparison.
+
+Player test order: `Clean Removal`, then `Persistent Corpses`. Complete the full A → B → C → A → B → Home route in each condition and compare how the revisited combat areas feel.
