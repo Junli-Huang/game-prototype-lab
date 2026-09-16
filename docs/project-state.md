@@ -19,11 +19,28 @@ Before implementation, also read `docs/asset-handoff.md`, any experiment-specifi
 
 ## Current implementation task
 
-No active implementation task.
+**ACTIVE: EXP-013 — Time-Based Enemies**
 
-EXP-018 has completed implementation and Player comparison. The result is `MAYBE / Context-dependent`: retained corpses felt acceptable and mildly positive, but Clean Removal was also acceptable. The important learning is that corpse lifetime likely depends on the surrounding world-refresh rules rather than being a universally permanent mechanic.
+Formal Work Item:
+`docs/work-items/EXP-013-time-based-enemies.md`
 
-Do not automatically continue the corpse line or select another Backlog item. The project is ready to choose a different experiment.
+Experiment definition:
+`docs/experiments/EXP-013-time-based-enemies.md`
+
+Prototype target:
+`prototypes/005_time_based_enemies/`
+
+Question:
+> 当同一张固定地图在 Day / Night 两个时段出现不同敌人分布时，玩家是否会开始学习“什么时候去哪里”，并主动选择进入区域的时间？
+
+Controlled first-pass rule:
+- Day: Zone A has enemies; Zone B is safe.
+- Night: Zone A is safe; Zone B has enemies.
+- Time switching is deliberate and explicit, not a real-time countdown.
+- Map, objectives, movement speed, attack rules, landmarks and destination value stay fixed.
+- Time-change enemy replacement is test scaffolding only and must not be treated as a World Refresh conclusion.
+
+Do not expand this into Blood Moon, Campfire refresh, time-based resources, time-based map access, NPC schedules, weather, corpse-lifetime testing, or generalized Time / Ecology architecture.
 
 ## Prototype #001 — Backpack Lab
 
@@ -101,6 +118,24 @@ Current learning:
 
 Definition:
 `docs/experiments/EXP-018-persistent-enemy-corpses.md`
+
+## Prototype #005 — Time-Based Enemies Lab
+
+Target implementation directory:
+`prototypes/005_time_based_enemies/`
+
+### EXP-013 — Time-Based Enemies
+
+Status: `READY / Selected`
+
+Question:
+> 当同一张固定地图在 Day / Night 两个时段出现不同敌人分布时，玩家是否会开始学习“什么时候去哪里”，并主动选择进入区域的时间？
+
+Definition:
+`docs/experiments/EXP-013-time-based-enemies.md`
+
+Work Item:
+`docs/work-items/EXP-013-time-based-enemies.md`
 
 ## Repository handoff rules that must remain true
 
