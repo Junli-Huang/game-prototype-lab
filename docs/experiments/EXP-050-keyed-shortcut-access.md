@@ -32,6 +32,8 @@ Everything else remains identical to Prototype #003 / EXP-006:
 
 ## Test Conditions
 
+Prototype #003 exposes these conditions inside the top-level `EXP-006 · Shortcut` mode. EXP-050 remains a separate Experiment record and comparison question; it is not presented as a third peer mode in the prototype UI.
+
 ### A — No Key
 
 Baseline behavior from EXP-006:

@@ -1,6 +1,6 @@
 import './style.css';
 
-type Mode = 'fixed' | 'shortcut' | 'keyed';
+type Mode = 'fixed' | 'shortcut';
 type KeyCondition = 'no-key' | 'with-key';
 type GateOpenedBy = 'Near-side Key' | 'Far-side Unlock' | 'Never';
 type Point = { x: number; y: number };
@@ -56,7 +56,13 @@ const landmark = { x: 875, y: 505, radius: 74 };
 
 let mode: Mode = 'fixed';
 let keyCondition: KeyCondition = 'no-key';
-let player: Point = { ...start };
+const qaGateSide = new URLSearchParams(location.search).get('qa');
+const qaStart: Point = qaGateSide === 'gate-near'
+  ? { x: gate.x - 70, y: gate.y + gate.h / 2 }
+  : qaGateSide === 'gate-far'
+    ? { x: gate.x + gate.w + 70, y: gate.y + gate.h / 2 }
+    : start;
+let player: Point = { ...qaStart };
 let run = 1;
 let targetIndex = 0;
 let runStartedAt = performance.now();
@@ -91,14 +97,14 @@ function formatTime(seconds: number): string {
 }
 
 function resetSession(): void {
-  player = { ...start };
+  player = { ...qaStart };
   previousPlayerX = player.x;
   run = 1;
   targetIndex = 0;
   runTimes = [];
   shortcutOpen = false;
   shortcutUsedLater = false;
-  shortcutKey = mode === 'keyed' && keyCondition === 'with-key' ? 1 : 0;
+  shortcutKey = mode === 'shortcut' && keyCondition === 'with-key' ? 1 : 0;
   keyUsed = false;
   gateOpenedBy = 'Never';
   finished = false;
@@ -117,16 +123,14 @@ function setMode(nextMode: Mode): void {
   });
   experimentElement.textContent = mode === 'fixed'
     ? 'EXP-004 Fixed Map Exploration'
-    : mode === 'shortcut'
-      ? 'EXP-006 Shortcut Unlocking'
-      : 'EXP-050 Keyed Shortcut Access';
+    : 'EXP-006 Shortcut Unlocking';
   ruleElement.textContent = mode === 'fixed'
     ? '同一固定地图 · A → B → C → Home · 无捷径'
-    : mode === 'shortcut'
-      ? '同一固定地图 · 远端可开启一条捷径'
-      : '同一固定地图 · 比较是否持有一把起始钥匙';
-  conditionsElement.hidden = mode !== 'keyed';
-  keyStateElement.hidden = mode !== 'keyed';
+    : keyCondition === 'with-key'
+      ? '同一固定地图 · 持有一把起始钥匙，也可保留至远端开门'
+      : '同一固定地图 · 远端可开启一条捷径';
+  conditionsElement.hidden = mode !== 'shortcut';
+  keyStateElement.hidden = mode !== 'shortcut';
   resetSession();
 }
 
@@ -135,6 +139,9 @@ function setKeyCondition(nextCondition: KeyCondition): void {
   document.querySelectorAll<HTMLButtonElement>('[data-condition]').forEach((button) => {
     button.classList.toggle('selected', button.dataset.condition === keyCondition);
   });
+  ruleElement.textContent = keyCondition === 'with-key'
+    ? '同一固定地图 · 持有一把起始钥匙，也可保留至远端开门'
+    : '同一固定地图 · 远端可开启一条捷径';
   resetSession();
 }
 
@@ -189,7 +196,7 @@ function updateShortcutPrompt(): void {
     return;
   }
   if (isNearShortcutSide()) {
-    promptElement.textContent = mode === 'keyed' && shortcutKey > 0
+    promptElement.textContent = shortcutKey > 0
       ? '[E] Use Key — Unlock Shortcut'
       : 'Locked from this side';
     promptElement.hidden = false;
@@ -201,7 +208,7 @@ function updateShortcutPrompt(): void {
 function openShortcut(): void {
   if (canOpenShortcut()) {
     gateOpenedBy = 'Far-side Unlock';
-  } else if (mode === 'keyed' && shortcutKey > 0 && isNearShortcutSide()) {
+  } else if (mode === 'shortcut' && shortcutKey > 0 && isNearShortcutSide()) {
     shortcutKey = 0;
     keyUsed = true;
     gateOpenedBy = 'Near-side Key';
@@ -217,23 +224,19 @@ function openShortcut(): void {
 function showSummary(): void {
   summaryTitle.textContent = mode === 'fixed'
     ? 'EXP-004 · Fixed Map Exploration'
-    : mode === 'shortcut'
-      ? 'EXP-006 · Shortcut Unlocking'
-      : 'EXP-050 · Keyed Shortcut Access';
+    : 'EXP-006 · Shortcut Unlocking';
   timesElement.replaceChildren(...runTimes.map((seconds, index) => {
     const item = document.createElement('li');
     item.textContent = `Run ${index + 1}: ${formatTime(seconds)}`;
     return item;
   }));
   shortcutResult.hidden = mode === 'fixed';
-  shortcutResult.textContent = mode === 'keyed'
-    ? `Test Condition: ${keyCondition === 'with-key' ? 'Start With Key' : 'No Key'} · Key used: ${keyUsed ? 'Yes' : 'No'} · First opened: ${gateOpenedBy} · Used in Run 2/3: ${shortcutUsedLater ? 'Yes' : 'No'}`
-    : `Shortcut opened: ${shortcutOpen ? 'Yes' : 'No'} · Used in Run 2/3: ${shortcutUsedLater ? 'Yes' : 'No'}`;
+  shortcutResult.textContent = `Test Condition: ${keyCondition === 'with-key' ? 'Start With Key' : 'No Key'} · EXP-050 comparison · Key used: ${keyUsed ? 'Yes' : 'No'} · First opened: ${gateOpenedBy} · Used in Run 2/3: ${shortcutUsedLater ? 'Yes' : 'No'}`;
   reflectionElement.textContent = mode === 'fixed'
     ? '回想一下：后两次路线是否更熟悉、更有把握？哪里开始不再犹豫？'
-    : mode === 'shortcut'
-      ? '回想一下：开门时是否产生“这里居然通回来了”的空间认识？后两次是否主动使用了它？'
-      : '回想一下：持有钥匙是否让你主动提前开门，并改变路线规划？';
+    : keyCondition === 'with-key'
+      ? '回想一下：持有钥匙是否让你主动提前开门，并改变路线规划？'
+      : '回想一下：开门时是否产生“这里居然通回来了”的空间认识？后两次是否主动使用了它？';
   summaryElement.hidden = false;
 }
 
