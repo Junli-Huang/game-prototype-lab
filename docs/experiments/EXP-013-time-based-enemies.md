@@ -1,6 +1,6 @@
 # EXP-013 — Time-Based Enemies
 
-Status: TESTING / Untested
+Status: MAYBE / Context-dependent
 
 Category: Time / Ecology
 
@@ -108,6 +108,16 @@ Do not add:
 
 ## Result
 
-Untested — implemented and technically accepted on 2026-09-16. No gameplay conclusion is assigned before Player testing.
+MAYBE / Context-dependent — Player feedback after comparison:
 
-Player test flow: inspect both zones during Day, return Home and switch to Night, inspect both zones again, then consider whether learned timing affected route choice.
+> “感觉这个设定可以用在某些游戏里。还行。”
+
+Interpretation:
+
+- The rule is understandable and usable.
+- It did not produce a strong standalone positive signal in this prototype.
+- Its value likely depends on surrounding gameplay such as route planning, resources, risk, objectives, or ecology.
+- Treat Time-Based Enemies as a contextual world-rule candidate rather than a mechanic that should be expanded on its own.
+- Do not continue by adding a full day/night system unless a future gameplay experiment needs it.
+
+Next: stop EXP-013 feature expansion and choose a different experiment.
