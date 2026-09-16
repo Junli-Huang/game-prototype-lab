@@ -2,7 +2,7 @@
 
 Selected experiment: `EXP-018 — Persistent Enemy Corpses`
 
-Status: TESTING / Untested
+Status: MAYBE / Context-dependent
 
 ## Question
 
@@ -37,8 +37,6 @@ Asset rules and intent:
 - one simple attack
 - no loot / inventory / decay / ecology / respawn / corpse collision / save system
 
-Technical completion is not a gameplay conclusion.
-
 ## Implemented Test
 
 - One fixed map shared by both conditions.
@@ -49,10 +47,28 @@ Technical completion is not a gameplay conclusion.
 - Collision checks living enemies only, so corpses are non-blocking.
 - Condition switch and Restart reset enemies, corpses, route, counters, revisit state, and summary.
 
+## Player Result
+
+Player feedback:
+
+> “留下来感觉还行。不留的话也可以。主要要看后续的玩法跟进。包括其他设置比如篝火刷新，红月刷新，如果有这些设置，那么进行这些操作的时候，实体是否要进行刷新。感觉上应该要刷新。但这些都是玩法上的探索。”
+
+Result:
+`MAYBE / Context-dependent`
+
+Interpretation:
+- leaving corpses has some value as visible history;
+- removing corpses is also acceptable;
+- corpse persistence does not currently show strong standalone gameplay value;
+- corpse lifetime should be determined together with surrounding world-refresh rules;
+- a future World Refresh may clear / rebuild corpse state, but this is a hypothesis to test rather than a fixed rule.
+
+Do not extend this prototype with decay, pollution, loot, scavengers, or generalized world-lifetime systems merely to rescue the signal.
+
 ## Controls
 
 - `WASD` / Arrow Keys — move
 - `Space` / `E` — attack the nearest enemy in range
 - `R` / Restart — restart the selected condition
 
-Implementation, production build, real-browser interaction, and GitHub Pages/direct-refresh acceptance completed on 2026-09-16. EXP-018 remains Untested until Player compares both conditions.
+Implementation, production build, real-browser interaction, and GitHub Pages/direct-refresh acceptance completed on 2026-09-16. Player comparison is complete.
