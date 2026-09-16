@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Persistent Enemy Corpses Lab · EXP-018</title>
+  <style>[hidden]{display:none!important}</style>
+</head>
+<body>
+  <header>
+    <a href="../../">← Lab</a>
+    <div>
+      <h1>Persistent Enemy Corpses Lab</h1>
+      <p>#004 · EXP-018 · TESTING</p>
+    </div>
+    <button id="restart" type="button">Restart <kbd>R</kbd></button>
+  </header>
+  <main>
+    <nav class="conditions" aria-label="Test Condition">
+      <span>Test Condition</span>
+      <button type="button" data-condition="clean" class="selected">Clean Removal</button>
+      <button type="button" data-condition="persistent">Persistent Corpses</button>
+    </nav>
+    <section class="status" aria-label="Session status">
+      <div><span>Condition</span><strong id="condition-name">Clean Removal</strong></div>
+      <div><span>Defeated</span><strong id="defeated">0 / 6</strong></div>
+      <div><span>Objective</span><strong id="objective">Clear Amber Court</strong></div>
+      <div><span>Revisited</span><strong id="revisited">0 / 2</strong></div>
+    </section>
+    <section id="scene">
+      <canvas id="world" width="1120" height="680" tabindex="0" aria-label="固定地图战斗场景。WASD 或方向键移动，空格或 E 攻击。"></canvas>
+      <p id="message" role="status"></p>
+      <div id="summary" hidden>
+        <p class="eyebrow">Session Summary</p>
+        <h2 id="summary-title">Clean Removal</h2>
+        <p id="summary-data"></p>
+        <p id="reflection"></p>
+        <button id="summary-restart" type="button">Restart Current Condition</button>
+      </div>
+    </section>
+    <footer>
+      <p><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> / Arrow Keys 移动 · <kbd>Space</kbd> / <kbd>E</kbd> 近身攻击 · <kbd>R</kbd> 重开</p>
+      <p>依次清理 A、B、C，再经过 A、B 回到 Home</p>
+    </footer>
+  </main>
+  <script type="module" src="./main.ts"></script>
+</body>
+</html>

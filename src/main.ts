@@ -15,8 +15,15 @@ interface PrototypeEntry {
 // Manually maintain launcher metadata here. Gameplay stays in each prototype.
 const prototypes: PrototypeEntry[] = [
   {
+    id: '004',
+    name: 'Persistent Enemy Corpses Lab · EXP-018',
+    status: 'TESTING',
+    hypothesis: '敌人尸体持续留在固定地图中，是否让重访区域更有历史痕迹与空间记忆？',
+    url: 'prototypes/004_persistent_enemy_corpses/',
+  },
+  {
     id: '003',
-    name: 'Fixed Map Exploration Lab · EXP-004 / EXP-006 / EXP-050',
+    name: 'Fixed Map Exploration Lab · EXP-004 / EXP-006',
     status: 'TESTING',
     hypothesis: '起始持有一把钥匙，是否会让玩家主动从近端提前打开已知捷径并改变路线规划？',
     url: 'prototypes/003_fixed_map_exploration/',

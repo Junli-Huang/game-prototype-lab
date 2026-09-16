@@ -12,6 +12,7 @@ export default defineConfig({
         'prototypes/001_spatial_backpack/index.html',
         'prototypes/002_campfire_respawn/index.html',
         'prototypes/003_fixed_map_exploration/index.html',
+        'prototypes/004_persistent_enemy_corpses/index.html',
       ],
     },
   },
