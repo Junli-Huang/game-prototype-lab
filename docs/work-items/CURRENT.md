@@ -10,6 +10,9 @@ Completed on 2026-09-16:
 - Supplied player, attack, Day enemy, Night enemy, and time-state assets are used directly.
 - Restart resets time to Day, enemy population, objectives, counters, zone-entry evidence, and summary.
 - Production build, real-browser interaction, GitHub Pages, launcher entry, and direct refresh were technically accepted.
-- EXP-013 remains `TESTING / Untested`; no gameplay result was inferred.
+- Player completed the experiment.
+- EXP-013 result: `MAYBE / Context-dependent`.
+- Player feedback: “感觉这个设定可以用在某些游戏里。还行。”
+- Main learning: predictable time-based enemy distribution is a usable world rule, but its value appears dependent on surrounding route, risk, resource, objective, or ecology systems rather than being a strong standalone mechanic.
 
-Next action belongs to the Player: inspect both zones during Day, switch at Home, inspect both during Night, and report whether learned timing affected route choice.
+Next action: choose a different experiment. Do not automatically expand EXP-013 into a full day/night system or select another Backlog item without explicit selection.
