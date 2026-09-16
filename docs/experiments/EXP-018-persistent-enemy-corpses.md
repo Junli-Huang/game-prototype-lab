@@ -1,6 +1,6 @@
 # EXP-018 — Persistent Enemy Corpses
 
-Status: TESTING / Untested
+Status: MAYBE / Context-dependent
 
 Category: Corpse Persistence
 
@@ -24,7 +24,7 @@ The expected value is not combat depth. The expected value is world memory:
 
 Whether defeated enemies leave persistent corpses.
 
-Everything else should remain identical between conditions:
+Everything else remains identical between conditions:
 
 - same fixed map;
 - same enemy spawn positions;
@@ -108,6 +108,31 @@ Do not add:
 
 ## Result
 
-Untested — implemented and technically accepted on 2026-09-16. No gameplay conclusion is assigned before Player comparison.
+MAYBE / Context-dependent — Player completed both conditions on 2026-09-16.
 
-Player test order: `Clean Removal`, then `Persistent Corpses`. Complete the full A → B → C → A → B → Home route in each condition and compare how the revisited combat areas feel.
+Player feedback:
+
+> “留下来感觉还行。不留的话也可以。主要要看后续的玩法跟进。包括其他设置比如篝火刷新，红月刷新，如果有这些设置，那么进行这些操作的时候，实体是否要进行刷新。感觉上应该要刷新。但这些都是玩法上的探索。”
+
+Interpretation:
+
+- Persistent corpses provide a mild positive world-history signal, but not enough independent value to become a standalone core mechanic.
+- Clean Removal is also acceptable; the comparison did not produce a strong preference.
+- Corpse lifetime should therefore be treated as context-dependent world-state behavior rather than a universally permanent rule.
+- A strong default candidate for future persistent-world prototypes is: defeated enemies may leave corpses during the current world state, while a meaningful World Refresh event may clear/rebuild those remains together with refreshed entities.
+- This is a design direction, not a proven rule. Campfire refresh, Blood Moon refresh, selective persistence, and cross-refresh corpse accumulation remain separate gameplay questions.
+
+## Follow-up Learning
+
+The more general design question is no longer only “should corpses persist?” but:
+
+> Different world entities may need different lifetimes and different responses to World Refresh events.
+
+Potential future distinctions include:
+
+- short-lived state: ordinary enemy corpses;
+- refreshable state: ordinary enemies / common resources;
+- longer-lived state: unlocked shortcuts / construction;
+- explicitly persistent history: special corpses, bosses, player-created changes, or other selected events.
+
+Do not build a generalized World State Lifetime framework from this result alone. Validate concrete gameplay cases first.
