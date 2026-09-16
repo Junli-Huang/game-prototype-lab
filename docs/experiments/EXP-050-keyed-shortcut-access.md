@@ -1,6 +1,6 @@
 # EXP-050 — Keyed Shortcut Access
 
-Status: TESTING / Untested
+Status: MAYBE / Prefer Early Key Access
 
 Category: Exploration
 
@@ -8,7 +8,7 @@ Selected: 2026-09-14
 
 ## Context
 
-EXP-006 produced a limited positive Player signal: the shortcut gate felt better than the no-shortcut baseline. The Player also reported that character movement speed materially affected the experience, so movement speed must remain fixed during this experiment and be treated as a known confound rather than silently tuned mid-test.
+EXP-006 produced a limited positive Player signal: the shortcut gate felt better than the no-shortcut baseline. The Player also reported that character movement speed materially affected the experience, so movement speed remained fixed during this experiment.
 
 The Player proposed a follow-up: if the player already has a key early, the same gate could be opened from the near side and provide immediate access to the shortcut.
 
@@ -51,34 +51,15 @@ Baseline behavior from EXP-006:
 - the opened gate remains open for the rest of the session;
 - if the player chooses not to use the key, the gate can still be unlocked from the far side exactly as in EXP-006.
 
-Do not add additional keys or additional locked doors.
-
-## What to Observe
-
-Positive signal:
-
-- player recognizes that early key access changes the route;
-- player deliberately chooses whether to spend the key before reaching the far side;
-- early opening changes later path planning, not merely travel time;
-- the key creates a useful sense that prior preparation / world knowledge changes traversal.
-
-Weak signal:
-
-- player always presses `E` automatically with no meaningful thought;
-- the key is perceived only as a generic skip button;
-- route choice does not materially change;
-- the gate is so obviously beneficial that there is no decision at all.
-
 ## Movement-Speed Discipline
 
 Player feedback indicates movement speed is a major experiential variable.
 
 For EXP-050:
 
-- do not change movement speed between conditions;
-- do not add sprint, stamina, acceleration, dash or movement upgrades;
-- record the current speed as a known experience confound;
-- any future movement-speed comparison should be a separate experiment or tuning task.
+- movement speed remained identical between conditions;
+- no sprint, stamina, acceleration, dash or movement upgrades were added;
+- movement speed remains a known experience confound for later dedicated review.
 
 ## Non-goals
 
@@ -100,6 +81,31 @@ Do not add:
 
 ## Result
 
-Untested — implemented and technically accepted on 2026-09-14. No gameplay conclusion is assigned before Player comparison.
+MAYBE — Player completed the comparison and reported that having a key felt better.
 
-Player test order: `No Key`, then `Start With Key`. Record whether the key was used, when the gate first opened, and whether the shortcut changed later route planning.
+Player feedback:
+
+> “体验上 有钥匙会更好，不过在游戏里，我觉得要是可以放在某个地方，或者某种方式获得。这样游戏的时候，默认流程外，可以通过提前获得钥匙来达到加速通过。”
+
+Interpretation:
+
+- Early key access has a positive but still limited gameplay signal.
+- The stronger design direction is not to grant the key unconditionally at session start.
+- The key appears more interesting as an optional traversal advantage that the player can acquire outside the default route.
+- This suggests a follow-up question about whether deviating from the default route to obtain a key creates a meaningful tradeoff: spend time / exploration now in exchange for faster traversal later.
+- Do not treat this as evidence for a full key / lock / inventory system.
+
+Observed:
+
+- `Start With Key` felt better than `No Key`.
+- Player immediately proposed moving the key from unconditional starting equipment into the world or another acquisition path.
+
+Interesting Moment: the possibility of using prior preparation / exploration to bypass part of the normal traversal.
+
+Boring Moment: TBD.
+
+Decisions: current prototype did not yet test the decision to acquire the key; the key was simply granted by the test condition.
+
+Unexpected: the Player's strongest follow-up interest shifted from possession of the key to the route and method by which the key is obtained.
+
+Next: preserve EXP-050 as `MAYBE / Prefer Early Key Access`; test optional key acquisition separately rather than expanding EXP-050.
