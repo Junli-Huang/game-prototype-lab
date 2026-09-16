@@ -1,6 +1,6 @@
 # EXP-013 — Time-Based Enemies
 
-Status: READY / Selected
+Status: TESTING / Untested
 
 Category: Time / Ecology
 
@@ -108,4 +108,6 @@ Do not add:
 
 ## Result
 
-TBD — not implemented / not played.
+Untested — implemented and technically accepted on 2026-09-16. No gameplay conclusion is assigned before Player testing.
+
+Player test flow: inspect both zones during Day, return Home and switch to Night, inspect both zones again, then consider whether learned timing affected route choice.

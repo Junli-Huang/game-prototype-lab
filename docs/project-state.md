@@ -19,28 +19,9 @@ Before implementation, also read `docs/asset-handoff.md`, any experiment-specifi
 
 ## Current implementation task
 
-**ACTIVE: EXP-013 — Time-Based Enemies**
+No active implementation task.
 
-Formal Work Item:
-`docs/work-items/EXP-013-time-based-enemies.md`
-
-Experiment definition:
-`docs/experiments/EXP-013-time-based-enemies.md`
-
-Prototype target:
-`prototypes/005_time_based_enemies/`
-
-Question:
-> 当同一张固定地图在 Day / Night 两个时段出现不同敌人分布时，玩家是否会开始学习“什么时候去哪里”，并主动选择进入区域的时间？
-
-Controlled first-pass rule:
-- Day: Zone A has enemies; Zone B is safe.
-- Night: Zone A is safe; Zone B has enemies.
-- Time switching is deliberate and explicit, not a real-time countdown.
-- Map, objectives, movement speed, attack rules, landmarks and destination value stay fixed.
-- Time-change enemy replacement is test scaffolding only and must not be treated as a World Refresh conclusion.
-
-Do not expand this into Blood Moon, Campfire refresh, time-based resources, time-based map access, NPC schedules, weather, corpse-lifetime testing, or generalized Time / Ecology architecture.
+EXP-013 and Prototype #005 completed implementation, build, real-browser interaction, and GitHub Pages/direct-refresh technical acceptance on 2026-09-16. Next action belongs to the Player; do not select another Backlog item automatically.
 
 ## Prototype #001 — Backpack Lab
 
@@ -121,12 +102,12 @@ Definition:
 
 ## Prototype #005 — Time-Based Enemies Lab
 
-Target implementation directory:
+Implementation directory:
 `prototypes/005_time_based_enemies/`
 
 ### EXP-013 — Time-Based Enemies
 
-Status: `READY / Selected`
+Status: `TESTING / Result: Untested`
 
 Question:
 > 当同一张固定地图在 Day / Night 两个时段出现不同敌人分布时，玩家是否会开始学习“什么时候去哪里”，并主动选择进入区域的时间？
@@ -136,6 +117,8 @@ Definition:
 
 Work Item:
 `docs/work-items/EXP-013-time-based-enemies.md`
+
+Player test flow: inspect both zones during Day, return Home and switch to Night, then inspect both zones again. Enemy replacement on time change is test scaffolding only and is not a World Refresh result.
 
 ## Repository handoff rules that must remain true
 

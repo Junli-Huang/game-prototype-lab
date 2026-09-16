@@ -69,7 +69,7 @@ Experiment 是要验证的问题；Prototype 是回答该问题的可玩实现�
 | EXP-010 | [Time Respawn](#exp-010-time-respawn) | World Refresh | IDEA |
 | EXP-011 | [Permanent Enemy Death](#exp-011-permanent-enemy-death) | World Refresh | IDEA |
 | EXP-012 | [Ecological Replacement](#exp-012-ecological-replacement) | World Refresh | IDEA |
-| EXP-013 | [Time-Based Enemies](#exp-013-time-based-enemies) | Time / Ecology | READY |
+| EXP-013 | [Time-Based Enemies](#exp-013-time-based-enemies) | Time / Ecology | TESTING |
 | EXP-014 | [Time-Based Resources](#exp-014-time-based-resources) | Time / Ecology | IDEA |
 | EXP-015 | [Time-Based Map Changes](#exp-015-time-based-map-changes) | Time / Ecology | IDEA |
 | EXP-016 | [Blood Moon Ecology](#exp-016-blood-moon-ecology) | Time / Ecology | IDEA |
@@ -923,7 +923,7 @@ Name: Time-Based Enemies
 
 Category: Time / Ecology
 
-Status: READY
+Status: TESTING
 
 ### Hypothesis
 
@@ -951,7 +951,7 @@ Status: READY
 
 ### Result
 
-TBD — 尚未试玩。
+Untested — 2026-09-16 完成 Prototype #005 实现、真实浏览器与 GitHub Pages 技术验收，等待 Player 试玩。
 
 - Observed（实际观察）：TBD
 - 有趣开始的时机：TBD
@@ -962,7 +962,7 @@ TBD — 尚未试玩。
 
 ### Notes
 
-- Prototype：尚无实现。
+- Prototype：[Time-Based Enemies Lab](../prototypes/005_time_based_enemies/README.md)。
 - 试玩日期、条件、参数与对照版本：TBD
 - 其他观察：TBD
 
