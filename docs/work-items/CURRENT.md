@@ -1,13 +1,22 @@
 # Current Work Item
 
-No active implementation task.
+**ACTIVE: EXP-050 Review Fix — Consolidate Key Test Into Shortcut Mode**
 
-Completed on 2026-09-14:
+Formal Work Item:
 
-- EXP-050 added to Prototype #003 as a third Experiment Mode.
-- `No Key` and `Start With Key` conditions implemented on the unchanged map, gate, route, speed and three-run structure.
-- Near-side key use, far-side unlock without key consumption, prompts, Restart / Mode / Condition resets, legacy modes, build and Pages/direct refresh were technically accepted.
-- EXP-050 remains `TESTING / Untested` pending Player comparison.
-- EXP-002 restored to `IDEA`; EXP-003 restored to `TESTING / Untested`.
+`docs/work-items/EXP-050-ui-consolidation.md`
 
-Next action belongs to the Player: complete No Key, then Start With Key, and report whether early key access changed route planning.
+Prototype:
+
+`prototypes/003_fixed_map_exploration/`
+
+Required structural change:
+
+- keep only two top-level Experiment Modes: `EXP-004 · Fixed Map` and `EXP-006 · Shortcut`;
+- remove `EXP-050 · Keyed Shortcut` as a third top-level Mode;
+- expose `No Key` / `Start With Key` as Test Conditions inside the Shortcut Mode;
+- preserve EXP-050 as a separate Experiment record and keep it `TESTING / Untested` until Player comparison;
+- preserve EXP-006 current Player result as `MAYBE`;
+- do not change map geometry, gate logic, movement speed, or add new gameplay.
+
+Work is authorized only through the linked Work Item. On completion, run build + real-browser + Pages/direct-refresh acceptance, update relevant documentation, then close CURRENT back to no active implementation task.
