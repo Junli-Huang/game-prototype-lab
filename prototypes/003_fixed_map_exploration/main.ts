@@ -113,6 +113,7 @@ function resetSession(): void {
   promptElement.hidden = true;
   messageElement.textContent = '';
   updateHud();
+  updateShortcutPrompt();
   canvas.focus();
 }
 
