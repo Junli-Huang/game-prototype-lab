@@ -21,7 +21,9 @@ Before implementation, also read `docs/asset-handoff.md`, any experiment-specifi
 
 No active implementation task.
 
-EXP-013 and Prototype #005 completed implementation, build, real-browser interaction, and GitHub Pages/direct-refresh technical acceptance on 2026-09-16. Next action belongs to the Player; do not select another Backlog item automatically.
+EXP-013 has completed implementation and Player testing. Result: `MAYBE / Context-dependent`. The Time-Based Enemies rule felt usable and suitable for some games, but did not produce a strong standalone positive signal. Its value likely depends on surrounding route, resource, risk, objective, or ecology systems.
+
+Do not automatically expand EXP-013 into a full day/night system. The project is ready to select a different experiment.
 
 ## Prototype #001 — Backpack Lab
 
@@ -107,18 +109,22 @@ Implementation directory:
 
 ### EXP-013 — Time-Based Enemies
 
-Status: `TESTING / Result: Untested`
+Status: `MAYBE / Context-dependent`
 
 Question:
 > 当同一张固定地图在 Day / Night 两个时段出现不同敌人分布时，玩家是否会开始学习“什么时候去哪里”，并主动选择进入区域的时间？
 
+Player feedback:
+> “感觉这个设定可以用在某些游戏里。还行。”
+
+Current learning:
+- Predictable time-based enemy distribution is a usable world rule.
+- It did not produce a strong standalone positive signal in the minimal prototype.
+- Its value is likely contextual and should be combined only when a future experiment has route, risk, resources, objectives, or ecology that makes timing matter.
+- Do not expand into a full day/night system by default.
+
 Definition:
 `docs/experiments/EXP-013-time-based-enemies.md`
-
-Work Item:
-`docs/work-items/EXP-013-time-based-enemies.md`
-
-Player test flow: inspect both zones during Day, return Home and switch to Night, then inspect both zones again. Enemy replacement on time change is test scaffolding only and is not a World Refresh result.
 
 ## Repository handoff rules that must remain true
 
