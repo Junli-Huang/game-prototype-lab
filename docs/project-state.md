@@ -19,11 +19,13 @@ Before implementation, also read `docs/asset-handoff.md`, any experiment-specifi
 
 ## Current implementation task
 
-No active implementation task.
+**ACTIVE: EXP-042 — Basic Farming Loop**
 
-EXP-013 has completed implementation and Player testing. Result: `MAYBE / Context-dependent`. The Time-Based Enemies rule felt usable and suitable for some games, but did not produce a strong standalone positive signal. Its value likely depends on surrounding route, resource, risk, objective, or ecology systems.
+Formal Work Item: `docs/work-items/EXP-042-basic-farming-loop.md`
 
-Do not automatically expand EXP-013 into a full day/night system. The project is ready to select a different experiment.
+Prototype: `prototypes/006_basic_farming_loop/`
+
+Goal: isolate the smallest `Seed → Plant → Grow → Harvest` loop and test whether it creates enough satisfaction and voluntary repetition to be worth keeping. Use one crop type, three plots, short deterministic growth, and the supplied Prototype-local 2D assets. Do not expand into watering, economy, crafting, seasons, exploration support, or generalized farming architecture.
 
 ## Prototype #001 — Backpack Lab
 
@@ -136,3 +138,25 @@ Definition:
 - Do not infer EXP-003 status from EXP-049.
 - Do not build speculative shared Inventory / Rule / Mode / Asset / World frameworks.
 - Work begins only when CURRENT points to a formal Work Item.
+
+
+## Prototype #006 — Basic Farming Loop
+
+Implementation directory:
+`prototypes/006_basic_farming_loop/`
+
+### EXP-042 — Basic Farming Loop
+
+Status: `READY / Selected`
+
+Question:
+> 最基础的“获得种子 → 种下 → 等待成长 → 收获”循环，本身是否会产生值得保留的满足感与再次种植意愿？
+
+Definition:
+`docs/experiments/EXP-042-basic-farming-loop.md`
+
+Work Item:
+`docs/work-items/EXP-042-basic-farming-loop.md`
+
+Asset handoff:
+`docs/asset-handoff-basic-farming-loop.md`
