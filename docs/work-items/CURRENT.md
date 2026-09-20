@@ -1,18 +1,43 @@
 # Current Work Item
 
-No active implementation task.
+**ACTIVE: EXP-042 — Basic Farming Loop**
 
-Completed on 2026-09-16:
+Formal Work Item:
 
-- Prototype #005 implements one fixed map where Day places enemies in Zone A and Night places enemies in Zone B.
-- Home exposes deliberate Day / Night switching without a countdown; switching deterministically replaces the active enemy population.
-- Map geometry, destinations, movement speed, attack rules, landmarks, and destination value remain fixed.
-- Supplied player, attack, Day enemy, Night enemy, and time-state assets are used directly.
-- Restart resets time to Day, enemy population, objectives, counters, zone-entry evidence, and summary.
-- Production build, real-browser interaction, GitHub Pages, launcher entry, and direct refresh were technically accepted.
-- Player completed the experiment.
-- EXP-013 result: `MAYBE / Context-dependent`.
-- Player feedback: “感觉这个设定可以用在某些游戏里。还行。”
-- Main learning: predictable time-based enemy distribution is a usable world rule, but its value appears dependent on surrounding route, risk, resource, objective, or ecology systems rather than being a strong standalone mechanic.
+`docs/work-items/EXP-042-basic-farming-loop.md`
 
-Next action: choose a different experiment. Do not automatically expand EXP-013 into a full day/night system or select another Backlog item without explicit selection.
+Experiment definition:
+
+`docs/experiments/EXP-042-basic-farming-loop.md`
+
+Prototype:
+
+`prototypes/006_basic_farming_loop/`
+
+Asset handoff:
+
+`docs/asset-handoff-basic-farming-loop.md`
+
+Goal: test whether the minimal `Seed → Plant → Grow → Harvest` loop creates enough satisfaction and voluntary repetition to be worth keeping.
+
+Implementation constraints:
+
+- one compact top-down garden scene;
+- one nearby seed source;
+- exactly three planting plots;
+- one crop type only;
+- deterministic short growth;
+- supplied 2D assets must be used directly;
+- no watering, fertilizer, seasons, economy, crafting, inventory grid, enemies, exploration rewards, EXP-043 effects, or generalized FarmingSystem architecture.
+
+Ready assets:
+
+- `prototypes/006_basic_farming_loop/assets/player_farmer.svg`
+- `prototypes/006_basic_farming_loop/assets/seed_pouch.svg`
+- `prototypes/006_basic_farming_loop/assets/plot_empty.svg`
+- `prototypes/006_basic_farming_loop/assets/crop_planted.svg`
+- `prototypes/006_basic_farming_loop/assets/crop_growing.svg`
+- `prototypes/006_basic_farming_loop/assets/crop_ready.svg`
+- `prototypes/006_basic_farming_loop/assets/produce.svg`
+
+Work is authorized only through the formal Work Item above. On completion, run build + real-browser + GitHub Pages/direct-refresh acceptance, update relevant documentation, then close CURRENT back to no active implementation task. Do not assign a gameplay result before Player testing.
