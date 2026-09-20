@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Basic Farming Loop Lab · EXP-042</title>
+  <style>[hidden]{display:none!important}</style>
+</head>
+<body>
+  <header>
+    <a href="../../">← Lab</a>
+    <div><h1>Basic Farming Loop Lab</h1><p>#006 · EXP-042 · TESTING</p></div>
+    <button id="restart" type="button">Restart <kbd>R</kbd></button>
+  </header>
+  <main>
+    <section class="status" aria-label="Session status">
+      <div><span>Seeds</span><strong id="seeds">0</strong></div>
+      <div><span>Harvested</span><strong id="harvested">0</strong></div>
+      <div><span>Produce</span><strong id="produce">0</strong></div>
+      <p>Pick up a seed, plant it, and harvest when ready.</p>
+      <button id="reflect" type="button" hidden>Reflect on Loop</button>
+    </section>
+    <section id="scene">
+      <canvas id="world" width="960" height="600" tabindex="0" aria-label="小型花园。WASD 或方向键移动，靠近种子袋或田块按 E 互动。"></canvas>
+      <div id="prompt" hidden></div>
+      <p id="message" role="status"></p>
+      <div id="reflection" hidden>
+        <p class="eyebrow">Reflection</p>
+        <h2>Basic Farming Loop</h2>
+        <p id="reflection-data"></p>
+        <p>这个种下、等待、收获的循环本身，你有没有想继续重复？</p>
+        <button id="continue" type="button">Continue Farming</button>
+      </div>
+    </section>
+    <footer>
+      <p><kbd>WASD</kbd> / Arrow Keys 移动 · <kbd>E</kbd> 互动 · <kbd>R</kbd> 重开</p>
+      <p>Seed → Plant → Grow → Harvest → Repeat</p>
+    </footer>
+  </main>
+  <script type="module" src="./main.ts"></script>
+</body>
+</html>

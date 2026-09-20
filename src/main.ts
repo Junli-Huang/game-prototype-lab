@@ -15,6 +15,13 @@ interface PrototypeEntry {
 // Manually maintain launcher metadata here. Gameplay stays in each prototype.
 const prototypes: PrototypeEntry[] = [
   {
+    id: '006',
+    name: 'Basic Farming Loop Lab · EXP-042',
+    status: 'TESTING',
+    hypothesis: '最小的获得种子、种植、成长与收获循环，是否本身足够令人满足并愿意重复？',
+    url: 'prototypes/006_basic_farming_loop/',
+  },
+  {
     id: '005',
     name: 'Time-Based Enemies Lab · EXP-013',
     status: 'TESTING',
