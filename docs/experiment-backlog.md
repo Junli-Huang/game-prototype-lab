@@ -98,7 +98,7 @@ Experiment 是要验证的问题；Prototype 是回答该问题的可玩实现�
 | EXP-039 | [Vulnerable Safe Zone](#exp-039-vulnerable-safe-zone) | Safe Zone | IDEA |
 | EXP-040 | [Campfire + Main Base](#exp-040-campfire--main-base) | Safe Zone | IDEA |
 | EXP-041 | [Main Base Only](#exp-041-main-base-only) | Safe Zone | IDEA |
-| EXP-042 | [Basic Farming Loop](#exp-042-basic-farming-loop) | Farming | IDEA |
+| EXP-042 | [Basic Farming Loop](#exp-042-basic-farming-loop) | Farming | TESTING |
 | EXP-043 | [Farming Supports Exploration](#exp-043-farming-supports-exploration) | Farming | IDEA |
 | EXP-044 | [Corpse-Based Farming](#exp-044-corpse-based-farming) | Farming | IDEA |
 | EXP-045 | [Resource Knowledge](#exp-045-resource-knowledge) | World Knowledge | IDEA |
@@ -2540,7 +2540,7 @@ Name: Basic Farming Loop
 
 Category: Farming
 
-Status: READY
+Status: TESTING
 
 ### Hypothesis
 
@@ -2565,7 +2565,7 @@ Status: READY
 
 ### Minimum Scope
 
-- 探索点获得一种种子；基地两个种植格，种下、等待、收获。
+- 邻近种子点获得一种种子；基地三个种植格，种下、等待、收获。
 - 只提供验证此问题所需的操作与可读反馈；固定其他条件。
 
 ### Non-goals
@@ -2575,7 +2575,7 @@ Status: READY
 
 ### Result
 
-TBD — 尚未试玩。
+Untested — 2026-09-20 完成 Prototype #006 实现、真实浏览器与 GitHub Pages 技术验收，等待 Player 至少完成两次收获。
 
 - Observed（实际观察）：TBD
 - 有趣开始的时机：TBD
@@ -2586,7 +2586,7 @@ TBD — 尚未试玩。
 
 ### Notes
 
-- Prototype：尚无实现。
+- Prototype：[Basic Farming Loop Lab](../prototypes/006_basic_farming_loop/README.md)。
 - 试玩日期、条件、参数与对照版本：TBD
 - 其他观察：TBD
 

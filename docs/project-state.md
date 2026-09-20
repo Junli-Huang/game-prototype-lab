@@ -19,13 +19,9 @@ Before implementation, also read `docs/asset-handoff.md`, any experiment-specifi
 
 ## Current implementation task
 
-**ACTIVE: EXP-042 — Basic Farming Loop**
+No active implementation task.
 
-Formal Work Item: `docs/work-items/EXP-042-basic-farming-loop.md`
-
-Prototype: `prototypes/006_basic_farming_loop/`
-
-Goal: isolate the smallest `Seed → Plant → Grow → Harvest` loop and test whether it creates enough satisfaction and voluntary repetition to be worth keeping. Use one crop type, three plots, short deterministic growth, and the supplied Prototype-local 2D assets. Do not expand into watering, economy, crafting, seasons, exploration support, or generalized farming architecture.
+EXP-042 and Prototype #006 completed implementation, build, real-browser interaction, and GitHub Pages/direct-refresh technical acceptance on 2026-09-20. Next action belongs to the Player; do not select another Backlog item automatically.
 
 ## Prototype #001 — Backpack Lab
 
@@ -147,7 +143,7 @@ Implementation directory:
 
 ### EXP-042 — Basic Farming Loop
 
-Status: `READY / Selected`
+Status: `TESTING / Result: Untested`
 
 Question:
 > 最基础的“获得种子 → 种下 → 等待成长 → 收获”循环，本身是否会产生值得保留的满足感与再次种植意愿？
@@ -160,3 +156,5 @@ Work Item:
 
 Asset handoff:
 `docs/asset-handoff-basic-farming-loop.md`
+
+Player test: complete at least two harvests and report whether the minimal Seed → Plant → Grow → Harvest loop creates a desire to continue repeating it.

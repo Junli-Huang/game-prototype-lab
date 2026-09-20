@@ -2,7 +2,7 @@
 
 快速游戏玩法实验室。Small experiments for finding fun.
 
-V0.3.1 — Time-Based Enemies。[Prototype #005](prototypes/005_time_based_enemies/README.md) 测试固定地图中可预测的 Day / Night 敌人分布是否让玩家开始选择“什么时候去哪里”。
+V0.3.2 — Basic Farming Loop。[Prototype #006](prototypes/006_basic_farming_loop/README.md) 测试最小的 Seed → Plant → Grow → Harvest 循环是否本身足够令人满足并愿意重复。
 
 - **game-dev-lab / Game Tech Prototype**：验证技术、机制、实现方案是否可行。
 - **game-prototype-lab / Game Prototype**：验证某个玩法假设是否有趣。
@@ -13,11 +13,11 @@ V0.3.1 — Time-Based Enemies。[Prototype #005](prototypes/005_time_based_enemi
 
 新 Chat / Designer / Reviewer 优先阅读 [Project State — Cold Start Snapshot](docs/project-state.md)。它只负责回答“现在做到哪、哪些结果已经确定、当前有没有实施任务、下一步正在讨论什么”，详细定义仍以 Backlog、Prototype README、Workflow 和历史 Work Item 为准。
 
-当前没有 Active implementation task。EXP-013 已完成实现与 Pages 技术验收；下一步由 Player 完成 Day / Night 路线试玩。不要从 Backlog 自行猜测下一任务。
+当前没有 Active implementation task。EXP-042 已完成实现与 Pages 技术验收；下一步由 Player 至少完成两次收获。不要从 Backlog 自行猜测下一任务。
 
 ## Experiment Backlog
 
-[查看实验课题 Backlog](docs/experiment-backlog.md)。当前关键状态：EXP-001、EXP-006、EXP-018、EXP-048、EXP-049、EXP-050 为 MAYBE；EXP-003、EXP-004、EXP-013 为 TESTING / Untested；EXP-007 / EXP-008 为 MAYBE / Stop。
+[查看实验课题 Backlog](docs/experiment-backlog.md)。当前关键状态：EXP-001、EXP-006、EXP-013、EXP-018、EXP-048、EXP-049、EXP-050 为 MAYBE；EXP-003、EXP-004、EXP-042 为 TESTING / Untested；EXP-007 / EXP-008 为 MAYBE / Stop。
 
 Experiment 是待回答的问题；Prototype 是可玩的测试容器。默认一个 Prototype 可以只承载一个 Experiment；高度相关、需要公平对照的竞争 Experiment 也可以共享同一 Prototype，以独立 Experiment Mode 切换测试。**同一 Experiment 内的 Low / High、参数档位等 Test Conditions 不自动等于独立 Experiment Mode。**
 

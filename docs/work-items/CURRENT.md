@@ -1,43 +1,16 @@
 # Current Work Item
 
-**ACTIVE: EXP-042 — Basic Farming Loop**
+No active implementation task.
 
-Formal Work Item:
+Completed on 2026-09-20:
 
-`docs/work-items/EXP-042-basic-farming-loop.md`
+- Prototype #006 implements one seed cache, exactly three independent plots, one crop type, and the repeatable Seed → Plant → Grow → Harvest loop.
+- Each plot uses explicit Empty / Planted / Growing / Ready states with deterministic 4-second and 8-second transitions.
+- Harvest returns the plot to Empty and increments Produce and Harvested counts; the session remains open for voluntary repetition.
+- An optional reflection prompt becomes available after two harvests without forcing the session to end.
+- Restart resets player position, seeds, harvest/produce counts, all plots, prompts, and reflection state.
+- Supplied player, seed, plot, crop-state, and produce assets are used directly.
+- Production build, real-browser interaction, GitHub Pages, launcher entry, and direct refresh were technically accepted.
+- EXP-042 remains `TESTING / Untested`; no gameplay result was inferred.
 
-Experiment definition:
-
-`docs/experiments/EXP-042-basic-farming-loop.md`
-
-Prototype:
-
-`prototypes/006_basic_farming_loop/`
-
-Asset handoff:
-
-`docs/asset-handoff-basic-farming-loop.md`
-
-Goal: test whether the minimal `Seed → Plant → Grow → Harvest` loop creates enough satisfaction and voluntary repetition to be worth keeping.
-
-Implementation constraints:
-
-- one compact top-down garden scene;
-- one nearby seed source;
-- exactly three planting plots;
-- one crop type only;
-- deterministic short growth;
-- supplied 2D assets must be used directly;
-- no watering, fertilizer, seasons, economy, crafting, inventory grid, enemies, exploration rewards, EXP-043 effects, or generalized FarmingSystem architecture.
-
-Ready assets:
-
-- `prototypes/006_basic_farming_loop/assets/player_farmer.svg`
-- `prototypes/006_basic_farming_loop/assets/seed_pouch.svg`
-- `prototypes/006_basic_farming_loop/assets/plot_empty.svg`
-- `prototypes/006_basic_farming_loop/assets/crop_planted.svg`
-- `prototypes/006_basic_farming_loop/assets/crop_growing.svg`
-- `prototypes/006_basic_farming_loop/assets/crop_ready.svg`
-- `prototypes/006_basic_farming_loop/assets/produce.svg`
-
-Work is authorized only through the formal Work Item above. On completion, run build + real-browser + GitHub Pages/direct-refresh acceptance, update relevant documentation, then close CURRENT back to no active implementation task. Do not assign a gameplay result before Player testing.
+Next action belongs to the Player: complete at least two harvests and report whether the minimal loop creates a desire to continue repeating it.

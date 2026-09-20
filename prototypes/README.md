@@ -4,9 +4,10 @@
 - [Prototype #002 — Enemy Respawn Lab](002_campfire_respawn/README.md)：EXP-007 / EXP-008 World Refresh Profile R2 均已完成 Player 对照试玩，最新反馈为“体验下来没有明显的感觉”，当前结论均为 MAYBE / Stop。EXP-007 的 R1 MAYBE 历史结果继续保留；#002 当前不继续通过增加内容进行 R3。
 - [Prototype #003 — Fixed Map Exploration Lab](003_fixed_map_exploration/README.md)：EXP-004 TESTING / Untested；EXP-006 MAYBE；EXP-050 MAYBE / Prefer Early Key Access。
 - [Prototype #004 — Persistent Enemy Corpses Lab](004_persistent_enemy_corpses/README.md)：EXP-018 MAYBE / Context-dependent。
-- [Prototype #005 — Time-Based Enemies Lab](005_time_based_enemies/README.md)：EXP-013 TESTING / Untested；固定地图中 Day / Night 交换 A、B 区敌人分布。
+- [Prototype #005 — Time-Based Enemies Lab](005_time_based_enemies/README.md)：EXP-013 MAYBE / Context-dependent。
+- [Prototype #006 — Basic Farming Loop Lab](006_basic_farming_loop/README.md)：EXP-042 TESTING / Untested；一个种子点、三个田块和一种作物的最小循环。
 
-当前没有 Active implementation task。下一步由 Player 试玩 EXP-013 的 Day / Night 路线。新 Chat / Work 先读 [`../docs/project-state.md`](../docs/project-state.md) 与 [`../docs/work-items/CURRENT.md`](../docs/work-items/CURRENT.md)，不要从 Backlog 自行选择下一项实现。
+当前没有 Active implementation task。下一步由 Player 在 EXP-042 至少完成两次收获。新 Chat / Work 先读 [`../docs/project-state.md`](../docs/project-state.md) 与 [`../docs/work-items/CURRENT.md`](../docs/work-items/CURRENT.md)，不要从 Backlog 自行选择下一项实现。
 
 Prototype 是可玩的测试容器；Experiment 是独立问题。默认一个 Prototype 可以只承载一个 Experiment；高度相关、需要公平对照的竞争实验也可以作为独立 Experiment Mode 共享同一 Prototype。同一 Experiment 内的参数档位 / 初始条件对照不自动成为独立 Experiment Mode。
 

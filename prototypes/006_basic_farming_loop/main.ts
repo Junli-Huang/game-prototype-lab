@@ -25,13 +25,12 @@ const reflectionData=document.querySelector<HTMLElement>('#reflection-data')!;
 const WORLD={w:960,h:600};const SPEED=185;const PLAYER_RADIUS=18;const INTERACT_RANGE=78;
 const start:Point={x:120,y:470};const seedCache:Point={x:170,y:165};
 const plotPositions=[{x:430,y:210},{x:625,y:210},{x:530,y:405}];
-const qaMode=new URLSearchParams(location.search).get('qa');
 function load(url:string){const value=new Image();value.src=url;return value;}
 const images={player:load(playerUrl),seed:load(seedUrl),empty:load(emptyUrl),planted:load(plantedUrl),growing:load(growingUrl),ready:load(readyUrl),produce:load(produceUrl)};
 
 let player:Point={...start};let plots:Plot[]=[];let seeds=0;let harvested=0;let produce=0;let messageUntil=0;let lastTime=performance.now();const keys=new Set<string>();
 
-function resetSession(){player=qaMode==='seed'?{x:170,y:225}:qaMode?{x:430,y:280}:{...start};plots=plotPositions.map(position=>({...position,state:'empty',plantedAt:0}));seeds=qaMode==='plant'?1:0;harvested=0;produce=0;if(qaMode==='growth'){plots[0].state='planted';plots[0].plantedAt=performance.now();}if(qaMode==='ready')plots[0].state='ready';messageElement.textContent='';promptElement.hidden=true;reflectButton.hidden=true;reflection.hidden=true;updateHud();canvas.focus();}
+function resetSession(){player={...start};plots=plotPositions.map(position=>({...position,state:'empty',plantedAt:0}));seeds=0;harvested=0;produce=0;messageElement.textContent='';promptElement.hidden=true;reflectButton.hidden=true;reflection.hidden=true;updateHud();canvas.focus();}
 function updateHud(){seedsElement.textContent=String(seeds);harvestedElement.textContent=String(harvested);produceElement.textContent=String(produce);reflectButton.hidden=harvested<2;}
 function setMessage(text:string,duration=1200){messageElement.textContent=text;messageUntil=performance.now()+duration;}
 function nearbyPlot(){return plots.map((plot,index)=>({plot,index,distance:Math.hypot(player.x-plot.x,player.y-plot.y)})).filter(item=>item.distance<=INTERACT_RANGE).sort((a,b)=>a.distance-b.distance)[0];}

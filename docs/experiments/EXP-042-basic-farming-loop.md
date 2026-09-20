@@ -1,6 +1,6 @@
 # EXP-042 — Basic Farming Loop
 
-Status: READY / Selected
+Status: TESTING / Untested
 
 Category: Farming
 
@@ -153,4 +153,6 @@ Do not add:
 
 ## Result
 
-TBD — not implemented / not played.
+Untested — implemented and technically accepted on 2026-09-20. No gameplay conclusion is assigned before Player testing.
+
+Player test: complete at least two harvests, then decide whether the basic loop itself creates a desire to keep planting.

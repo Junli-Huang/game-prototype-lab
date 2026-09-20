@@ -4,7 +4,7 @@ Selected experiment:
 
 `EXP-042 — Basic Farming Loop`
 
-Status: READY / implementation authorized
+Status: TESTING / Untested
 
 ## Question
 
@@ -53,3 +53,20 @@ Formal Work Item:
 `../../docs/work-items/EXP-042-basic-farming-loop.md`
 
 Technical completion does not imply a gameplay result.
+
+## Implemented Test
+
+- One compact garden, one seed cache, exactly three independent plots, and one crop type.
+- `E` takes exactly one seed, plants by consuming one seed, or harvests a Ready crop.
+- Each plot advances deterministically: Planted at 0 seconds, Growing at 4 seconds, Ready at 8 seconds.
+- Harvest adds one Produce and one Harvested count, then returns that plot to Empty for immediate repetition.
+- After two harvests, an optional reflection panel becomes available without ending the session.
+- Restart resets player position, seeds, harvest/produce counts, all plots, prompts, and reflection state.
+
+## Controls
+
+- `WASD` / Arrow Keys — move
+- `E` — contextual interaction
+- `R` / Restart — reset the session
+
+Implementation, production build, real-browser interaction, and GitHub Pages/direct-refresh acceptance completed on 2026-09-20. EXP-042 remains Untested until Player feedback.
