@@ -2540,7 +2540,7 @@ Name: Basic Farming Loop
 
 Category: Farming
 
-Status: IDEA
+Status: READY
 
 ### Hypothesis
 
